@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'panelLayout' => 'sort,filter;search,limit',
         ],
         'label' => [
-            'fields' => ['singleSRC', 'firstName', 'name', 'position', 'email', 'phone', 'mobile'],
+            'fields' => ['singleSRC', 'firstName', 'name', 'position', 'contactInformation'],
             'showColumns' => true,
         ],
         'global_operations' => [
@@ -91,7 +91,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
     ],
     // Palettes
     'palettes' => [
-        'default' => '{title_legend},firstName,name,position,singleSRC,size;{contact_legend},email,phone,mobile;{visible_legend:hide},invisible',
+        'default' => '{title_legend},firstName,name,position,singleSRC,size;{contact_legend},contactInformation;{visible_legend:hide},invisible',
     ],
     // Fields
     'fields' => [
@@ -140,23 +140,26 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'eval' => ['mandatory' => true, 'rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'clr w50'],
             'sql' => "varchar(128) COLLATE ascii_bin NOT NULL default ''",
         ],
-        'email' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['email'],
-            'inputType' => 'text',
-            'eval' => ['tl_class' => 'w50', 'rgxp' => 'email', 'maxlength' => 255],
-            'sql' => "varchar(255) NULL default ''",
-        ],
-        'phone' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['phone'],
-            'inputType' => 'text',
-            'eval' => ['tl_class' => 'w50', 'maxlength' => 255],
-            'sql' => "varchar(255) NULL default ''",
-        ],
-        'mobile' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['mobile'],
-            'inputType' => 'text',
-            'eval' => ['tl_class' => 'w50', 'maxlength' => 255],
-            'sql' => "varchar(255) NULL default ''",
+        'contactInformation' => [
+            'label' => &$GLOBALS['TL_LANG']['tl_person']['contactInformation'],
+            'exclude' => false,
+            'inputType' => 'group',
+            'palette' => ['type', 'value'],
+            'fields' => [
+                'type' => [
+                    'label' => &$GLOBALS['TL_LANG']['tl_person']['contactInformation_type'],
+                    'inputType' => 'select',
+                    'options' => ['email', 'phone', 'mobile', 'website'],
+                    'reference' => &$GLOBALS['TL_LANG']['tl_person']['contactInformation_type_options'],
+                    'eval' => ['mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50'],
+                ],
+                'value' => [
+                    'label' => &$GLOBALS['TL_LANG']['tl_person']['contactInformation_value'],
+                    'inputType' => 'text',
+                    'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+                ],
+            ],
+            'sql' => 'blob NULL',
         ],
         'invisible' => [
             'label' => &$GLOBALS['TL_LANG']['tl_person']['noUpdate'],

@@ -21,8 +21,9 @@ class ContaoPersonsExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('listener.yml');
         $loader->load('controller.yml');
+        $loader->load('services.yml');
     }
 }

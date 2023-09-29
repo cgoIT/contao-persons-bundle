@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: false
+
+    _instanceof:
+        Contao\CoreBundle\Framework\FrameworkAwareInterface:
+            calls:
+                - [ 'setFramework', [ '@contao.framework' ] ]
+
+        Symfony\Bundle\FrameworkBundle\Controller\AbstractController:
+            calls:
+                - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
+
+        Symfony\Component\DependencyInjection\ContainerAwareInterface:
+            calls:
+                - [ 'setContainer', [ '@service_container' ] ]
+
+    person.migration.migrate_contact_information:
+        class: Cgoit\PersonsBundle\Migration\CopyContactInformationMigration
+        arguments:
+            - '@database_connection'
+        tags:
+            - { name: contao.migration }
+

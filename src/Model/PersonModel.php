@@ -18,16 +18,14 @@ use Contao\Model;
 /**
  * add properties for IDE support.
  *
- * @property string|int  $id
- * @property string|int  $tstamp
- * @property string      $firstName
- * @property string      $name
- * @property string|null $singleSRC
- * @property string|int  $size
- * @property string|null $email
- * @property string|null $phone
- * @property string|null $mobile
- * @property bool        $invisible
+ * @property string|int        $id
+ * @property string|int        $tstamp
+ * @property string            $firstName
+ * @property string            $name
+ * @property string|null       $singleSRC
+ * @property string|int        $size
+ * @property array<mixed>|null $contactInformation
+ * @property bool              $invisible
  *
  * @method static PersonModel|null findById($id, array $opt=array())
  */

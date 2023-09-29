@@ -21,11 +21,9 @@ $GLOBALS['BE_FFL']['personPicker'] = PersonPicker::class;
 /*
  * Backend Modules
  */
-$GLOBALS['BE_MOD']['content']['persons'] = [
-    'persons' => [
-        'callback' => 'table=tl_person',
-        'tables' => ['tl_person'],
-    ],
+$GLOBALS['BE_MOD']['content']['person'] = [
+    'callback' => 'table=tl_person',
+    'tables' => ['tl_person'],
 ];
 
 /*
