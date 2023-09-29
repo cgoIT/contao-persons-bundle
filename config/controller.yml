@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        autoconfigure: true
+        autowire: true
+        public: false
+
+    _instanceof:
+        Cgoit\PersonsBundle\Controller\StudioAwareInterface:
+            calls:
+                - [ 'setStudio', [ '@contao.image.studio' ] ]
+
+        Contao\CoreBundle\Framework\FrameworkAwareInterface:
+            calls:
+                - [ 'setFramework', [ '@contao.framework' ] ]
+
+        Symfony\Bundle\FrameworkBundle\Controller\AbstractController:
+            calls:
+                - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
+
+        Symfony\Component\DependencyInjection\ContainerAwareInterface:
+            calls:
+                - [ 'setContainer', [ '@service_container' ] ]
+
+    Cgoit\PersonsBundle\Controller\ContentElement\PersonElement: ~
+
+    Cgoit\PersonsBundle\Controller\Module\PersonModule: ~

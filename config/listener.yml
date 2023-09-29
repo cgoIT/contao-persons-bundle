@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autoconfigure: true
+
+    _instanceof:
+        Contao\CoreBundle\Framework\FrameworkAwareInterface:
+            calls:
+                - [ 'setFramework', ['@contao.framework']]
+
+    persons.person.callbacks:
+        class: Cgoit\PersonsBundle\EventListener\DataContainer\PersonCallback
+        arguments:
+            - '@contao.image.studio'

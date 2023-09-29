@@ -1,0 +1,12 @@
+<?php $this->extend('block_searchable'); ?>
+
+<?php $this->block('content'); ?>
+
+    <div class="persons">
+    <?php foreach ($this->persons as $person): ?>
+        <?php $this->insert($person->personTpl, $person->arrData); ?>
+    <?php endforeach; ?>
+    </div>
+
+<?php $this->endblock(); ?>
+
