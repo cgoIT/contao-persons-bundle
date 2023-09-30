@@ -22,14 +22,12 @@ trait PersonContentAndModuleTrait
 {
     use StudioTrait;
 
-    protected function addPersonData(Template $template, ContentModel|ModuleModel $model): void
+    protected function addPersonData(Template $template, string|null $strPersons): void
     {
-        $GLOBALS['TL_CSS']['person'] = 'bundles/contaopersons/person.scss|static';
-
         $arrPersons = [];
 
-        if (null !== $model->persons) {
-            $arrPersons = StringUtil::deserialize($model->persons);
+        if (null !== $strPersons) {
+            $arrPersons = StringUtil::deserialize($strPersons);
             $arrPersons = array_map(fn ($arrPerson) => $this->loadPerson($arrPerson), $arrPersons);
             $arrPersons = array_filter($arrPersons, static fn ($person) => null !== $person && !$person->invisible);
             $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersons);
@@ -61,36 +59,28 @@ trait PersonContentAndModuleTrait
                 $person->position = $arrData['deviatingPosition'];
             }
             $person->personTpl = $arrData['personTpl'] ?: 'person';
-            $person->size = $this->getSize($arrData['size'], $person->size);
+            $person->size = $this->getSize($arrData['size'] ?? null, $person->size);
         }
 
         return $person;
     }
 
-    /**
-     * @param object|array<mixed> $person
-     */
-    private function preparePerson(array|object $person): object
+    private function preparePerson(PersonModel $person): object
     {
         $p = new \stdClass();
-
-        if (\is_array($person)) {
-            $person = (object) $person;
-        }
 
         $p->personTpl = $person->personTpl;
         $p->firstName = $person->firstName;
         $p->name = $person->name;
         $p->position = $person->position;
-        $p->email = $person->email;
-        $p->phone = $person->phone;
-        $p->mobile = $person->mobile;
+
+        $arrContactInformation = StringUtil::deserialize($person->contactInformation, true);
+        foreach ($arrContactInformation as $info) {
+            $p->{$info['type']} = $info['value'];
+        }
 
         $figure = $this->getFigure($person->singleSRC, $person->size);
-
-        if (null !== $figure) {
-            $figure->applyLegacyTemplateData($p);
-        }
+        $figure?->applyLegacyTemplateData($p);
 
         $p->arrData = (array) $p;
 

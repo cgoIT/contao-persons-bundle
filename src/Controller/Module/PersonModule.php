@@ -13,7 +13,7 @@ use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AsFrontendModule(type: PersonModule::TYPE, category: 'content')]
+#[AsFrontendModule(type: PersonModule::TYPE, category: 'miscellaneous')]
 class PersonModule extends AbstractFrontendModuleController implements StudioAwareInterface
 {
     use PersonContentAndModuleTrait;
@@ -22,7 +22,7 @@ class PersonModule extends AbstractFrontendModuleController implements StudioAwa
 
     protected function getResponse(Template $template, ModuleModel $model, Request $request): Response|null
     {
-        $this->addPersonData($template, $model);
+        $this->addPersonData($template, $model->persons);
 
         return $template->getResponse();
     }
