@@ -13,8 +13,6 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\Controller;
 
 use Cgoit\PersonsBundle\Model\PersonModel;
-use Contao\ContentModel;
-use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\Template;
 
@@ -75,6 +73,7 @@ trait PersonContentAndModuleTrait
         $p->position = $person->position;
 
         $arrContactInformation = StringUtil::deserialize($person->contactInformation, true);
+
         foreach ($arrContactInformation as $info) {
             $p->{$info['type']} = $info['value'];
         }
