@@ -3,7 +3,7 @@
     "description": "Display data for commonly used persons in contao",
     "license": "LGPL-3.0-or-later",
     "type": "contao-bundle",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "authors": [
         {
             "name": "Carsten Götzinger",
