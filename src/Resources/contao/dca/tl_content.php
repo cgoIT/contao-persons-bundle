@@ -49,7 +49,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
             ],
         ],
         'min' => 1,
-        'sql' => 'blob NULL',
+        'sql' => 'text NULL',
     ]],
     $GLOBALS['TL_DCA']['tl_content']['fields']
 );
