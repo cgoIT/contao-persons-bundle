@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.0...v1.0.1) (2023-10-11)
+
+
+### Bug Fixes
+
+* store contactInformation as text ([2f0a482](https://github.com/cgoIT/contao-persons-bundle/commit/2f0a482158dc8b2082c594c458f79d408aa82c0b))
+
 ## 1.0.0 (2023-10-02)
 
 
