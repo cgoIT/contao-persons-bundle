@@ -159,7 +159,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
                     'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
                 ],
             ],
-            'sql' => 'blob NULL',
+            'sql' => 'text NULL',
         ],
         'invisible' => [
             'label' => &$GLOBALS['TL_LANG']['tl_person']['noUpdate'],
