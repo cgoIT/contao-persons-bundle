@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.1...v1.0.2) (2023-10-11)
+
+
+### Bug Fixes
+
+* store selected persons as text ([dc97d82](https://github.com/cgoIT/contao-persons-bundle/commit/dc97d82bdd6decaf155a0f31bc702cf5426963b4))
+
 ## [1.0.1](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.0...v1.0.1) (2023-10-11)
 
 
