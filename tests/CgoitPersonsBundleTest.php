@@ -12,15 +12,15 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\Tests;
 
-use Cgoit\PersonsBundle\ContaoPersonsBundle;
+use Cgoit\PersonsBundle\CgoitPersonsBundle;
 use PHPUnit\Framework\TestCase;
 
-class ContaoPersonsBundleTest extends TestCase
+class CgoitPersonsBundleTest extends TestCase
 {
     public function testCanBeInstantiated(): void
     {
-        $bundle = new ContaoPersonsBundle();
+        $bundle = new CgoitPersonsBundle();
 
-        $this->assertInstanceOf('Cgoit\PersonsBundle\ContaoPersonsBundle', $bundle);
+        $this->assertInstanceOf('Cgoit\PersonsBundle\CgoitPersonsBundle', $bundle);
     }
 }

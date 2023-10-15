@@ -14,6 +14,6 @@ namespace Cgoit\PersonsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class ContaoPersonsBundle extends Bundle
+class CgoitPersonsBundle extends Bundle
 {
 }
