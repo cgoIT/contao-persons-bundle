@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.2...v1.0.3) (2023-10-15)
+
+
+### Bug Fixes
+
+* bundle and extension should be prefixed with "cgoit" instead of "contao" ([ca8456f](https://github.com/cgoIT/contao-persons-bundle/commit/ca8456f08a25984ad3073910292ce8a32c8495fc))
+
 ## [1.0.2](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.1...v1.0.2) (2023-10-11)
 
 
