@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.3...v1.0.4) (2023-10-20)
+
+
+### Bug Fixes
+
+* remove unneeded dependency ([9a938cc](https://github.com/cgoIT/contao-persons-bundle/commit/9a938ccca0b99be8965327bcd0aed24771fbe0a8))
+
 ## [1.0.3](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.2...v1.0.3) (2023-10-15)
 
 
