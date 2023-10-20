@@ -21,7 +21,6 @@
         "symfony/config": "^5.4",
         "symfony/dependency-injection": "^5.4",
         "symfony/http-kernel": "^5.4",
-        "symfony/css-selector": "^6.3",
         "codefog/contao-haste": "^5.1",
         "mvo/contao-group-widget": "^1.5"
     },
