@@ -13,9 +13,43 @@ declare(strict_types=1);
 use Cgoit\PersonsBundle\Controller\ContentElement\PersonElement;
 use Contao\Controller;
 
-$GLOBALS['TL_DCA']['tl_content']['palettes'][PersonElement::TYPE] = '{type_legend},type,headline;{person_legend},persons;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_content']['palettes'][PersonElement::TYPE] = '{type_legend},type,headline;{person_legend},selectPersonsBy;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'selectPersonsBy';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsByTag'] = 'personTags,personTagsCombination,personTpl';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsById'] = 'persons';
 
 $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
+    ['selectPersonsBy' => [
+        'label' => &$GLOBALS['TL_LANG']['tl_content']['selectPersonsBy'],
+        'exclude' => true,
+        'inputType' => 'radio',
+        'options' => ['personsByTag', 'personsById'],
+        'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['selectPersonsBy'],
+        'eval' => ['mandatory' => true, 'submitOnChange' => true, 'tl_class' => 'w50 m12'],
+        'sql' => "char(20) NOT NULL default ''",
+    ]],
+    ['personTags' => [
+        'label' => &$GLOBALS['TL_LANG']['tl_content']['personTags'],
+        'exclude' => true,
+        'inputType' => 'cfgTags',
+        'eval' => [
+            'tagsManager' => 'person_tags',
+            'tagsCreate' => false,
+            'tagsSource' => 'tl_content.personTags',
+            'tl_class' => 'clr w100',
+            'mandatory' => true,
+        ],
+    ]],
+    ['personTagsCombination' => [
+        'label' => &$GLOBALS['TL_LANG']['tl_content']['personTagsCombination'],
+        'exclude' => true,
+        'inputType' => 'radio',
+        'default' => 'and',
+        'options' => ['and', 'or'],
+        'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['personTagsCombination'],
+        'eval' => ['mandatory' => true, 'tl_class' => 'w50'],
+        'sql' => "char(5) NOT NULL default ''",
+    ]],
     ['person' => [
         'label' => &$GLOBALS['TL_LANG']['tl_content']['person_person'],
         'inputType' => 'personPicker',
@@ -28,6 +62,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
         'inputType' => 'select',
         'options_callback' => static fn () => Controller::getTemplateGroup('person'),
         'eval' => ['mandatory' => false, 'chosen' => true, 'includeBlankOption' => true, 'tl_class' => 'w50'],
+        'sql' => "varchar(64) NOT NULL default ''",
     ]],
     ['persons' => [
         'label' => &$GLOBALS['TL_LANG']['tl_content']['persons'],

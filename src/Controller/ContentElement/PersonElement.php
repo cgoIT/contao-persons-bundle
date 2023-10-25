@@ -22,7 +22,7 @@ class PersonElement extends AbstractContentElementController implements StudioAw
 
     protected function getResponse(Template $template, ContentModel $model, Request $request): Response|null
     {
-        $this->addPersonData($template, $model->persons);
+        $this->addPersonData($template, $model);
 
         return $template->getResponse();
     }

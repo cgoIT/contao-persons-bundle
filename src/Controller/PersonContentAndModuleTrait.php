@@ -13,6 +13,10 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\Controller;
 
 use Cgoit\PersonsBundle\Model\PersonModel;
+use Codefog\TagsBundle\Manager\DefaultManager;
+use Contao\ContentModel;
+use Contao\Model;
+use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\Template;
 
@@ -20,15 +24,24 @@ trait PersonContentAndModuleTrait
 {
     use StudioTrait;
 
-    protected function addPersonData(Template $template, string|null $strPersons): void
+    protected DefaultManager $personTagsManager;
+
+    public function setPersonTagsManager(DefaultManager $manager): void
+    {
+        $this->personTagsManager = $manager;
+    }
+
+    protected function addPersonData(Template $template, ContentModel|ModuleModel $model): void
     {
         $arrPersons = [];
 
-        if (null !== $strPersons) {
-            $arrPersons = StringUtil::deserialize($strPersons);
-            $arrPersons = array_map(fn ($arrPerson) => $this->loadPerson($arrPerson), $arrPersons);
-            $arrPersons = array_filter($arrPersons, static fn ($person) => null !== $person && !$person->invisible);
-            $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersons);
+        switch ($model->selectPersonsBy) {
+            case 'personsByTag':
+                $this->addPersonsByTag($model, $arrPersons);
+                break;
+            case 'personsById':
+                $this->addPersonsById($model, $arrPersons);
+                break;
         }
 
         $template->persons = $arrPersons;
@@ -43,6 +56,58 @@ trait PersonContentAndModuleTrait
         $arrNotEmpty = array_filter(StringUtil::deserialize($size), static fn ($val) => !empty($val));
 
         return \count($arrNotEmpty) ? $size : $fallbackSize;
+    }
+
+    /**
+     * @param array<mixed> $arrPersons
+     */
+    private function addPersonsByTag(ContentModel|ModuleModel $model, array &$arrPersons): void
+    {
+        $source = $model instanceof ContentModel ? 'tl_content.personTags' : 'tl_module.personTags';
+        $criteria = $this->personTagsManager->createTagCriteria($source)->setSourceIds([(string) $model->id]);
+        $arrTags = $this->personTagsManager->getTagFinder()->findMultiple($criteria);
+
+        if (!empty($arrTags)) {
+            $criteria = $this->personTagsManager->createSourceCriteria('tl_person.tags')->setTags($arrTags);
+            $arrPersonIds = $this->personTagsManager->getSourceFinder()->findMultiple($criteria);
+
+            if (!empty($arrPersonIds)) {
+                $arrPersonIds = PersonModel::findMultipleByIds($arrPersonIds);
+                $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => null !== $person && !$person->invisible);
+                array_walk($arrPersonIds, static fn ($person) => $person->personTpl = $model->personTpl ?: 'person');
+
+                if ('and' === $model->personTagsCombination) {
+                    $arrTagIds = array_map(static fn ($tag) => $tag->getValue(), $arrTags);
+                    $arrPersonIds = array_filter($arrPersonIds, fn ($person) => $this->hasAllTags($person, $arrTagIds));
+                }
+
+                $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersonIds);
+            }
+        }
+    }
+
+    /**
+     * @param array<int> $arrTagIds
+     */
+    private function hasAllTags(Model $person, array $arrTagIds): bool
+    {
+        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([(string) $person->id]);
+        $personTagIds = array_map(static fn ($tag) => $tag->getValue(), $this->personTagsManager->getTagFinder()->findMultiple($criteria));
+
+        return empty(array_diff($arrTagIds, $personTagIds));
+    }
+
+    /**
+     * @param array<mixed> $arrPersons
+     */
+    private function addPersonsById(ContentModel|ModuleModel $model, array &$arrPersons): void
+    {
+        if (null !== $model->persons) {
+            $arrPersons = StringUtil::deserialize($model->persons);
+            $arrPersons = array_map(fn ($arrPerson) => $this->loadPerson($arrPerson), $arrPersons);
+            $arrPersons = array_filter($arrPersons, static fn ($person) => null !== $person && !$person->invisible);
+            $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersons);
+        }
     }
 
     /**
@@ -63,7 +128,7 @@ trait PersonContentAndModuleTrait
         return $person;
     }
 
-    private function preparePerson(PersonModel $person): object
+    private function preparePerson(Model $person): object
     {
         $p = new \stdClass();
 

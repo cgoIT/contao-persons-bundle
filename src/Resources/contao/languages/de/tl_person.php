@@ -28,6 +28,9 @@ $GLOBALS['TL_LANG']['tl_person']['position']['1'] = 'Position/Funktion der Perso
 $GLOBALS['TL_LANG']['tl_person']['singleSRC']['0'] = 'Foto';
 $GLOBALS['TL_LANG']['tl_person']['singleSRC']['1'] = 'Foto der Person';
 
+$GLOBALS['TL_LANG']['tl_person']['tags']['0'] = 'Schlagworte';
+$GLOBALS['TL_LANG']['tl_person']['tags']['1'] = 'Vergeben Sie Schlagworte für diese Person.';
+
 $GLOBALS['TL_LANG']['tl_person']['contactInformation']['0'] = 'Kontaktinformationen';
 $GLOBALS['TL_LANG']['tl_person']['contactInformation']['1'] = 'Verschiedene Kontaktinformationen zur Person';
 

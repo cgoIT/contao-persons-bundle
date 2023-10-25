@@ -40,7 +40,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'panelLayout' => 'sort,filter;search,limit',
         ],
         'label' => [
-            'fields' => ['singleSRC', 'firstName', 'name', 'position', 'contactInformation'],
+            'fields' => ['singleSRC', 'firstName', 'name', 'position', 'contactInformation', 'tags'],
             'showColumns' => true,
         ],
         'global_operations' => [
@@ -91,7 +91,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
     ],
     // Palettes
     'palettes' => [
-        'default' => '{title_legend},firstName,name,position,singleSRC,size;{contact_legend},contactInformation;{visible_legend:hide},invisible',
+        'default' => '{title_legend},firstName,name,position,tags,singleSRC,size;{contact_legend},contactInformation;{visible_legend:hide},invisible',
     ],
     // Fields
     'fields' => [
@@ -124,6 +124,17 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'inputType' => 'text',
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
             'sql' => "varchar(255) NULL default ''",
+        ],
+        'tags' => [
+            'label' => &$GLOBALS['TL_LANG']['tl_person']['tags'],
+            'exclude' => false,
+            'filter' => true,
+            'inputType' => 'cfgTags',
+            'eval' => [
+                'tagsManager' => 'person_tags',
+                'tagsCreate' => true,
+                'tl_class' => 'clr w100',
+            ],
         ],
         'singleSRC' => [
             'label' => &$GLOBALS['TL_LANG']['tl_person']['singleSRC'],

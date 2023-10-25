@@ -22,7 +22,7 @@ class PersonModule extends AbstractFrontendModuleController implements StudioAwa
 
     protected function getResponse(Template $template, ModuleModel $model, Request $request): Response|null
     {
-        $this->addPersonData($template, $model->persons);
+        $this->addPersonData($template, $model);
 
         return $template->getResponse();
     }

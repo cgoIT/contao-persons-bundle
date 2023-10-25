@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\EventListener\DataContainer;
 
 use Cgoit\PersonsBundle\Model\PersonModel;
+use Codefog\TagsBundle\Manager\DefaultManager;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\Framework\FrameworkAwareInterface;
 use Contao\CoreBundle\Framework\FrameworkAwareTrait;
@@ -25,18 +26,26 @@ use Contao\Image\PictureConfigurationItem;
 use Contao\Image\ResizeConfiguration;
 use Contao\StringUtil;
 use Contao\System;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class PersonCallback implements FrameworkAwareInterface
 {
     use FrameworkAwareTrait;
 
-    private Studio $studio;
     private PictureConfiguration $imgSize;
 
-    public function __construct(Studio $studio)
+    public function __construct(private readonly RequestStack $requestStack, private readonly Studio $studio, private readonly DefaultManager $personTagsManager)
     {
-        $this->studio = $studio;
         $this->imgSize = $this->getImgSize();
+    }
+
+    #[AsCallback(table: 'tl_person', target: 'config.onload')]
+    public function setTableColumns(DataContainer $dc): void
+    {
+        if ('1' === $this->requestStack->getCurrentRequest()->query->get('popup')) {
+            $GLOBALS['TL_DCA']['tl_person']['list']['label']['fields'] = ['firstName', 'name', 'position', 'contactInformation', 'tags'];
+            unset($GLOBALS['TL_DCA']['tl_person']['list']['operations']);
+        }
     }
 
     /**
@@ -85,6 +94,20 @@ class PersonCallback implements FrameworkAwareInterface
                             $contactLabels[] = '<tr><td><strong>'.$GLOBALS['TL_LANG']['tl_person']['contactInformation_type_options'][$info['type']].'</strong></td><td>'.$info['value'].'</td></tr>';
                         }
                         $arrLabels[] = '<table>'.implode('', $contactLabels).'</table>';
+                    } elseif ('tags' === $fieldName) {
+                        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([(string) $row['id']]);
+                        $arrTags = $this->personTagsManager->getTagFinder()->findMultiple($criteria);
+
+                        if (empty($arrTags)) {
+                            $arrLabels[] = $objPerson->{$fieldName};
+                        } else {
+                            $tagLabels = [];
+
+                            foreach ($arrTags as $objTag) {
+                                $tagLabels[] = '<span>'.$objTag->getName().'</span>';
+                            }
+                            $arrLabels[] = '<div class="cfg-tags-all person-list">'.implode('', $tagLabels).'</div>';
+                        }
                     } else {
                         $arrLabels[] = $objPerson->{$fieldName};
                     }

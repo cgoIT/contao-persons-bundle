@@ -10,4 +10,6 @@ services:
     persons.person.callbacks:
         class: Cgoit\PersonsBundle\EventListener\DataContainer\PersonCallback
         arguments:
+            - '@request_stack'
             - '@contao.image.studio'
+            - '@codefog_tags.manager.person_tags'

@@ -12,6 +12,19 @@ declare(strict_types=1);
 
 $GLOBALS['TL_LANG']['tl_module']['person_legend'] = 'Einstellungen zu Personen';
 
+$GLOBALS['TL_LANG']['tl_module']['selectPersonsBy']['0'] = 'Art der Personenauswahl';
+$GLOBALS['TL_LANG']['tl_module']['selectPersonsBy']['1'] = 'Die im Frontend anzuzeigenden Personen entweder anhand eines oder mehrerer Schlagworte oder über ihre eindeutige ID ausgewählt werden.';
+$GLOBALS['TL_LANG']['tl_module']['reference']['selectPersonsBy']['personsByTag'] = 'Auswahl anhand von Schlagworten';
+$GLOBALS['TL_LANG']['tl_module']['reference']['selectPersonsBy']['personsById'] = 'manuelle Auswahl';
+
+$GLOBALS['TL_LANG']['tl_module']['personTags']['0'] = 'Schlagworte';
+$GLOBALS['TL_LANG']['tl_module']['personTags']['1'] = 'Personen mit den angegebenen Schlagworten werden im Frontend angezeigt.';
+
+$GLOBALS['TL_LANG']['tl_module']['personTagsCombination']['0'] = 'Personen auswählen...';
+$GLOBALS['TL_LANG']['tl_module']['personTagsCombination']['1'] = '';
+$GLOBALS['TL_LANG']['tl_module']['reference']['personTagsCombination']['and'] = '... bei denen alle angegebenen Schlagworte gesetzt sind';
+$GLOBALS['TL_LANG']['tl_module']['reference']['personTagsCombination']['or'] = '... bei denen mindestens eines der angegebenen Schlagworte gesetzt ist';
+
 $GLOBALS['TL_LANG']['tl_module']['persons']['0'] = 'Personen';
 $GLOBALS['TL_LANG']['tl_module']['persons']['1'] = 'Diese Personen werden im Frontend angezeigt.';
 

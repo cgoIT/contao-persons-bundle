@@ -1,0 +1,4 @@
+codefog_tags:
+    managers:
+        person_tags:
+            source: ['tl_person.tags', 'tl_content.personTags', 'tl_module.personTags']

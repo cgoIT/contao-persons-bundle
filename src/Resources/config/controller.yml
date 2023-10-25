@@ -21,6 +21,10 @@ services:
             calls:
                 - [ 'setContainer', [ '@service_container' ] ]
 
-    Cgoit\PersonsBundle\Controller\ContentElement\PersonElement: ~
+    Cgoit\PersonsBundle\Controller\ContentElement\PersonElement:
+        calls:
+            - [ 'setPersonTagsManager', [ '@codefog_tags.manager.person_tags' ] ]
 
-    Cgoit\PersonsBundle\Controller\Module\PersonModule: ~
+    Cgoit\PersonsBundle\Controller\Module\PersonModule:
+        calls:
+            - [ 'setPersonTagsManager', [ '@codefog_tags.manager.person_tags' ] ]
