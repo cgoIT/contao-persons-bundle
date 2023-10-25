@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.0...v1.1.1) (2023-10-25)
+
+
+### Bug Fixes
+
+* set default value for person selection mode in ce and module ([70986d6](https://github.com/cgoIT/contao-persons-bundle/commit/70986d6ed6400ae02fde38231f4dfd333e611c05))
+
 ## [1.1.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.4...v1.1.0) (2023-10-25)
 
 
