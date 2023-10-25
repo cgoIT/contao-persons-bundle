@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.4...v1.1.0) (2023-10-25)
+
+
+### Features
+
+* make persons taggable via codefog/tags-bundle ([0fa0ba6](https://github.com/cgoIT/contao-persons-bundle/commit/0fa0ba6d58a8473370db88bd529bd341110e51d6))
+
 ## [1.0.4](https://github.com/cgoIT/contao-persons-bundle/compare/v1.0.3...v1.0.4) (2023-10-20)
 
 
