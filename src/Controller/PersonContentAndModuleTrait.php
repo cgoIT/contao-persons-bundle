@@ -16,7 +16,6 @@ use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Contao\ContentModel;
 use Contao\Model;
-use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\Template;
 
@@ -31,7 +30,7 @@ trait PersonContentAndModuleTrait
         $this->personTagsManager = $manager;
     }
 
-    protected function addPersonData(Template $template, ContentModel|ModuleModel $model): void
+    protected function addPersonData(Template $template, Model $model): void
     {
         $arrPersons = [];
 
@@ -61,27 +60,36 @@ trait PersonContentAndModuleTrait
     /**
      * @param array<mixed> $arrPersons
      */
-    private function addPersonsByTag(ContentModel|ModuleModel $model, array &$arrPersons): void
+    private function addPersonsByTag(Model $model, array &$arrPersons): void
     {
-        $source = $model instanceof ContentModel ? 'tl_content.personTags' : 'tl_module.personTags';
-        $criteria = $this->personTagsManager->createTagCriteria($source)->setSourceIds([(string) $model->id]);
-        $arrTags = $this->personTagsManager->getTagFinder()->findMultiple($criteria);
+        $source = null;
 
-        if (!empty($arrTags)) {
-            $criteria = $this->personTagsManager->createSourceCriteria('tl_person.tags')->setTags($arrTags);
-            $arrPersonIds = $this->personTagsManager->getSourceFinder()->findMultiple($criteria);
+        if (method_exists($model, 'getTagSource')) {
+            $source = $model->getTagSource();
+        } else {
+            $source = $model instanceof ContentModel ? 'tl_content.personTags' : 'tl_module.personTags';
+        }
 
-            if (!empty($arrPersonIds)) {
-                $arrPersonIds = PersonModel::findMultipleByIds($arrPersonIds);
-                $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => null !== $person && !$person->invisible);
-                array_walk($arrPersonIds, static fn ($person) => $person->personTpl = $model->personTpl ?: 'person');
+        if (!empty($source)) {
+            $criteria = $this->personTagsManager->createTagCriteria($source)->setSourceIds([(string) $model->id]);
+            $arrTags = $this->personTagsManager->getTagFinder()->findMultiple($criteria);
 
-                if ('and' === $model->personTagsCombination) {
-                    $arrTagIds = array_map(static fn ($tag) => $tag->getValue(), $arrTags);
-                    $arrPersonIds = array_filter($arrPersonIds, fn ($person) => $this->hasAllTags($person, $arrTagIds));
+            if (!empty($arrTags)) {
+                $criteria = $this->personTagsManager->createSourceCriteria('tl_person.tags')->setTags($arrTags);
+                $arrPersonIds = $this->personTagsManager->getSourceFinder()->findMultiple($criteria);
+
+                if (!empty($arrPersonIds)) {
+                    $arrPersonIds = PersonModel::findMultipleByIds($arrPersonIds);
+                    $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => null !== $person && !$person->invisible);
+                    array_walk($arrPersonIds, static fn ($person) => $person->personTpl = $model->personTpl ?: 'person');
+
+                    if ('and' === $model->personTagsCombination) {
+                        $arrTagIds = array_map(static fn ($tag) => $tag->getValue(), $arrTags);
+                        $arrPersonIds = array_filter($arrPersonIds, fn ($person) => $this->hasAllTags($person, $arrTagIds));
+                    }
+
+                    $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersonIds);
                 }
-
-                $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersonIds);
             }
         }
     }
@@ -100,7 +108,7 @@ trait PersonContentAndModuleTrait
     /**
      * @param array<mixed> $arrPersons
      */
-    private function addPersonsById(ContentModel|ModuleModel $model, array &$arrPersons): void
+    private function addPersonsById(Model $model, array &$arrPersons): void
     {
         if (null !== $model->persons) {
             $arrPersons = StringUtil::deserialize($model->persons);

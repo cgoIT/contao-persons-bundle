@@ -24,3 +24,10 @@ services:
         tags:
             - { name: contao.migration }
 
+    person.migration.migrate_default_selection_mode:
+        class: Cgoit\PersonsBundle\Migration\SetDefaultSelectionMode
+        arguments:
+            - '@database_connection'
+        tags:
+            - { name: contao.migration }
+
