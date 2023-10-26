@@ -16,6 +16,7 @@ use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Contao\ContentModel;
 use Contao\Model;
+use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\Template;
 
@@ -48,7 +49,7 @@ trait PersonContentAndModuleTrait
 
     protected static function getSize(string|null $size, string $fallbackSize): string
     {
-        if (null === $size) {
+        if (empty($size)) {
             return $fallbackSize;
         }
 
@@ -82,6 +83,13 @@ trait PersonContentAndModuleTrait
                     $arrPersonIds = PersonModel::findMultipleByIds($arrPersonIds);
                     $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => null !== $person && !$person->invisible);
                     array_walk($arrPersonIds, static fn ($person) => $person->personTpl = $model->personTpl ?: 'person');
+
+                    if ($model instanceof ModuleModel) {
+                        $size = $model->imgSize;
+                    } else {
+                        $size = $model->size;
+                    }
+                    array_walk($arrPersonIds, static fn ($person) => $person->size = self::getSize($size, $person->size));
 
                     if ('and' === $model->personTagsCombination) {
                         $arrTagIds = array_map(static fn ($tag) => $tag->getValue(), $arrTags);

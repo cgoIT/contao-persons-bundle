@@ -39,7 +39,7 @@ class SetDefaultSelectionMode extends AbstractMigration
 
     public function getName(): string
     {
-        return 'Convert selection mode for persons';
+        return 'Set default selection mode for persons';
     }
 
     /**

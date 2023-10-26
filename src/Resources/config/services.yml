@@ -31,3 +31,10 @@ services:
         tags:
             - { name: contao.migration }
 
+    person.migration.migrate_size_attribute_in_modules:
+        class: Cgoit\PersonsBundle\Migration\MigrateSizeAttributeInModules
+        arguments:
+            - '@database_connection'
+        tags:
+            - { name: contao.migration }
+

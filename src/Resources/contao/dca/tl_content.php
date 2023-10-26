@@ -15,7 +15,7 @@ use Contao\Controller;
 
 $GLOBALS['TL_DCA']['tl_content']['palettes'][PersonElement::TYPE] = '{type_legend},type,headline;{person_legend},selectPersonsBy;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'selectPersonsBy';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsByTag'] = 'personTags,personTagsCombination,personTpl';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsByTag'] = 'personTags,personTagsCombination,personTpl,size';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsById'] = 'persons';
 
 $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
@@ -61,7 +61,7 @@ $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
         'exclude' => true,
         'inputType' => 'select',
         'options_callback' => static fn () => Controller::getTemplateGroup('person'),
-        'eval' => ['mandatory' => false, 'chosen' => true, 'includeBlankOption' => true, 'tl_class' => 'w50'],
+        'eval' => ['mandatory' => false, 'chosen' => true, 'includeBlankOption' => true, 'tl_class' => 'clr w50'],
         'sql' => "varchar(64) NOT NULL default ''",
     ]],
     ['persons' => [
@@ -70,13 +70,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
         'inputType' => 'group',
         'palette' => ['person', 'size', 'deviatingPosition', 'personTpl'],
         'fields' => [
-            'size' => [
-                'label' => &$GLOBALS['TL_LANG']['MSC']['imgSize'],
-                'inputType' => 'imageSize',
-                'reference' => &$GLOBALS['TL_LANG']['MSC'],
-                'options_callback' => ['contao.listener.image_size_options', '__invoke'],
-                'eval' => ['mandatory' => false, 'rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'clr w50'],
-            ],
             'deviatingPosition' => [
                 'label' => &$GLOBALS['TL_LANG']['tl_content']['person_deviatingPosition'],
                 'inputType' => 'text',
