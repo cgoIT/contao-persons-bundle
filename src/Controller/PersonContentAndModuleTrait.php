@@ -14,6 +14,7 @@ namespace Cgoit\PersonsBundle\Controller;
 
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
+use Codefog\TagsBundle\Tag;
 use Contao\ContentModel;
 use Contao\Model;
 use Contao\ModuleModel;
@@ -107,10 +108,19 @@ trait PersonContentAndModuleTrait
      */
     private function hasAllTags(Model $person, array $arrTagIds): bool
     {
-        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([(string) $person->id]);
-        $personTagIds = array_map(static fn ($tag) => $tag->getValue(), $this->personTagsManager->getTagFinder()->findMultiple($criteria));
+        $personTagIds = array_map(static fn ($tag) => $tag->getValue(), $this->getPersonTags($person));
 
         return empty(array_diff($arrTagIds, $personTagIds));
+    }
+
+    /**
+     * @return array<Tag>
+     */
+    private function getPersonTags(Model $person): array
+    {
+        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([(string) $person->id]);
+
+        return $this->personTagsManager->getTagFinder()->findMultiple($criteria);
     }
 
     /**
@@ -158,6 +168,8 @@ trait PersonContentAndModuleTrait
         foreach ($arrContactInformation as $info) {
             $p->{$info['type']} = $info['value'];
         }
+
+        $p->tags = $this->getPersonTags($person);
 
         $figure = $this->getFigure($person->singleSRC, $person->size);
         $figure?->applyLegacyTemplateData($p);
