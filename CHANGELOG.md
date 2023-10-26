@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.1...v1.1.2) (2023-10-26)
+
+
+### Bug Fixes
+
+* add image size option to ce and module if selection is based on tags ([86d93e5](https://github.com/cgoIT/contao-persons-bundle/commit/86d93e5c1d63d0e1139cc1f951b8d2686e4050cc))
+* add tags to person object to make them usable in frontend templates ([4f4959f](https://github.com/cgoIT/contao-persons-bundle/commit/4f4959f366391ffe139270027db5e5ca74d1a75e))
+
 ## [1.1.1](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.0...v1.1.1) (2023-10-25)
 
 
