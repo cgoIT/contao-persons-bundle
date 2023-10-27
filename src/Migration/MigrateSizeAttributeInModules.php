@@ -20,13 +20,10 @@ use Doctrine\DBAL\Exception;
 
 class MigrateSizeAttributeInModules extends AbstractMigration
 {
+    use PersonsMigrationTrait;
+
     private string $table = 'tl_module';
     private string $column = 'persons';
-
-    /**
-     * @var Connection
-     */
-    private $db;
 
     public function __construct(Connection $db)
     {
@@ -43,6 +40,10 @@ class MigrateSizeAttributeInModules extends AbstractMigration
      */
     public function shouldRun(): bool
     {
+        if (!$this->isInstalled()) {
+            return false;
+        }
+
         $personModules = $this->db
             ->executeQuery("SELECT id, $this->column FROM $this->table WHERE type='person'")
             ->fetchAllAssociative()

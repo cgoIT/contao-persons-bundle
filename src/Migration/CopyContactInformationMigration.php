@@ -20,17 +20,12 @@ use Doctrine\DBAL\Exception;
 
 class CopyContactInformationMigration extends AbstractMigration
 {
-    private static string $table = 'tl_person';
+    use PersonsMigrationTrait;
 
     /**
      * @var array<mixed>
      */
     private static array $columns = ['email', 'phone', 'mobile'];
-
-    /**
-     * @var Connection
-     */
-    private $db;
 
     public function __construct(Connection $db)
     {
@@ -47,18 +42,16 @@ class CopyContactInformationMigration extends AbstractMigration
      */
     public function shouldRun(): bool
     {
-        $schemaManager = $this->db->createSchemaManager();
-
-        if (!$schemaManager->tablesExist(self::$table)) {
+        if (!$this->isInstalled()) {
             return false;
         }
 
-        $cols = $schemaManager->listTableColumns(self::$table);
+        $cols = $this->db->createSchemaManager()->listTableColumns(self::$extension_table);
 
         foreach (self::$columns as $column) {
             if (isset($cols[$column])) {
                 $cnt = $this->db
-                    ->executeQuery("SELECT $column FROM ".self::$table." WHERE IFNULL($column, '') <> ''")
+                    ->executeQuery("SELECT $column FROM ".self::$extension_table." WHERE IFNULL($column, '') <> ''")
                     ->fetchOne()
                 ;
 
@@ -76,7 +69,7 @@ class CopyContactInformationMigration extends AbstractMigration
      */
     public function run(): MigrationResult
     {
-        $arrResult = $this->db->prepare('SELECT id, contactInformation, '.implode(', ', self::$columns).' FROM '.self::$table)
+        $arrResult = $this->db->prepare('SELECT id, contactInformation, '.implode(', ', self::$columns).' FROM '.self::$extension_table)
             ->executeQuery()
             ->fetchAllAssociative()
         ;
@@ -98,7 +91,7 @@ class CopyContactInformationMigration extends AbstractMigration
                 }
             }
 
-            $this->db->prepare('UPDATE '.self::$table.' SET contactInformation=?, '.implode(', ', array_map(static fn ($col) => $col.'=NULL', self::$columns)).' WHERE id=?')
+            $this->db->prepare('UPDATE '.self::$extension_table.' SET contactInformation=?, '.implode(', ', array_map(static fn ($col) => $col.'=NULL', self::$columns)).' WHERE id=?')
                 ->executeStatement([empty($contactInformation) ? null : serialize($contactInformation), $result['id']])
             ;
         }

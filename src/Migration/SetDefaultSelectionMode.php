@@ -19,6 +19,8 @@ use Doctrine\DBAL\Exception;
 
 class SetDefaultSelectionMode extends AbstractMigration
 {
+    use PersonsMigrationTrait;
+
     /**
      * @var array<string>
      */
@@ -26,11 +28,6 @@ class SetDefaultSelectionMode extends AbstractMigration
 
     private static string $column = 'selectPersonsBy';
     private static string $defaultValue = 'personsById';
-
-    /**
-     * @var Connection
-     */
-    private $db;
 
     public function __construct(Connection $db)
     {
@@ -47,6 +44,10 @@ class SetDefaultSelectionMode extends AbstractMigration
      */
     public function shouldRun(): bool
     {
+        if (!$this->isInstalled()) {
+            return false;
+        }
+
         foreach (self::$arrTables as $table) {
             $missingDefaultValue = (int) $this->db
                 ->executeQuery('SELECT COUNT('.self::$column.') FROM '.$table.' WHERE '.self::$column." = ''")
