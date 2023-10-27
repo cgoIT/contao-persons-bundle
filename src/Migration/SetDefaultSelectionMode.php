@@ -50,7 +50,7 @@ class SetDefaultSelectionMode extends AbstractMigration
 
         foreach (self::$arrTables as $table) {
             $missingDefaultValue = (int) $this->db
-                ->executeQuery('SELECT COUNT('.self::$column.') FROM '.$table.' WHERE '.self::$column." = ''")
+                ->executeQuery('SELECT COUNT('.self::$column.') FROM '.$table." WHERE type = 'person' AND ".self::$column." = ''")
                 ->fetchOne() > 0
             ;
 
