@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.2...v1.1.3) (2023-10-27)
+
+
+### Bug Fixes
+
+* check if extension is installed for the first time in migrations. fixes the problem that this extension isn't installable at all due to errors in the migrations ([10b9831](https://github.com/cgoIT/contao-persons-bundle/commit/10b9831b6f31309aa6b80be062826cc4c71350f9))
+
 ## [1.1.2](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.1...v1.1.2) (2023-10-26)
 
 
