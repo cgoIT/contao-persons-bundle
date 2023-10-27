@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.3...v1.1.4) (2023-10-27)
+
+
+### Bug Fixes
+
+* prevent setting of default selection mode for persons to often ([eb247ba](https://github.com/cgoIT/contao-persons-bundle/commit/eb247baafadb8aa09ba6a3a1c4b527f4c92ff9c5))
+
 ## [1.1.3](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.2...v1.1.3) (2023-10-27)
 
 
