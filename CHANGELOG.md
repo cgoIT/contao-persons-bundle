@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.4...v1.2.0) (2023-11-06)
+
+
+### Features
+
+* add english translation ([9614120](https://github.com/cgoIT/contao-persons-bundle/commit/9614120ca8f041002b81991c267578f3a8822d1c))
+
 ## [1.1.4](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.3...v1.1.4) (2023-10-27)
 
 
