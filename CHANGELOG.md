@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.1](https://github.com/cgoIT/contao-persons-bundle/compare/v1.2.0...v1.2.1) (2023-11-07)
+
+
+### Miscellaneous Chores
+
+* add funding links ([b0c854b](https://github.com/cgoIT/contao-persons-bundle/commit/b0c854b95b83f338d564274eee6f99683d5af66f))
+* add issue and pr templates ([fbadd0b](https://github.com/cgoIT/contao-persons-bundle/commit/fbadd0b358c59b4365b3b95a9514a1cb3b5ffe15))
+
 ## [1.2.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.1.4...v1.2.0) (2023-11-06)
 
 
