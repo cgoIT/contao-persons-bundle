@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 /*
- * This file is part of cgoit\contao-persons-bundle.
+ * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * (c) Carsten Götzinger
- *
- * @license LGPL-3.0-or-later
+ * @copyright  Copyright (c) 2023, cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
  */
 
 use Cgoit\PersonsBundle\Controller\Module\PersonModule;
@@ -79,5 +79,5 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
         'min' => 1,
         'sql' => 'text NULL',
     ]],
-    $GLOBALS['TL_DCA']['tl_module']['fields']
+    $GLOBALS['TL_DCA']['tl_module']['fields'],
 );

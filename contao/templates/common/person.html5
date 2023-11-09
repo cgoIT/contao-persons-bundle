@@ -10,13 +10,13 @@
                 <?php if ($this->phone): ?>
                     <div class="info_entry person_phone">
                         <i class="fas fa-phone"></i>
-                        <a href="tel:<?= preg_replace('/[^0-9.]+/', '', $this->phone) ?>"><?= $this->phone ?></a>
+                        <a href="tel:<?= preg_replace('/[^0-9.]+/', '', (string) $this->phone) ?>"><?= $this->phone ?></a>
                     </div>
                 <?php endif; ?>
                 <?php if ($this->mobile): ?>
                     <div class="info_entry person_mobile">
                         <i class="fas fa-mobile-alt"></i>
-                        <a href="tel:<?= preg_replace('/[^0-9.]+/', '', $this->mobile) ?>"><?= $this->mobile ?></a>
+                        <a href="tel:<?= preg_replace('/[^0-9.]+/', '', (string) $this->mobile) ?>"><?= $this->mobile ?></a>
                     </div>
                 <?php endif; ?>
                 <?php if ($this->email): ?>
