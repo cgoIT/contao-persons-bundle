@@ -39,6 +39,6 @@ class Plugin implements BundlePluginInterface, ConfigPluginInterface
      */
     public function registerContainerConfiguration(LoaderInterface $loader, array $managerConfig): void
     {
-        $loader->load('@CgoitPersonsBundle/Resources/config/config.yml');
+        $loader->load(__DIR__.'/../../config/config.yml');
     }
 }
