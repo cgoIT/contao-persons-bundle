@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.2](https://github.com/cgoIT/contao-persons-bundle/compare/v1.2.1...v1.2.2) (2023-11-13)
+
+
+### Bug Fixes
+
+* fix ecs and rector errors ([e110fab](https://github.com/cgoIT/contao-persons-bundle/commit/e110fabfd1bc03c67b796b7f78f82cfefd3e315b))
+* fix setup with new project structure after refactoring ([de03a4a](https://github.com/cgoIT/contao-persons-bundle/commit/de03a4a6c86ef0058c232110f5a4a5611d789c93))
+
 ## [1.2.1](https://github.com/cgoIT/contao-persons-bundle/compare/v1.2.0...v1.2.1) (2023-11-07)
 
 
