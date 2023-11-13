@@ -101,8 +101,6 @@ class CopyContactInformationMigration extends AbstractMigration
 
     /**
      * @param array<mixed> $arr
-     *
-     * @return int
      */
     private function getExistingIdx(array $arr, string $type): int|null
     {

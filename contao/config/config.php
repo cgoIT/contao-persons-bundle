@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 /*
- * This file is part of cgoit\contao-persons-bundle.
+ * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * (c) Carsten Götzinger
- *
- * @license LGPL-3.0-or-later
+ * @copyright  Copyright (c) 2023, cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
  */
 
 use Cgoit\PersonsBundle\Model\PersonModel;
@@ -29,7 +29,7 @@ $GLOBALS['BE_MOD']['content']['person'] = [
 /*
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['executePostActions'][] = ['\\Cgoit\\PersonsBundle\\Picker\\PersonPicker', 'reloadPersonPicker'];
+$GLOBALS['TL_HOOKS']['executePostActions'][] = ['\\'.PersonPicker::class, 'reloadPersonPicker'];
 
 /*
  * Backend styles

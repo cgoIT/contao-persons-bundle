@@ -32,7 +32,7 @@ trait StudioTrait
     /**
      * @param PictureConfiguration|array<mixed>|int|string|null $size
      */
-    protected function getFigure(FilesModel|ImageInterface|int|string|null $identifier, PictureConfiguration|array|int|string|null $size, bool $enableLightbox = false, Metadata $metadata = null): Figure|null
+    protected function getFigure(FilesModel|ImageInterface|int|string|null $identifier, PictureConfiguration|array|int|string|null $size, bool $enableLightbox = false, Metadata|null $metadata = null): Figure|null
     {
         /** @var FigureBuilder $figureBuilder */
         $figureBuilder = $this->studio->createFigureBuilder();

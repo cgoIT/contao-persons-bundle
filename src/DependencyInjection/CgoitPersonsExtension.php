@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 /*
- * This file is part of cgoit\contao-persons-bundle.
+ * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * (c) Carsten Götzinger
- *
- * @license LGPL-3.0-or-later
+ * @copyright  Copyright (c) 2023, cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
  */
 
 namespace Cgoit\PersonsBundle\DependencyInjection;
@@ -21,7 +21,7 @@ class CgoitPersonsExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('listener.yml');
         $loader->load('controller.yml');
         $loader->load('services.yml');

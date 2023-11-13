@@ -31,8 +31,8 @@ class ArrayUtils
                 $arrCurrent,
                 $key + 1,
                 null,
-                true
-            )
+                true,
+            ),
         );
     }
 

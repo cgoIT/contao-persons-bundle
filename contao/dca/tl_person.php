@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 /*
- * This file is part of cgoit\contao-persons-bundle.
+ * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * (c) Carsten Götzinger
- *
- * @license LGPL-3.0-or-later
+ * @copyright  Copyright (c) 2023, cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
  */
 
 use Contao\Backend;
@@ -190,6 +190,6 @@ class tl_person extends Backend
      */
     public function copyPerson(array $row, string $href, string $label, string $title, string $icon, string $attributes): string
     {
-        return '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.StringUtil::specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
+        return '<a href="'.static::addToUrl($href.'&amp;id='.$row['id']).'" title="'.StringUtil::specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ';
     }
 }

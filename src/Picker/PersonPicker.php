@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 /*
- * This file is part of cgoit\contao-persons-bundle.
+ * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * (c) Carsten Götzinger
- *
- * @license LGPL-3.0-or-later
+ * @copyright  Copyright (c) 2023, cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
  */
 
 namespace Cgoit\PersonsBundle\Picker;
@@ -71,8 +71,8 @@ class PersonPicker extends Picker
 
             // Handle the keys in "edit multiple" mode
             if ('editAll' === Input::get('act')) {
-                $intId = preg_replace('/.*_([0-9a-zA-Z]+)$/', '$1', $strField);
-                $strField = preg_replace('/(.*)_[0-9a-zA-Z]+$/', '$1', $strField);
+                $intId = preg_replace('/.*_([0-9a-zA-Z]+)$/', '$1', (string) $strField);
+                $strField = preg_replace('/(.*)_[0-9a-zA-Z]+$/', '$1', (string) $strField);
             }
 
             $dc->field = $strField;

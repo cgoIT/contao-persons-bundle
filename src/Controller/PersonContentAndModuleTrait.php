@@ -148,7 +148,7 @@ trait PersonContentAndModuleTrait
                 $person->position = $arrData['deviatingPosition'];
             }
             $person->personTpl = $arrData['personTpl'] ?: 'person';
-            $person->size = $this->getSize($arrData['size'] ?? null, $person->size);
+            $person->size = static::getSize($arrData['size'] ?? null, $person->size);
         }
 
         return $person;
