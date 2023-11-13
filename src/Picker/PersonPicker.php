@@ -71,8 +71,8 @@ class PersonPicker extends Picker
 
             // Handle the keys in "edit multiple" mode
             if ('editAll' === Input::get('act')) {
-                $intId = preg_replace('/.*_([0-9a-zA-Z]+)$/', '$1', $strField);
-                $strField = preg_replace('/(.*)_[0-9a-zA-Z]+$/', '$1', $strField);
+                $intId = preg_replace('/.*_([0-9a-zA-Z]+)$/', '$1', (string) $strField);
+                $strField = preg_replace('/(.*)_[0-9a-zA-Z]+$/', '$1', (string) $strField);
             }
 
             $dc->field = $strField;
