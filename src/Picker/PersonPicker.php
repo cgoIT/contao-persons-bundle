@@ -15,6 +15,7 @@ namespace Cgoit\PersonsBundle\Picker;
 use Contao\ArrayUtil;
 use Contao\Config;
 use Contao\Controller;
+use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\CoreBundle\Exception\NoContentResponseException;
 use Contao\CoreBundle\Exception\ResponseException;
 use Contao\Database;
@@ -34,17 +35,6 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class PersonPicker extends Picker
 {
     /**
-     * Load the database object.
-     *
-     * @param array<mixed> $arrAttributes
-     */
-    public function __construct($arrAttributes = null)
-    {
-        $this->import(Database::class, 'Database');
-        parent::__construct($arrAttributes);
-    }
-
-    /**
      * Generate the widget and return it as string.
      *
      * @return string
@@ -63,6 +53,7 @@ class PersonPicker extends Picker
      * @throws ResponseException
      * @throws BadRequestHttpException
      */
+    #[AsHook('executePostActions')]
     public function reloadPersonPicker(string $strAction, DataContainer $dc): void
     {
         if ('reloadPersonPicker' === $strAction) {
@@ -84,11 +75,12 @@ class PersonPicker extends Picker
 
             $varValue = null;
 
+            $db = Database::getInstance();
             // Load the value
             if ('overrideAll' !== Input::get('act')) {
                 if (is_a($GLOBALS['TL_DCA'][$dc->table]['config']['dataContainer'] ?? null, DC_File::class, true)) {
                     $varValue = Config::get($strField);
-                } elseif ($intId && $this->Database->tableExists($dc->table)) {
+                } elseif ($intId && $db->tableExists($dc->table)) {
                     $idField = 'id';
 
                     // ID is file path for DC_Folder
@@ -96,7 +88,7 @@ class PersonPicker extends Picker
                         $idField = 'path';
                     }
 
-                    $objRow = $this->Database->prepare('SELECT * FROM '.$dc->table.' WHERE '.$idField.'=?')
+                    $objRow = $db->prepare('SELECT * FROM '.$dc->table.' WHERE '.$idField.'=?')
                         ->execute($intId)
                     ;
 

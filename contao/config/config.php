@@ -26,10 +26,5 @@ $GLOBALS['BE_MOD']['content']['person'] = [
     'tables' => ['tl_person'],
 ];
 
-/*
- * Hooks
- */
-$GLOBALS['TL_HOOKS']['executePostActions'][] = ['\\'.PersonPicker::class, 'reloadPersonPicker'];
-
 // Register Models
 $GLOBALS['TL_MODELS']['tl_person'] = PersonModel::class;
