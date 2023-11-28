@@ -141,7 +141,7 @@ class PersonPicker extends Picker
             $objWidget = new $strClass($strClass::getAttributesFromDca($GLOBALS['TL_DCA'][$dc->table]['fields'][$strField], $dc->inputName, $varValue, $strField, $dc->table, $dc));
             $strResponse = $objWidget->generate();
             if (\is_callable([Controller::class, 'replaceOldBePaths'])) {
-                $strResponse = Controller::replaceOldBePath($strResponse); // @phpstan-ignore-line
+                $strResponse = Controller::replaceOldBePaths($strResponse); // @phpstan-ignore-line
             }
 
             throw new ResponseException(new Response($strResponse));
