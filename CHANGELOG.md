@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.2.2...v1.3.0) (2023-11-28)
+
+
+### Features
+
+* compatibility with contao 5 ([0115ea5](https://github.com/cgoIT/contao-persons-bundle/commit/0115ea5311eec80299fa0fc21be8b72fbd3a9a5d))
+* compatibility with contao 5 ([10db57c](https://github.com/cgoIT/contao-persons-bundle/commit/10db57c2e4ac16be1a4527bda7618ba5c4e79ca6))
+
+
+### Bug Fixes
+
+* fix phpstan error ([b0a8570](https://github.com/cgoIT/contao-persons-bundle/commit/b0a857066472d778c6180243768028ca99b0fca8))
+* fix typo ([d419758](https://github.com/cgoIT/contao-persons-bundle/commit/d419758c4f53bb93149a8ac4dc790f5ae20f708d))
+
 ## [1.2.2](https://github.com/cgoIT/contao-persons-bundle/compare/v1.2.1...v1.2.2) (2023-11-13)
 
 
