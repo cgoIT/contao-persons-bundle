@@ -31,12 +31,5 @@ $GLOBALS['BE_MOD']['content']['person'] = [
  */
 $GLOBALS['TL_HOOKS']['executePostActions'][] = ['\\'.PersonPicker::class, 'reloadPersonPicker'];
 
-/*
- * Backend styles
- */
-if (TL_MODE === 'BE') {
-    $GLOBALS['TL_CSS']['persons'] = 'bundles/cgoitpersons/backend.css|static';
-}
-
 // Register Models
 $GLOBALS['TL_MODELS']['tl_person'] = PersonModel::class;

@@ -21,14 +21,14 @@ use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AsFrontendModule(type: PersonModule::TYPE, category: 'miscellaneous')]
+#[AsFrontendModule(type: PersonModule::TYPE, category: 'miscellaneous', template: 'mod_person')]
 class PersonModule extends AbstractFrontendModuleController implements StudioAwareInterface
 {
     use PersonContentAndModuleTrait;
 
     final public const TYPE = 'person';
 
-    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response|null
+    protected function getResponse(Template $template, ModuleModel $model, Request $request): Response
     {
         $this->addPersonData($template, $model);
 

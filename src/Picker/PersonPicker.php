@@ -111,7 +111,7 @@ class PersonPicker extends Picker
                     }
 
                     $varValue = $objRow->$strField;
-                    $dc->activeRecord = $objRow;
+                    $dc->activeRecord = $objRow; // @phpstan-ignore-line
                 }
             }
 
@@ -135,7 +135,7 @@ class PersonPicker extends Picker
                 $varValue = StringUtil::trimsplit("\t", $varValue);
 
                 // Keep the previous sorting order when reloading the widget
-                if ($dc->activeRecord) {
+                if ($dc->activeRecord) { // @phpstan-ignore-line
                     $varValue = ArrayUtil::sortByOrderField($varValue, $dc->activeRecord->$strField);
                 }
 
@@ -147,8 +147,12 @@ class PersonPicker extends Picker
 
             /** @var Picker $objWidget */
             $objWidget = new $strClass($strClass::getAttributesFromDca($GLOBALS['TL_DCA'][$dc->table]['fields'][$strField], $dc->inputName, $varValue, $strField, $dc->table, $dc));
+            $strResponse = $objWidget->generate();
+            if (\is_callable([Controller::class, 'replaceOldBePaths'])) {
+                $strResponse = Controller::replaceOldBePath($strResponse); // @phpstan-ignore-line
+            }
 
-            throw new ResponseException(new Response(Controller::replaceOldBePaths($objWidget->generate())));
+            throw new ResponseException(new Response($strResponse));
         }
     }
 

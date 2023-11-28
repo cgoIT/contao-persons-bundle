@@ -21,14 +21,14 @@ use Contao\Template;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AsContentElement(type: PersonElement::TYPE, category: 'includes')]
+#[AsContentElement(type: PersonElement::TYPE, category: 'includes', template: 'ce_person')]
 class PersonElement extends AbstractContentElementController implements StudioAwareInterface
 {
     use PersonContentAndModuleTrait;
 
     final public const TYPE = 'person';
 
-    protected function getResponse(Template $template, ContentModel $model, Request $request): Response|null
+    protected function getResponse(Template $template, ContentModel $model, Request $request): Response
     {
         $this->addPersonData($template, $model);
 
