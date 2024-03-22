@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.4.0...v2.0.0) (2024-03-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* Compatibility with only Contao 5 due to use of FragmentTemplate
+
+### Features
+
+* Compatibility with only Contao 5 due to use of FragmentTemplate ([5f8d9d4](https://github.com/cgoIT/contao-persons-bundle/commit/5f8d9d44c6a766052339c92c18065e702bedf13e))
+
 ## [1.4.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.3.0...v1.4.0) (2024-03-22)
 
 
