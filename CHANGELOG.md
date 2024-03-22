@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.3.0...v1.4.0) (2024-03-22)
+
+
+### Features
+
+* compatibility with php 8.3 and contao 5 ([e1d72be](https://github.com/cgoIT/contao-persons-bundle/commit/e1d72be438b59bbac01441fe4d8d62a949fc0774))
+
 ## [1.3.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.2.2...v1.3.0) (2023-11-28)
 
 
