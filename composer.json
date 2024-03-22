@@ -16,8 +16,8 @@
         "source": "https://github.com/cgoIT/contao-persons-bundle"
     },
     "require": {
-        "php": "^8.1 || ^8.2",
-        "contao/core-bundle": "^4.13 || ^5.2",
+        "php": "^8.1 || ^8.2 || ^8.3",
+        "contao/core-bundle": "^4.13 || ^5.3",
         "symfony/config": "^5.4 || ^6.1",
         "symfony/dependency-injection": "^5.4 || ^6.1",
         "symfony/http-kernel": "^5.4 || ^6.1",

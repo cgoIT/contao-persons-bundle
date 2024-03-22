@@ -16,10 +16,10 @@ use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Codefog\TagsBundle\Tag;
 use Contao\ContentModel;
+use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\Model;
 use Contao\ModuleModel;
 use Contao\StringUtil;
-use Contao\Template;
 
 trait PersonContentAndModuleTrait
 {
@@ -32,7 +32,7 @@ trait PersonContentAndModuleTrait
         $this->personTagsManager = $manager;
     }
 
-    protected function addPersonData(Template $template, Model $model): void
+    protected function addPersonData(FragmentTemplate $template, Model $model): void
     {
         $arrPersons = [];
 
