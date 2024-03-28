@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.0.0...v2.1.0) (2024-03-28)
+
+
+### Features
+
+* add schema.org data to templates ([2a23fa5](https://github.com/cgoIT/contao-persons-bundle/commit/2a23fa5b10cbacf93d4552c975acd151b2046d02))
+* make contact information types configurable ([6a33544](https://github.com/cgoIT/contao-persons-bundle/commit/6a33544265fa5837c422a5657f6efecede2ef871))
+
 ## [2.0.0](https://github.com/cgoIT/contao-persons-bundle/compare/v1.4.0...v2.0.0) (2024-03-22)
 
 
