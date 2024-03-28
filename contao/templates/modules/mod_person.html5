@@ -5,8 +5,9 @@
     <div class="persons">
     <?php foreach ($this->persons as $person): ?>
         <?php $this->insert($person->personTpl, $person->arrData); ?>
+        <!-- add schema.org data -->
+        <?php $this->addSchemaOrg($this->getSchemaOrgData($person)); ?>
     <?php endforeach; ?>
     </div>
 
 <?php $this->endblock(); ?>
-

@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\Controller;
 
+use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Codefog\TagsBundle\Tag;
@@ -20,6 +21,7 @@ use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\Model;
 use Contao\ModuleModel;
 use Contao\StringUtil;
+use Contao\System;
 
 trait PersonContentAndModuleTrait
 {
@@ -36,16 +38,22 @@ trait PersonContentAndModuleTrait
     {
         $arrPersons = [];
 
+        $arrContactTypes = (array) System::getContainer()->getParameter('cgoit_persons.contact_types');
+        $contactInfoTypeHelper = System::getContainer()->get(ContactInfoTypeHelper::class);
+
         switch ($model->selectPersonsBy) {
             case 'personsByTag':
-                $this->addPersonsByTag($model, $arrPersons);
+                $this->addPersonsByTag($model, $arrPersons, $contactInfoTypeHelper);
                 break;
             case 'personsById':
-                $this->addPersonsById($model, $arrPersons);
+                $this->addPersonsById($model, $arrPersons, $contactInfoTypeHelper);
                 break;
         }
 
         $template->persons = $arrPersons;
+
+        // schema.org information
+        $template->getSchemaOrgData = static fn ($person): array => self::getSchemaOrgData($person, $arrContactTypes);
     }
 
     protected static function getSize(string|null $size, string $fallbackSize): string
@@ -59,10 +67,41 @@ trait PersonContentAndModuleTrait
         return \count($arrNotEmpty) ? $size : $fallbackSize;
     }
 
+    protected static function getSchemaOrgData(object $objPerson, array $arrContactTypes): array
+    {
+        $htmlDecoder = System::getContainer()->get('contao.string.html_decoder');
+
+        $jsonLd = [
+            '@type' => 'Person',
+            'identifier' => '#/schema/persons/'.$objPerson->id,
+            'name' => $htmlDecoder->inputEncodedToPlainText($objPerson->firstName.' '.$objPerson->name),
+        ];
+
+        if (!empty($objPerson->position)) {
+            $jsonLd['jobTitle'] = $htmlDecoder->inputEncodedToPlainText($objPerson->position);
+        }
+
+        foreach ($arrContactTypes as $type => $config) {
+            if (empty($config['schema_org_type'])) {
+                continue;
+            }
+
+            if (!empty($objPerson->{$type})) {
+                $jsonLd[$config['schema_org_type']] = $htmlDecoder->inputEncodedToPlainText($objPerson->{$type});
+            }
+        }
+
+        if (!empty($objPerson->figure)) {
+            $jsonLd['image'] = $objPerson->figure->getSchemaOrgData();
+        }
+
+        return $jsonLd;
+    }
+
     /**
      * @param array<mixed> $arrPersons
      */
-    private function addPersonsByTag(Model $model, array &$arrPersons): void
+    private function addPersonsByTag(Model $model, array &$arrPersons, ContactInfoTypeHelper $contactInfoTypeHelper): void
     {
         $source = null;
 
@@ -97,7 +136,7 @@ trait PersonContentAndModuleTrait
                         $arrPersonIds = array_filter($arrPersonIds, fn ($person) => $this->hasAllTags($person, $arrTagIds));
                     }
 
-                    $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersonIds);
+                    $arrPersons = array_map(fn ($person) => $this->preparePerson($person, $contactInfoTypeHelper), $arrPersonIds);
                 }
             }
         }
@@ -126,13 +165,13 @@ trait PersonContentAndModuleTrait
     /**
      * @param array<mixed> $arrPersons
      */
-    private function addPersonsById(Model $model, array &$arrPersons): void
+    private function addPersonsById(Model $model, array &$arrPersons, ContactInfoTypeHelper $contactInfoTypeHelper): void
     {
         if (null !== $model->persons) {
             $arrPersons = StringUtil::deserialize($model->persons);
             $arrPersons = array_map(fn ($arrPerson) => $this->loadPerson($arrPerson), $arrPersons);
             $arrPersons = array_filter($arrPersons, static fn ($person) => null !== $person && !$person->invisible);
-            $arrPersons = array_map(fn ($person) => $this->preparePerson($person), $arrPersons);
+            $arrPersons = array_map(fn ($person) => $this->preparePerson($person, $contactInfoTypeHelper), $arrPersons);
         }
     }
 
@@ -154,10 +193,14 @@ trait PersonContentAndModuleTrait
         return $person;
     }
 
-    private function preparePerson(Model $person): object
+    /**
+     * @return \stdClass
+     */
+    private function preparePerson(Model $person, ContactInfoTypeHelper $contactInfoTypeHelper): object
     {
         $p = new \stdClass();
 
+        $p->id = $person->id;
         $p->personTpl = $person->personTpl;
         $p->firstName = $person->firstName;
         $p->name = $person->name;
@@ -165,9 +208,17 @@ trait PersonContentAndModuleTrait
 
         $arrContactInformation = StringUtil::deserialize($person->contactInformation, true);
 
+        $contactInfos = [];
+
         foreach ($arrContactInformation as $info) {
+            $label = $contactInfoTypeHelper->getLabel($info['type']);
+
             $p->{$info['type']} = $info['value'];
+            $p->{$info['type'].'_label'} = $label;
+
+            $contactInfos[] = ['type' => $info['type'], 'label' => $label, 'value' => $info['value']];
         }
+        $p->contactInfos = $contactInfos;
 
         $p->tags = $this->getPersonTags($person);
 
