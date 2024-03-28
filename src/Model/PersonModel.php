@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\Model;
 
 use Codefog\TagsBundle\Tag;
-use Contao\CoreBundle\File\ModelMetadataTrait;
 use Contao\Model;
 use Contao\Model\Collection;
+use Contao\Model\MetadataTrait;
 
 /**
  * add properties for IDE support.
@@ -35,7 +35,7 @@ use Contao\Model\Collection;
  */
 class PersonModel extends Model
 {
-    use ModelMetadataTrait;
+    use MetadataTrait;
 
     protected static $strTable = 'tl_person';
 }

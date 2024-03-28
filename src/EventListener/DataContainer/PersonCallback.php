@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\EventListener\DataContainer;
 
+use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
@@ -34,9 +35,14 @@ class PersonCallback implements FrameworkAwareInterface
 
     private readonly PictureConfiguration $imgSize;
 
+    /**
+     * @param array<mixed> $arrContactInfoTypes
+     */
     public function __construct(
         private readonly RequestStack $requestStack,
         private readonly Studio $studio,
+        private readonly array $arrContactInfoTypes,
+        private readonly ContactInfoTypeHelper $contactInfoTypeHelper,
         private readonly DefaultManager $personTagsManager,
     ) {
         $this->imgSize = self::getImgSize();
@@ -119,6 +125,20 @@ class PersonCallback implements FrameworkAwareInterface
         }
 
         return $arrLabels;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function getContactInformationTypes(): array
+    {
+        $arrOptions = [];
+
+        foreach (array_keys($this->arrContactInfoTypes) as $type) {
+            $arrOptions[$type] = $this->contactInfoTypeHelper->getLabel($type);
+        }
+
+        return $arrOptions;
     }
 
     private static function getImgSize(): PictureConfiguration

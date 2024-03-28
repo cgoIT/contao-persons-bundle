@@ -21,7 +21,20 @@ class CgoitPersonsExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../../config'));
         $loader->load('services.yml');
+
+        $container->setParameter('cgoit_persons.contact_types', $config['contact_types']);
+    }
+
+    /**
+     * @param array<mixed> $config
+     */
+    public function getConfiguration(array $config, ContainerBuilder $container): Configuration
+    {
+        return new Configuration();
     }
 }

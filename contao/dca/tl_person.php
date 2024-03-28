@@ -10,6 +10,7 @@ declare(strict_types=1);
  * @license    LGPL-3.0-or-later
  */
 
+use Cgoit\PersonsBundle\EventListener\DataContainer\PersonCallback;
 use Contao\Backend;
 use Contao\DataContainer;
 use Contao\DC_Table;
@@ -160,8 +161,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
                 'type' => [
                     'label' => &$GLOBALS['TL_LANG']['tl_person']['contactInformation_type'],
                     'inputType' => 'select',
-                    'options' => ['email', 'phone', 'mobile', 'website'],
-                    'reference' => &$GLOBALS['TL_LANG']['tl_person']['contactInformation_type_options'],
+                    'options_callback' => [PersonCallback::class, 'getContactInformationTypes'],
                     'eval' => ['mandatory' => true, 'includeBlankOption' => true, 'tl_class' => 'w50'],
                 ],
                 'value' => [

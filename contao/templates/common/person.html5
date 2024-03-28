@@ -1,30 +1,20 @@
 <div class="ce_text block person">
     <div class="body">
         <div class="container">
-            <?php $this->insert('image', $this->arrData); ?>
+            <?php if (!empty($this->figure)): ?>
+                <?php $this->insert('image', $this->arrData); ?>
+            <?php endif; ?>
 
             <h5><?= $this->firstName ?> <?= $this->name ?></h5>
             <h6><?= $this->position ?></h6>
 
             <div class="info">
-                <?php if ($this->phone): ?>
-                    <div class="info_entry person_phone">
-                        <i class="fas fa-phone"></i>
-                        <a href="tel:<?= preg_replace('/[^0-9.]+/', '', (string) $this->phone) ?>"><?= $this->phone ?></a>
+                <?php foreach ($this->contactInfos as $contactInfo): ?>
+                    <div class="info_entry person <?= $contactInfo['type'] ?>">
+                        <span class="label"><?= $contactInfo['label'] ?></span>
+                        <span class="value"><?= $contactInfo['value'] ?></span>
                     </div>
-                <?php endif; ?>
-                <?php if ($this->mobile): ?>
-                    <div class="info_entry person_mobile">
-                        <i class="fas fa-mobile-alt"></i>
-                        <a href="tel:<?= preg_replace('/[^0-9.]+/', '', (string) $this->mobile) ?>"><?= $this->mobile ?></a>
-                    </div>
-                <?php endif; ?>
-                <?php if ($this->email): ?>
-                    <div class="info_entry person_email">
-                        <i class="far fa-envelope"></i>
-                        <a href="mailto:<?= $this->email ?>"><?= $this->email ?></a>
-                    </div>
-                <?php endif; ?>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>

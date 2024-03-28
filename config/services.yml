@@ -5,6 +5,8 @@ services:
         public: false
         bind:
             $personTagsManager: '@codefog_tags.manager.person_tags'
+            $translator: '@contao.translation.translator'
+            $arrContactInfoTypes: '%cgoit_persons.contact_types%'
 
     _instanceof:
         Cgoit\PersonsBundle\Controller\StudioAwareInterface:
@@ -33,6 +35,9 @@ services:
     Cgoit\PersonsBundle\Controller\Module\PersonModule:
         calls:
             - [ 'setPersonTagsManager', [ '@codefog_tags.manager.person_tags' ] ]
+
+    Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper:
+        public: true
 
     person.migration.migrate_contact_information:
         class: Cgoit\PersonsBundle\Migration\CopyContactInformationMigration
