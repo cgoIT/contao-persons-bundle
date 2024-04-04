@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/cgoit/contao-persons-bundle/contao/languages/en/modules.php" source-language="en">
+    <body>
+      <trans-unit id="MOD.person.0">
+        <source>Persons</source>
+      </trans-unit>
+      <trans-unit id="MOD.person.1">
+        <source>Manage persons who need to be displayed more frequently in the frontend</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

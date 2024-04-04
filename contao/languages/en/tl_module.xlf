@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/cgoit/contao-persons-bundle/contao/languages/en/tl_module.php" source-language="en">
+    <body>
+      <trans-unit id="tl_module.person_legend">
+        <source>Settings for persons</source>
+      </trans-unit>
+      <trans-unit id="tl_module.selectPersonsBy.0">
+        <source>Type of person selection</source>
+      </trans-unit>
+      <trans-unit id="tl_module.selectPersonsBy.1">
+        <source>The persons to be displayed in the frontend can be selected either by one or more keywords or by their unique ID</source>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.selectPersonsBy.personsByTag">
+        <source>Selection based on keywords</source>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.selectPersonsBy.personsById">
+        <source>manual selection</source>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personTagsCombination.and">
+        <source>... for which all specified keywords are set</source>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personTagsCombination.or">
+        <source>... for which at least one of the specified keywords is set</source>
+      </trans-unit>
+      <trans-unit id="tl_module.personTags.0">
+        <source>Keywords</source>
+      </trans-unit>
+      <trans-unit id="tl_module.personTags.1">
+        <source>Persons with the specified keywords are displayed in the frontend</source>
+      </trans-unit>
+      <trans-unit id="tl_module.personTagsCombination.0">
+        <source>Select persons...</source>
+      </trans-unit>
+      <trans-unit id="tl_module.persons.0">
+        <source>Persons</source>
+      </trans-unit>
+      <trans-unit id="tl_module.persons.1">
+        <source>These persons are displayed in the frontend</source>
+      </trans-unit>
+      <trans-unit id="tl_module.person_person.0">
+        <source>Person</source>
+      </trans-unit>
+      <trans-unit id="tl_module.person_person.1">
+        <source>This person is displayed in the frontend</source>
+      </trans-unit>
+      <trans-unit id="tl_module.person_deviatingPosition.0">
+        <source>Deviating position</source>
+      </trans-unit>
+      <trans-unit id="tl_module.person_deviatingPosition.1">
+        <source>Position of the person, if different</source>
+      </trans-unit>
+      <trans-unit id="tl_module.person_customTpl.0">
+        <source>Individual person template</source>
+      </trans-unit>
+      <trans-unit id="tl_module.person_customTpl.1">
+        <source>Individual template for displaying the person</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.1">
+  <file datatype="php" original="vendor/cgoit/contao-persons-bundle/contao/languages/en/tl_person.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_person.title_legend">
+        <source>General data</source>
+        <target>Allgemeine Daten</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contact_legend">
+        <source>Contact details</source>
+        <target>Kontaktdaten</target>
+      </trans-unit>
+      <trans-unit id="tl_person.visible_legend">
+        <source>Visibility settings</source>
+        <target>Sichtbarkeits-Einstellungen</target>
+      </trans-unit>
+      <trans-unit id="tl_person.toggleVisible">
+        <source>Show/don't show this person in the frontend</source>
+        <target>Diese Person im Frontend anzeigen/nicht anzeigen.</target>
+      </trans-unit>
+      <trans-unit id="tl_person.firstName.0">
+        <source>First name</source>
+        <target>Vorname</target>
+      </trans-unit>
+      <trans-unit id="tl_person.firstName.1">
+        <source>First name of person</source>
+        <target>Vorname der Person</target>
+      </trans-unit>
+      <trans-unit id="tl_person.name.0">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="tl_person.name.1">
+        <source>Name of the person</source>
+        <target>Name der Person</target>
+      </trans-unit>
+      <trans-unit id="tl_person.position.0">
+        <source>Position/Role</source>
+        <target>Position/Funktion</target>
+      </trans-unit>
+      <trans-unit id="tl_person.position.1">
+        <source>Position/Role of the person, e.g. "chairman" or "supervisor"</source>
+        <target>Position/Funktion der Person, z.B. "Vorsitzender" oder "Betreuer"</target>
+      </trans-unit>
+      <trans-unit id="tl_person.singleSRC.0">
+        <source>Photo</source>
+        <target>Foto</target>
+      </trans-unit>
+      <trans-unit id="tl_person.singleSRC.1">
+        <source>Photo of the person</source>
+        <target>Foto der Person</target>
+      </trans-unit>
+      <trans-unit id="tl_person.tags.0">
+        <source>Keywords</source>
+        <target>Schlagworte</target>
+      </trans-unit>
+      <trans-unit id="tl_person.tags.1">
+        <source>Assign keywords for this person</source>
+        <target>Vergeben Sie Schlagworte für diese Person.</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation.0">
+        <source>Contact information</source>
+        <target>Kontaktinformationen</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation.1">
+        <source>Various contact information for the person</source>
+        <target>Verschiedene Kontaktinformationen zur Person</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_type.0">
+        <source>Type</source>
+        <target>Typ</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_type.1">
+        <source>Type of contact information</source>
+        <target>Art der Kontaktinformation</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_value.0">
+        <source>Value</source>
+        <target>Wert</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_value.1">
+        <source>Value of the contact information</source>
+        <target>Wert der Kontaktinformation</target>
+      </trans-unit>
+      <trans-unit id="tl_person.email.0">
+        <source>Email address</source>
+        <target>Email-Adresse</target>
+      </trans-unit>
+      <trans-unit id="tl_person.email.1">
+        <source>Email address of the person</source>
+        <target>Email-Adresse der Person</target>
+      </trans-unit>
+      <trans-unit id="tl_person.phone.0">
+        <source>Phone number</source>
+        <target>Telefonnummer</target>
+      </trans-unit>
+      <trans-unit id="tl_person.phone.1">
+        <source>Phone number of the person</source>
+        <target>Telefonnummer der Person</target>
+      </trans-unit>
+      <trans-unit id="tl_person.mobile.0">
+        <source>Cell phone number</source>
+        <target>Handynummer</target>
+      </trans-unit>
+      <trans-unit id="tl_person.mobile.1">
+        <source>Person's cell phone number</source>
+        <target>Handynummer der Person</target>
+      </trans-unit>
+      <trans-unit id="tl_person.invisible.0">
+        <source>Hide in frontend</source>
+        <target>im Frontend ausblenden</target>
+      </trans-unit>
+      <trans-unit id="tl_person.invisible.1">
+        <source>Never show person in frontend</source>
+        <target>Person im Frontend nie anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_type_options.email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_type_options.phone">
+        <source>Phone</source>
+        <target>Telefon</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_type_options.mobile">
+        <source>Mobile</source>
+        <target>Mobil</target>
+      </trans-unit>
+      <trans-unit id="tl_person.contactInformation_type_options.website">
+        <source>Website</source>
+        <target>Webseite</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
