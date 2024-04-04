@@ -1,6 +1,7 @@
 # Contao 4 Persons Bundle
 
 [![](https://img.shields.io/packagist/v/cgoit/contao-persons-bundle.svg)](https://packagist.org/packages/cgoit/contao-persons-bundle)
+![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FcgoIT%2Fcontao-persons-bundle%2Fmain%2Fcomposer.json&query=%24.require%5B%22contao%2Fcore-bundle%22%5D&label=Contao%20Version)
 [![](https://img.shields.io/packagist/dt/cgoit/contao-persons-bundle.svg)](https://packagist.org/packages/cgoit/contao-persons-bundle)
 [![CI](https://github.com/cgoIT/contao-persons-bundle/actions/workflows/ci.yml/badge.svg)](https://github.com/cgoIT/contao-persons-bundle/actions/workflows/ci.yml)
 
