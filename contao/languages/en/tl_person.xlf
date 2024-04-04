@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<xliff version="1.1">
+<?xml version="1.0" ?><xliff version="1.1">
   <file datatype="php" original="vendor/cgoit/contao-persons-bundle/contao/languages/en/tl_person.php" source-language="en">
     <body>
       <trans-unit id="tl_person.title_legend">
@@ -30,7 +29,7 @@
         <source>Position/Role</source>
       </trans-unit>
       <trans-unit id="tl_person.position.1">
-        <source>Position/Role of the person, e.g. "chairman" or "supervisor"</source>
+        <source>Position/Role of the person, e.g. &quot;chairman&quot; or &quot;supervisor&quot;</source>
       </trans-unit>
       <trans-unit id="tl_person.singleSRC.0">
         <source>Photo</source>
