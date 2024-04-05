@@ -1,0 +1,10 @@
+basepath = "."
+
+locales = [
+    "en",
+    "de",
+]
+
+[[paths]]
+    reference = "contao/languages/en/*.xlf"
+    l10n = "contao/languages/{locale}/*.xlf"
