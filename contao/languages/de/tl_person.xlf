@@ -1,4 +1,5 @@
-<?xml version="1.0" ?><xliff version="1.1">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.1">
   <file datatype="php" original="contao/languages/en/tl_person.php" source-language="en" target-language="de">
     <body>
       <trans-unit id="tl_person.title_legend">
@@ -13,9 +14,9 @@
         <source>Visibility settings</source>
         <target>Sichtbarkeits-Einstellungen</target>
       </trans-unit>
-      <trans-unit id="tl_person.toggleVisible">
+      <trans-unit id="tl_person.toggleVisible" xml:space="preserve" approved="no">
         <source>Show/don't show this person in the frontend</source>
-        <target>Diese Person im Frontend anzeigen/nicht anzeigen.</target>
+        <target state="translated">Diese Person im Frontend anzeigen/nicht anzeigen</target>
       </trans-unit>
       <trans-unit id="tl_person.firstName.0">
         <source>First name</source>
@@ -38,8 +39,8 @@
         <target>Position/Funktion</target>
       </trans-unit>
       <trans-unit id="tl_person.position.1">
-        <source>Position/Role of the person, e.g. &quot;chairman&quot; or &quot;supervisor&quot;</source>
-        <target>Position/Funktion der Person, z.B. &quot;Vorsitzender&quot; oder &quot;Betreuer&quot;</target>
+        <source>Position/Role of the person, e.g. "chairman" or "supervisor"</source>
+        <target>Position/Funktion der Person, z.B. "Vorsitzender" oder "Betreuer"</target>
       </trans-unit>
       <trans-unit id="tl_person.singleSRC.0">
         <source>Photo</source>
@@ -53,9 +54,9 @@
         <source>Keywords</source>
         <target>Schlagworte</target>
       </trans-unit>
-      <trans-unit id="tl_person.tags.1">
+      <trans-unit id="tl_person.tags.1" xml:space="preserve" approved="no">
         <source>Assign keywords for this person</source>
-        <target>Vergeben Sie Schlagworte für diese Person.</target>
+        <target state="translated">Vergeben Sie Schlagworte für diese Person</target>
       </trans-unit>
       <trans-unit id="tl_person.contactInformation.0">
         <source>Contact information</source>
