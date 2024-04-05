@@ -20,7 +20,6 @@ $GLOBALS['TL_DCA']['tl_module']['subpalettes']['selectPersonsBy_personsById'] = 
 
 $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
     ['selectPersonsBy' => [
-        'label' => &$GLOBALS['TL_LANG']['tl_module']['selectPersonsBy'],
         'exclude' => true,
         'inputType' => 'radio',
         'options' => ['personsByTag', 'personsById'],
@@ -29,7 +28,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
         'sql' => "char(20) NOT NULL default ''",
     ]],
     ['personTags' => [
-        'label' => &$GLOBALS['TL_LANG']['tl_module']['personTags'],
         'exclude' => true,
         'inputType' => 'cfgTags',
         'eval' => [
@@ -41,7 +39,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
         ],
     ]],
     ['personTagsCombination' => [
-        'label' => &$GLOBALS['TL_LANG']['tl_module']['personTagsCombination'],
         'exclude' => true,
         'inputType' => 'radio',
         'default' => 'and',
@@ -65,7 +62,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
         'sql' => "varchar(64) NOT NULL default ''",
     ]],
     ['persons' => [
-        'label' => &$GLOBALS['TL_LANG']['tl_module']['persons'],
         'exclude' => false,
         'inputType' => 'group',
         'palette' => ['person', 'imgSize', 'deviatingPosition', 'personTpl'],

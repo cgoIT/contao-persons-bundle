@@ -103,7 +103,6 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => 'int(10) unsigned NOT NULL default 0',
         ],
         'firstName' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['firstName'],
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
@@ -111,7 +110,6 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => "varchar(255) NULL default ''",
         ],
         'name' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['name'],
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
@@ -119,7 +117,6 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => "varchar(255) NULL default ''",
         ],
         'position' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['position'],
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
@@ -127,7 +124,6 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => "varchar(255) NULL default ''",
         ],
         'tags' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['tags'],
             'exclude' => false,
             'filter' => true,
             'inputType' => 'cfgTags',
@@ -138,7 +134,6 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             ],
         ],
         'singleSRC' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['singleSRC'],
             'exclude' => true,
             'inputType' => 'fileTree',
             'eval' => ['mandatory' => true, 'filesOnly' => true, 'fieldType' => 'radio', 'extensions' => '%contao.image.valid_extensions%', 'tl_class' => 'clr'],
@@ -153,7 +148,6 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => "varchar(128) COLLATE ascii_bin NOT NULL default ''",
         ],
         'contactInformation' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['contactInformation'],
             'exclude' => false,
             'inputType' => 'group',
             'palette' => ['type', 'value'],
@@ -173,7 +167,6 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => 'text NULL',
         ],
         'invisible' => [
-            'label' => &$GLOBALS['TL_LANG']['tl_person']['noUpdate'],
             'exclude' => true,
             'filter' => true,
             'inputType' => 'checkbox',
