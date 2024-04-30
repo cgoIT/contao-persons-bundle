@@ -1,5 +1,35 @@
 # Changelog
 
+## [2.2.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.1.0...v2.2.0) (2024-04-30)
+
+
+### Features
+
+* convert language files to xliff ([1f12a0b](https://github.com/cgoIT/contao-persons-bundle/commit/1f12a0b617e9e10d5f756b451b5d5ec5be234da4))
+
+
+### Bug Fixes
+
+* change absolute to relative path in translation files ([be0c0a5](https://github.com/cgoIT/contao-persons-bundle/commit/be0c0a5e2ed843ef3bfef29a4906a09a8af51780))
+* delete old translation files ([b7ebfc1](https://github.com/cgoIT/contao-persons-bundle/commit/b7ebfc1a555a90abf15cbea0f2f1d54223de219d))
+* Translate default.xlf in de ([8451fd4](https://github.com/cgoIT/contao-persons-bundle/commit/8451fd46d3a267b277ece82ef9008f44a9de54c1))
+* Translate modules.xlf in de [Manual Sync] ([fd8811b](https://github.com/cgoIT/contao-persons-bundle/commit/fd8811ba659345701a9e1f4e2b9af1d3d008f1d0))
+* Translate tl_content.xlf in de [Manual Sync] ([2be9591](https://github.com/cgoIT/contao-persons-bundle/commit/2be9591645db89261f9c87106445c5c648bfe8c6))
+* Translate tl_module.xlf in de [Manual Sync] ([313364c](https://github.com/cgoIT/contao-persons-bundle/commit/313364c9e92c2d479ffd130b04713f00d6e570b1))
+* Translate tl_person.xlf in de [Manual Sync] ([130211a](https://github.com/cgoIT/contao-persons-bundle/commit/130211a4532c2b55be526f532b59ce7bea5901ea))
+* translated using Weblate (German) ([ded026a](https://github.com/cgoIT/contao-persons-bundle/commit/ded026aade345267a9a343c936ae6f03f6950011))
+* Updating contao/languages/en/default.xlf ([7d22f5b](https://github.com/cgoIT/contao-persons-bundle/commit/7d22f5bc9dc287cc1402c4087e2842615976eb40))
+* Updating contao/languages/en/modules.xlf ([1f05947](https://github.com/cgoIT/contao-persons-bundle/commit/1f059472a4d892c1f4c27dec89b59b5151c696da))
+* Updating contao/languages/en/tl_content.xlf ([0cd1c2f](https://github.com/cgoIT/contao-persons-bundle/commit/0cd1c2f1d11dd3a2f5563581acea8858f32515c5))
+* Updating contao/languages/en/tl_module.xlf ([d4840a2](https://github.com/cgoIT/contao-persons-bundle/commit/d4840a266c8099351602df94d6c38d51289ed28b))
+* Updating contao/languages/en/tl_person.xlf ([c59f307](https://github.com/cgoIT/contao-persons-bundle/commit/c59f3073643fbf563850192beaf22e0d80938f3b))
+
+
+### Miscellaneous Chores
+
+* add shadow dependencies ([905b766](https://github.com/cgoIT/contao-persons-bundle/commit/905b7663fd285518f8ab17fd41643607727ba719))
+* fix depcheck config ([c0e6b08](https://github.com/cgoIT/contao-persons-bundle/commit/c0e6b08374b2ca7c3c2cede8b3757051eac7ee7d))
+
 ## [2.1.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.0.0...v2.1.0) (2024-03-28)
 
 
