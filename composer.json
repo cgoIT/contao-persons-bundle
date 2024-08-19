@@ -21,7 +21,7 @@
         "doctrine/dbal": "^3.3",
         "symfony/config": "^6.1",
         "symfony/dependency-injection": "^6.1",
-        "symfony/event-dispatcher": "^6.1",
+        "symfony/event-dispatcher": "^7.1",
         "symfony/http-foundation": "^6.1",
         "symfony/http-kernel": "^6.1",
         "codefog/contao-haste": "^5.1",
