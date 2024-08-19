@@ -30,7 +30,7 @@
     },
     "require-dev": {
         "contao/manager-plugin": "^2.0",
-        "phpunit/phpunit": "^10.3",
+        "phpunit/phpunit": "^11.3",
         "terminal42/contao-build-tools": "dev-main"
     },
     "conflict": {
