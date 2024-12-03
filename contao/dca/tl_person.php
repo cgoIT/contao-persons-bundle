@@ -97,31 +97,31 @@ $GLOBALS['TL_DCA']['tl_person'] = [
     // Fields
     'fields' => [
         'id' => [
-            'sql' => 'int(10) unsigned NOT NULL auto_increment',
+            'sql' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'autoincrement' => true],
         ],
         'tstamp' => [
-            'sql' => 'int(10) unsigned NOT NULL default 0',
+            'sql' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'default' => 0],
         ],
         'firstName' => [
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
-            'sql' => "varchar(255) NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'name' => [
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
-            'sql' => "varchar(255) NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'position' => [
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
             'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
-            'sql' => "varchar(255) NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'tags' => [
             'exclude' => false,
@@ -137,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'exclude' => true,
             'inputType' => 'fileTree',
             'eval' => ['mandatory' => true, 'filesOnly' => true, 'fieldType' => 'radio', 'extensions' => '%contao.image.valid_extensions%', 'tl_class' => 'clr'],
-            'sql' => 'binary(16) NULL',
+            'sql' => ['type' => 'binary', 'length' => 16, 'fixed' => true, 'notnull' => false],
         ],
         'size' => [
             'label' => &$GLOBALS['TL_LANG']['MSC']['imgSize'],
@@ -145,7 +145,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'reference' => &$GLOBALS['TL_LANG']['MSC'],
             'options_callback' => ['contao.listener.image_size_options', '__invoke'],
             'eval' => ['mandatory' => true, 'rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'clr w50'],
-            'sql' => "varchar(128) COLLATE ascii_bin NOT NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 128, 'default' => '', 'customSchemaOptions' => ['collation' => 'ascii_bin']],
         ],
         'contactInformation' => [
             'exclude' => false,
@@ -164,14 +164,14 @@ $GLOBALS['TL_DCA']['tl_person'] = [
                     'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
                 ],
             ],
-            'sql' => 'text NULL',
+            'sql' => ['type' => 'text', 'length' => 65535, 'notnull' => false],
         ],
         'invisible' => [
             'exclude' => true,
             'filter' => true,
             'inputType' => 'checkbox',
             'eval' => ['doNotCopy' => true, 'tl_class' => 'w50 m12'],
-            'sql' => "char(1) NOT NULL default ''",
+            'sql' => ['type' => 'string', 'length' => 1, 'fixed' => true, 'default' => ''],
         ],
     ],
 ];

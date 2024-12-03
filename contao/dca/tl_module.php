@@ -25,7 +25,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
         'options' => ['personsByTag', 'personsById'],
         'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['selectPersonsBy'],
         'eval' => ['mandatory' => true, 'submitOnChange' => true, 'tl_class' => 'w50 m12'],
-        'sql' => "char(20) NOT NULL default ''",
+        'sql' => ['type' => 'string', 'length' => 20, 'fixed' => true, 'default' => ''],
     ]],
     ['personTags' => [
         'exclude' => true,
@@ -45,7 +45,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
         'options' => ['and', 'or'],
         'reference' => &$GLOBALS['TL_LANG']['tl_module']['reference']['personTagsCombination'],
         'eval' => ['mandatory' => true, 'tl_class' => 'w50'],
-        'sql' => "char(5) NOT NULL default ''",
+        'sql' => ['type' => 'string', 'length' => 5, 'fixed' => true, 'default' => ''],
     ]],
     ['person' => [
         'label' => &$GLOBALS['TL_LANG']['tl_module']['person_person'],
@@ -59,7 +59,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
         'inputType' => 'select',
         'options_callback' => static fn () => Controller::getTemplateGroup('person'),
         'eval' => ['mandatory' => false, 'chosen' => true, 'includeBlankOption' => true, 'tl_class' => 'clr w50'],
-        'sql' => "varchar(64) NOT NULL default ''",
+        'sql' => ['type' => 'string', 'length' => 64, 'default' => ''],
     ]],
     ['persons' => [
         'exclude' => false,
@@ -73,7 +73,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields'] = array_merge(
             ],
         ],
         'min' => 1,
-        'sql' => 'text NULL',
+        'sql' => ['type' => 'text', 'length' => 65535, 'notnull' => false],
     ]],
     $GLOBALS['TL_DCA']['tl_module']['fields'],
 );
