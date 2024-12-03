@@ -59,8 +59,11 @@
     },
     "scripts": {
         "all": [
-            "@unit-tests",
-            "@build-tools"
+          "@unit-tests",
+          "@cs-fixer",
+          "@rector",
+          "@phpstan",
+          "@depcheck"
         ],
         "unit-tests": "@php vendor/bin/phpunit --colors=always"
     }

@@ -67,6 +67,11 @@ trait PersonContentAndModuleTrait
         return \count($arrNotEmpty) ? $size : $fallbackSize;
     }
 
+    /**
+     * @param array<mixed> $arrContactTypes
+     *
+     * @return array<mixed>
+     */
     protected static function getSchemaOrgData(object $objPerson, array $arrContactTypes): array
     {
         $htmlDecoder = System::getContainer()->get('contao.string.html_decoder');
