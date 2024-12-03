@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.1](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.0...v2.2.1) (2024-12-03)
+
+
+### Bug Fixes
+
+* fix ecs errors ([55ab53a](https://github.com/cgoIT/contao-persons-bundle/commit/55ab53af2478af175766b486592e77efeec44815))
+* use Doctrine Schema Representation ([3a758d8](https://github.com/cgoIT/contao-persons-bundle/commit/3a758d80ed1db422359d093169ff571b08cc26bc))
+
 ## [2.2.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.1.0...v2.2.0) (2024-04-30)
 
 
