@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.1...v2.2.2) (2025-02-11)
+
+
+### Miscellaneous Chores
+
+* fix copyright ([735d04c](https://github.com/cgoIT/contao-persons-bundle/commit/735d04c7db47c2461453de3123f415ffae2333b0))
+
 ## [2.2.1](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.0...v2.2.1) (2024-12-03)
 
 
