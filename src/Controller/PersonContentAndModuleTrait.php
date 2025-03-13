@@ -126,7 +126,7 @@ trait PersonContentAndModuleTrait
 
                 if (!empty($arrPersonIds)) {
                     $arrPersonIds = PersonModel::findMultipleByIds($arrPersonIds);
-                    $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => null !== $person && !$person->invisible);
+                    $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => !$person->invisible);
                     array_walk($arrPersonIds, static fn ($person) => $person->personTpl = $model->personTpl ?: 'person');
 
                     if ($model instanceof ModuleModel) {
