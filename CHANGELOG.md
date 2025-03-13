@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.3](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.2...v2.2.3) (2025-03-13)
+
+
+### Bug Fixes
+
+* fix rector findings ([96de73e](https://github.com/cgoIT/contao-persons-bundle/commit/96de73e28dc1f2efd47352ff671b2df23361958f))
+
 ## [2.2.2](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.1...v2.2.2) (2025-02-11)
 
 
