@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.3...v2.3.0) (2025-03-18)
+
+
+### Features
+
+* option to define sort order if selection by tags is chosen ([fafcbde](https://github.com/cgoIT/contao-persons-bundle/commit/fafcbde420cd06ace0c126c6a1e8cc72d4587a21))
+
 ## [2.2.3](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.2...v2.2.3) (2025-03-13)
 
 
