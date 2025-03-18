@@ -142,6 +142,10 @@ trait PersonContentAndModuleTrait
                     }
 
                     $arrPersons = array_map(fn ($person) => $this->preparePerson($person, $contactInfoTypeHelper), $arrPersonIds);
+                    $arrPersonSortOrders = StringUtil::deserialize($model->personSortBy, true);
+                    if (!empty($arrPersonSortOrders)) {
+                        $arrPersons = $this->sortPersons($arrPersons, $arrPersonSortOrders);
+                    }
                 }
             }
         }
@@ -178,6 +182,47 @@ trait PersonContentAndModuleTrait
             $arrPersons = array_filter($arrPersons, static fn ($person) => null !== $person && !$person->invisible);
             $arrPersons = array_map(fn ($person) => $this->preparePerson($person, $contactInfoTypeHelper), $arrPersons);
         }
+    }
+
+    /**
+     * @param array<mixed> $arrPersons
+     * @param array<mixed> $arrSortOrders
+     *
+     * @return array<mixed>
+     */
+    private function sortPersons(array $arrPersons, array $arrSortOrders): array
+    {
+        usort(
+            $arrPersons,
+            function ($a, $b) use ($arrSortOrders) {
+                foreach ($arrSortOrders as $sortOrder) {
+                    $result = $this->comparePersons($a, $b, $sortOrder);
+                    if (0 !== $result) {
+                        return $result;
+                    }
+                }
+
+                return 0;
+            },
+        );
+
+        return $arrPersons;
+    }
+
+    private function comparePersons(object $a, object $b, string $sortOrder): int
+    {
+        $values = [-1, 0, 1];
+
+        return match ($sortOrder) {
+            'name_asc' => strcmp($a->name, $b->name),
+            'name_desc' => strcmp($b->name, $a->name),
+            'firstName_asc' => strcmp($a->firstName, $b->firstName),
+            'firstName_desc' => strcmp($b->firstName, $a->firstName),
+            'id_asc' => $a->id <=> $b->id,
+            'id_desc' => $b->id <=> $a->id,
+            'random' => $values[array_rand($values)],
+            default => 0,
+        };
     }
 
     /**

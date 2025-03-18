@@ -92,7 +92,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
     ],
     // Palettes
     'palettes' => [
-        'default' => '{title_legend},firstName,name,position,tags,singleSRC,size;{contact_legend},contactInformation;{visible_legend:hide},invisible',
+        'default' => '{title_legend},firstName,name,position,tags,singleSRC,size;{contact_legend},contactInformation;{visible_legend:collapsed},invisible',
     ],
     // Fields
     'fields' => [

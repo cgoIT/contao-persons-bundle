@@ -22,6 +22,46 @@
         <source>manual selection</source>
         <target>manuelle Auswahl</target>
       </trans-unit>
+      <trans-unit id="tl_module.personSortBy.0">
+        <source>Sort by...</source>
+        <target state="translated">Sortieren nach...</target>
+      </trans-unit>
+      <trans-unit id="tl_module.personSortBy.1">
+        <source>Sort displayed persons in the frontend by the selected attribute</source>
+        <target state="translated">Die im Frontend angezeigten Personen werden nach dem ausgewählten Attribut sortiert. Wenn mehrere Attribute ausgewählt sind, werden die Personen bei Gleichheit eines Attributs nach dem nächsten Attribut sortiert.</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.name_asc" xml:space="preserve" approved="no">
+        <source>name ascending</source>
+        <target state="translated">Name aufsteigend</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.name_desc" xml:space="preserve" approved="no">
+        <source>name descending</source>
+        <target state="translated">Name absteigend</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.firstName_asc" xml:space="preserve" approved="no">
+        <source>firstname ascending</source>
+        <target state="translated">Vorname aufsteigend</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.firstName_desc" xml:space="preserve" approved="no">
+        <source>firstname descending</source>
+        <target state="translated">Vorname absteigend</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.position_asc" xml:space="preserve" approved="no">
+        <source>position ascending</source>
+        <target state="translated">Position aufsteigend</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.position_desc" xml:space="preserve" approved="no">
+        <source>position descending</source>
+        <target state="translated">Position absteigend</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.id" xml:space="preserve" approved="no">
+        <source>id</source>
+        <target state="translated">ID</target>
+      </trans-unit>
+      <trans-unit id="tl_module.reference.personSortBy.random" xml:space="preserve" approved="no">
+        <source>random order</source>
+        <target state="translated">Zufällige Reihenfolge</target>
+      </trans-unit>
       <trans-unit id="tl_module.reference.personTagsCombination.and" xml:space="preserve" approved="no">
         <source>… for which all specified keywords are set</source>
         <target state="translated">… bei denen alle angegebenen Schlagworte gesetzt sind</target>

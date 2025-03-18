@@ -16,14 +16,14 @@
         "source": "https://github.com/cgoIT/contao-persons-bundle"
     },
     "require": {
-        "php": "^8.1 || ^8.2 || ^8.3",
+        "php": "^8.1",
         "contao/core-bundle": "^5.3",
         "doctrine/dbal": "^3.3",
-        "symfony/config": "^6.1",
-        "symfony/dependency-injection": "^6.1",
-        "symfony/event-dispatcher": "^6.1",
-        "symfony/http-foundation": "^6.1",
-        "symfony/http-kernel": "^6.1",
+        "symfony/config": "^6.1 || ^7.2",
+        "symfony/dependency-injection": "^6.1 || ^7.2",
+        "symfony/event-dispatcher": "^6.1 || ^7.2",
+        "symfony/http-foundation": "^6.1 || ^7.2",
+        "symfony/http-kernel": "^6.1 || ^7.2",
         "codefog/contao-haste": "^5.1",
         "mvo/contao-group-widget": "^1.5",
         "codefog/tags-bundle": "^3.3"

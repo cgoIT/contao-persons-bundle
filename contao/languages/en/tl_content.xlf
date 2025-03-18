@@ -31,6 +31,44 @@
       <trans-unit id="tl_content.personTags.1">
         <source>Persons with the specified keywords are displayed in the frontend</source>
       </trans-unit>
+      <trans-unit id="tl_content.personSortBy.0">
+        <source>Sort by...</source>
+      </trans-unit>
+      <trans-unit id="tl_content.personSortBy.1">
+        <source>Sort displayed persons in the frontend by the selected attribute. If several attributes are selected, the persons are sorted according to the next attribute if one attribute is the same.</source>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.name_asc" xml:space="preserve" approved="no">
+        <source>name ascending</source>
+        <target state="translated">name ascending</target>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.name_desc" xml:space="preserve" approved="no">
+        <source>name descending</source>
+        <target state="translated">name descending</target>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.firstName_asc" xml:space="preserve" approved="no">
+        <source>firstname ascending</source>
+        <target state="translated">firstname ascending</target>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.firstName_desc" xml:space="preserve" approved="no">
+        <source>firstname descending</source>
+        <target state="translated">firstname descending</target>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.position_asc" xml:space="preserve" approved="no">
+        <source>position ascending</source>
+        <target state="translated">position ascending</target>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.position_desc" xml:space="preserve" approved="no">
+        <source>position descending</source>
+        <target state="translated">position descending</target>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.id" xml:space="preserve" approved="no">
+        <source>id</source>
+        <target state="translated">id</target>
+      </trans-unit>
+      <trans-unit id="tl_content.reference.personSortBy.random" xml:space="preserve" approved="no">
+        <source>random order</source>
+        <target state="translated">random order</target>
+      </trans-unit>
       <trans-unit id="tl_content.personTagsCombination.0" xml:space="preserve" approved="no">
         <source>Select persons…</source>
         <target state="translated">Select persons…</target>

@@ -13,9 +13,9 @@ declare(strict_types=1);
 use Cgoit\PersonsBundle\Controller\ContentElement\PersonElement;
 use Contao\Controller;
 
-$GLOBALS['TL_DCA']['tl_content']['palettes'][PersonElement::TYPE] = '{type_legend},type,headline;{person_legend},selectPersonsBy;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_content']['palettes'][PersonElement::TYPE] = '{type_legend},type,headline;{person_legend},selectPersonsBy;{template_legend:collapsed},customTpl;{protected_legend:collapsed},protected;{expert_legend:collapsed},guests,cssID';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'selectPersonsBy';
-$GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsByTag'] = 'personTags,personTagsCombination,personTpl,size';
+$GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsByTag'] = 'personTags,personTagsCombination,personSortBy,personTpl,size';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsById'] = 'persons';
 
 $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
@@ -52,6 +52,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
         'inputType' => 'personPicker',
         'relation' => ['type' => 'hasOne', 'load' => 'lazy', 'table' => 'tl_person'],
         'eval' => ['mandatory' => true, 'tl_class' => 'w100'],
+    ]],
+    ['personSortBy' => [
+        'inputType' => 'checkboxWizard',
+        'options' => ['name_asc', 'name_desc', 'firstName_asc', 'firstName_desc', 'position_asc', 'position_desc', 'id', 'random'],
+        'reference' => &$GLOBALS['TL_LANG']['tl_content']['reference']['personSortBy'],
+        'eval' => ['multiple' => true, 'tl_class' => 'w50'],
+        'sql' => ['type' => 'text', 'length' => 512, 'notnull' => false],
     ]],
     ['personTpl' => [
         'label' => &$GLOBALS['TL_LANG']['tl_content']['person_customTpl'],
