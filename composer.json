@@ -24,6 +24,7 @@
         "symfony/event-dispatcher": "^6.1 || ^7.2",
         "symfony/http-foundation": "^6.1 || ^7.2",
         "symfony/http-kernel": "^6.1 || ^7.2",
+        "twig/twig": "^3.21",
         "codefog/contao-haste": "^5.1",
         "mvo/contao-group-widget": "^1.5",
         "codefog/tags-bundle": "^3.3"
@@ -53,7 +54,7 @@
     },
     "scripts": {
         "all": [
-            "@cs-fixer",
+            "@ecs",
             "@rector",
             "@phpstan",
             "@depcheck"

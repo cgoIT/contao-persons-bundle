@@ -21,12 +21,12 @@ use Contao\CoreBundle\Twig\FragmentTemplate;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AsContentElement(type: PersonElement::TYPE, category: 'includes', template: 'ce_person')]
-class PersonElement extends AbstractContentElementController implements StudioAwareInterface
+#[AsContentElement(type: PersonsElement::TYPE, category: 'includes')]
+class PersonsElement extends AbstractContentElementController implements StudioAwareInterface
 {
     use PersonContentAndModuleTrait;
 
-    final public const TYPE = 'person';
+    final public const TYPE = 'persons';
 
     protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {

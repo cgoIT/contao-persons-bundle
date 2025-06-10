@@ -1,0 +1,14 @@
+{% extends "@Contao/content_element/_base.html.twig" %}
+
+{% block content %}
+    <div class="persons">
+        {% for person in persons %}
+            {{ include("@Contao/" ~ person.personTpl, person.arrData) }}
+            {% block schema_org %}
+                {% if person.schemaOrgData|default(false) %}
+                    {% do add_schema_org(person.schemaOrgData) %}
+                {% endif %}
+            {% endblock %}
+        {% endfor %}
+    </div>
+{% endblock %}

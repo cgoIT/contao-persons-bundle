@@ -21,12 +21,12 @@ use Contao\ModuleModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-#[AsFrontendModule(type: PersonModule::TYPE, category: 'miscellaneous', template: 'mod_person')]
-class PersonModule extends AbstractFrontendModuleController implements StudioAwareInterface
+#[AsFrontendModule(type: PersonsModule::TYPE, category: 'miscellaneous')]
+class PersonsModule extends AbstractFrontendModuleController implements StudioAwareInterface
 {
     use PersonContentAndModuleTrait;
 
-    final public const TYPE = 'person';
+    final public const TYPE = 'persons';
 
     protected function getResponse(FragmentTemplate $template, ModuleModel $model, Request $request): Response
     {

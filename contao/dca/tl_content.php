@@ -10,10 +10,9 @@ declare(strict_types=1);
  * @license    LGPL-3.0-or-later
  */
 
-use Cgoit\PersonsBundle\Controller\ContentElement\PersonElement;
-use Contao\Controller;
+use Cgoit\PersonsBundle\Controller\ContentElement\PersonsElement;
 
-$GLOBALS['TL_DCA']['tl_content']['palettes'][PersonElement::TYPE] = '{type_legend},type,headline;{person_legend},selectPersonsBy;{template_legend:collapsed},customTpl;{protected_legend:collapsed},protected;{expert_legend:collapsed},guests,cssID';
+$GLOBALS['TL_DCA']['tl_content']['palettes'][PersonsElement::TYPE] = '{type_legend},type,headline;{person_legend},selectPersonsBy;{template_legend:collapsed},customTpl;{protected_legend:collapsed},protected;{expert_legend:collapsed},guests,cssID';
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'selectPersonsBy';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsByTag'] = 'personTags,personTagsCombination,personSortBy,personTpl,size';
 $GLOBALS['TL_DCA']['tl_content']['subpalettes']['selectPersonsBy_personsById'] = 'persons';
@@ -64,7 +63,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields'] = array_merge(
         'label' => &$GLOBALS['TL_LANG']['tl_content']['person_customTpl'],
         'exclude' => true,
         'inputType' => 'select',
-        'options_callback' => static fn () => Controller::getTemplateGroup('person'),
         'eval' => ['mandatory' => false, 'chosen' => true, 'includeBlankOption' => true, 'tl_class' => 'clr w50'],
         'sql' => ['type' => 'string', 'length' => 64, 'default' => ''],
     ]],
