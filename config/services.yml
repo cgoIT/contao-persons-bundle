@@ -28,11 +28,11 @@ services:
     Cgoit\PersonsBundle\:
         resource: ../src/*
 
-    Cgoit\PersonsBundle\Controller\ContentElement\PersonElement:
+    Cgoit\PersonsBundle\Controller\ContentElement\PersonsElement:
         calls:
             - [ 'setPersonTagsManager', [ '@codefog_tags.manager.person_tags' ] ]
 
-    Cgoit\PersonsBundle\Controller\Module\PersonModule:
+    Cgoit\PersonsBundle\Controller\Module\PersonsModule:
         calls:
             - [ 'setPersonTagsManager', [ '@codefog_tags.manager.person_tags' ] ]
 
@@ -60,3 +60,9 @@ services:
         tags:
             - { name: contao.migration }
 
+    person.migration.migrate_update_element_type:
+        class: Cgoit\PersonsBundle\Migration\UpdateElementType
+        arguments:
+            - '@database_connection'
+        tags:
+            - { name: contao.migration }

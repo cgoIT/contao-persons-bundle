@@ -29,6 +29,8 @@ trait PersonContentAndModuleTrait
 
     protected DefaultManager $personTagsManager;
 
+    protected string $defaultPersonTemplate = 'components/person';
+
     public function setPersonTagsManager(DefaultManager $manager): void
     {
         $this->personTagsManager = $manager;
@@ -236,7 +238,7 @@ trait PersonContentAndModuleTrait
             if (!empty($arrData['deviatingPosition'])) {
                 $person->position = $arrData['deviatingPosition'];
             }
-            $person->personTpl = $arrData['personTpl'] ?: 'person';
+            $person->personTpl = $arrData['personTpl'] ?: $this->defaultPersonTemplate;
             $person->size = static::getSize($arrData['size'] ?? null, $person->size);
         }
 

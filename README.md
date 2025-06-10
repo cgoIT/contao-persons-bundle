@@ -1,4 +1,4 @@
-# Contao 4 Persons Bundle
+# Contao Persons Bundle
 
 [![](https://img.shields.io/packagist/v/cgoit/contao-persons-bundle.svg)](https://packagist.org/packages/cgoit/contao-persons-bundle)
 ![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2FcgoIT%2Fcontao-persons-bundle%2Fmain%2Fcomposer.json&query=%24.require%5B%22contao%2Fcore-bundle%22%5D&label=Contao%20Version)
@@ -14,6 +14,18 @@ With the help of this module, such people can be managed centrally in the backen
 ```bash
 composer require cgoit/contao-persons-bundle
 ```
+
+## BREAKING CHANGES
+
+Starting with version 3.0.0 this extension uses TWIG templates instead of the deprecated html5 templates.
+You can still customize your templates. In the following table you can find an overview how the old templates
+map to the new ones.
+
+|                                              | old HTML5 template | new TWIG template                 |
+|----------------------------------------------|--------------------|-----------------------------------|
+| Content Element to display a list of persons | ce_person.html     | content_element/persons.html.twig |
+| Frontend module to display a list of persons | mod_person.html5   | frontend_module/persons.html.twig |
+| Template for one person                      | person.html5       | components/person.html.twig       |
 
 ## Configuration
 

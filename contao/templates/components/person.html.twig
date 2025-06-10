@@ -1,0 +1,23 @@
+{% use "@Contao/component/_figure.html.twig" %}
+
+{% block content %}
+<div class="body">
+    <div class="container">
+        {% if figure %}
+            {% with {figure: figure} %}{{ block('figure_component') }}{% endwith %}
+        {% endif %}
+
+        <h5>{{ firstName }} {{ name }}</h5>
+        <h6>{{ position }}</h6>
+
+        <div class="info">
+            {% for contactInfo in contactInfos %}
+                <div class="info_entry person {{ contactInfo.type }}">
+                    <span class="label">{{ contactInfo.label }}</span>
+                    <span class="value">{{ contactInfo.value }}</span>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
