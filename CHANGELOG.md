@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.3.0...v3.0.0) (2025-06-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* use twig templates
+
+### Features
+
+* use twig templates ([3d8aaea](https://github.com/cgoIT/contao-persons-bundle/commit/3d8aaeac25f2f27f3d2929a33997315373e5b107))
+
 ## [2.3.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.2.3...v2.3.0) (2025-03-18)
 
 
