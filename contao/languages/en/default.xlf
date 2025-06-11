@@ -7,10 +7,10 @@
       <trans-unit id="CTE.person.1">
         <source>Displays information about a person</source>
       </trans-unit>
-      <trans-unit id="FMD.person.0">
+      <trans-unit id="FMD.persons.0">
         <source>Person</source>
       </trans-unit>
-      <trans-unit id="FMD.person.1">
+      <trans-unit id="FMD.persons.1">
         <source>Displays information about a person</source>
       </trans-unit>
     </body>
