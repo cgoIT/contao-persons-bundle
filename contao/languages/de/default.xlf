@@ -10,11 +10,11 @@
         <source>Displays information about a person</source>
         <target state="translated">Zeigt die Informationen zu einer Person an</target>
       </trans-unit>
-      <trans-unit id="FMD.person.0">
+      <trans-unit id="FMD.persons.0">
         <source>Person</source>
         <target>Person</target>
       </trans-unit>
-      <trans-unit id="FMD.person.1" xml:space="preserve" approved="no">
+      <trans-unit id="FMD.persons.1" xml:space="preserve" approved="no">
         <source>Displays information about a person</source>
         <target state="translated">Zeigt die Informationen zu einer Person an</target>
       </trans-unit>
