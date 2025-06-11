@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/cgoIT/contao-persons-bundle/compare/v3.0.0...v3.0.1) (2025-06-11)
+
+
+### Bug Fixes
+
+* fix typo in language files for FE-Module ([#44](https://github.com/cgoIT/contao-persons-bundle/issues/44)) ([0b84af1](https://github.com/cgoIT/contao-persons-bundle/commit/0b84af1248d84eac54a87453fee556b18b2ee7f8))
+
 ## [3.0.0](https://github.com/cgoIT/contao-persons-bundle/compare/v2.3.0...v3.0.0) (2025-06-10)
 
 
