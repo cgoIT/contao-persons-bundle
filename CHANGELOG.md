@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/cgoIT/contao-persons-bundle/compare/v3.0.1...v3.1.0) (2025-06-13)
+
+
+### Features
+
+* rename twig folder components to component ([3f3d80f](https://github.com/cgoIT/contao-persons-bundle/commit/3f3d80fa4d9fe411988d2f3423ed1050f7570409))
+
 ## [3.0.1](https://github.com/cgoIT/contao-persons-bundle/compare/v3.0.0...v3.0.1) (2025-06-11)
 
 
