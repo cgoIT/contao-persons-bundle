@@ -21,10 +21,10 @@ class PersonTplOptionsListener
      */
     private array $defaultIdentifiersByType = [
         'tl_content' => [
-            'persons' => 'components/person',
+            'persons' => 'component/person',
         ],
         'tl_module' => [
-            'persons' => 'components/person',
+            'persons' => 'component/person',
         ],
     ];
 

@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\Helper;
 
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+#[Autoconfigure(public: true)]
 class ContactInfoTypeHelper
 {
     /**

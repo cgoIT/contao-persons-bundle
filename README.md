@@ -21,11 +21,11 @@ Starting with version 3.0.0 this extension uses TWIG templates instead of the de
 You can still customize your templates. In the following table you can find an overview how the old templates
 map to the new ones.
 
-|                                              | old HTML5 template | new TWIG template                 |
-|----------------------------------------------|--------------------|-----------------------------------|
+|                                              | old HTML5 template | new TWIG template                |
+|----------------------------------------------|--------------------|----------------------------------|
 | Content Element to display a list of persons | ce_person.html     | content_element/persons.html.twig |
 | Frontend module to display a list of persons | mod_person.html5   | frontend_module/persons.html.twig |
-| Template for one person                      | person.html5       | components/person.html.twig       |
+| Template for one person                      | person.html5       | component/person.html.twig       |
 
 ## Configuration
 

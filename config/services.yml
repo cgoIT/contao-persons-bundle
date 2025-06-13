@@ -25,6 +25,9 @@ services:
             calls:
                 - [ 'setContainer', [ '@service_container' ] ]
 
+        Contao\CoreBundle\Migration\AbstractMigration:
+            tags: [ 'contao.migration' ]
+
     Cgoit\PersonsBundle\:
         resource: ../src/*
 
@@ -35,34 +38,3 @@ services:
     Cgoit\PersonsBundle\Controller\Module\PersonsModule:
         calls:
             - [ 'setPersonTagsManager', [ '@codefog_tags.manager.person_tags' ] ]
-
-    Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper:
-        public: true
-
-    person.migration.migrate_contact_information:
-        class: Cgoit\PersonsBundle\Migration\CopyContactInformationMigration
-        arguments:
-            - '@database_connection'
-        tags:
-            - { name: contao.migration }
-
-    person.migration.migrate_default_selection_mode:
-        class: Cgoit\PersonsBundle\Migration\SetDefaultSelectionMode
-        arguments:
-            - '@database_connection'
-        tags:
-            - { name: contao.migration }
-
-    person.migration.migrate_size_attribute_in_modules:
-        class: Cgoit\PersonsBundle\Migration\MigrateSizeAttributeInModules
-        arguments:
-            - '@database_connection'
-        tags:
-            - { name: contao.migration }
-
-    person.migration.migrate_update_element_type:
-        class: Cgoit\PersonsBundle\Migration\UpdateElementType
-        arguments:
-            - '@database_connection'
-        tags:
-            - { name: contao.migration }

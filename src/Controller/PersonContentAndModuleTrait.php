@@ -29,7 +29,7 @@ trait PersonContentAndModuleTrait
 
     protected DefaultManager $personTagsManager;
 
-    protected string $defaultPersonTemplate = 'components/person';
+    protected string $defaultPersonTemplate = 'component/person';
 
     public function setPersonTagsManager(DefaultManager $manager): void
     {
