@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.2](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.1...v3.1.2) (2025-07-09)
+
+
+### Bug Fixes
+
+* typos modules language files ([87a46d0](https://github.com/cgoIT/contao-persons-bundle/commit/87a46d0a64719d4b1bee715fab3d194f8fb61a27))
+
 ## [3.1.1](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.0...v3.1.1) (2025-07-01)
 
 
