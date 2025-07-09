@@ -1,10 +1,10 @@
 <?xml version="1.0" ?><xliff version="1.1">
   <file datatype="php" original="contao/languages/en/modules.php" source-language="en">
     <body>
-      <trans-unit id="MOD.persons.0">
+      <trans-unit id="MOD.person.0">
         <source>Persons</source>
       </trans-unit>
-      <trans-unit id="MOD.persons.1">
+      <trans-unit id="MOD.person.1">
         <source>Manage persons who need to be displayed more frequently in the frontend</source>
       </trans-unit>
     </body>
