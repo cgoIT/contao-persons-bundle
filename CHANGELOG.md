@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.3](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.2...v3.1.3) (2025-08-07)
+
+
+### Bug Fixes
+
+* rename default component folder to component ([40fa75a](https://github.com/cgoIT/contao-persons-bundle/commit/40fa75add43df162acb191c75e74603020b74d16))
+
 ## [3.1.2](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.1...v3.1.2) (2025-07-09)
 
 
