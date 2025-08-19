@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.4](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.3...v3.1.4) (2025-08-19)
+
+
+### Miscellaneous Chores
+
+* **build:** also run build with php 8.4 ([cb6a951](https://github.com/cgoIT/contao-persons-bundle/commit/cb6a95144b211cb6360120d7fbfe57cf6263be67))
+
 ## [3.1.3](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.2...v3.1.3) (2025-08-07)
 
 
