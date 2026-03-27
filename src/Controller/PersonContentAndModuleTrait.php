@@ -119,7 +119,7 @@ trait PersonContentAndModuleTrait
         }
 
         if (!empty($source)) {
-            $criteria = $this->personTagsManager->createTagCriteria($source)->setSourceIds([(string) $model->id]);
+            $criteria = $this->personTagsManager->createTagCriteria($source)->setSourceIds([$model->id]);
             $arrTags = $this->personTagsManager->getTagFinder()->findMultiple($criteria);
 
             if (!empty($arrTags)) {
@@ -139,7 +139,7 @@ trait PersonContentAndModuleTrait
                     array_walk($arrPersonIds, static fn ($person) => $person->size = self::getSize($size, $person->size));
 
                     if ('and' === $model->personTagsCombination) {
-                        $arrTagIds = array_map(static fn ($tag) => $tag->getValue(), $arrTags);
+                        $arrTagIds = array_map(static fn ($tag) => (int) $tag->getValue(), $arrTags);
                         $arrPersonIds = array_filter($arrPersonIds, fn ($person) => $this->hasAllTags($person, $arrTagIds));
                     }
 
@@ -168,7 +168,7 @@ trait PersonContentAndModuleTrait
      */
     private function getPersonTags(Model $person): array
     {
-        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([(string) $person->id]);
+        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([$person->id]);
 
         return $this->personTagsManager->getTagFinder()->findMultiple($criteria);
     }

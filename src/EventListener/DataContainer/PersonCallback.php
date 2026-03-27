@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * @copyright  Copyright (c) 2025, cgoIT
+ * @copyright  Copyright (c) 2026, cgoIT
  * @author     cgoIT <https://cgo-it.de>
  * @license    LGPL-3.0-or-later
  */
@@ -104,7 +104,7 @@ class PersonCallback implements FrameworkAwareInterface
                         }
                         $arrLabels[] = '<table>'.implode('', $contactLabels).'</table>';
                     } elseif ('tags' === $fieldName) {
-                        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([(string) $row['id']]);
+                        $criteria = $this->personTagsManager->createTagCriteria('tl_person.tags')->setSourceIds([(int) $row['id']]);
                         $arrTags = $this->personTagsManager->getTagFinder()->findMultiple($criteria);
 
                         if (empty($arrTags)) {
