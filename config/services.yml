@@ -21,10 +21,6 @@ services:
             calls:
                 - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
 
-        Symfony\Component\DependencyInjection\ContainerAwareInterface:
-            calls:
-                - [ 'setContainer', [ '@service_container' ] ]
-
         Contao\CoreBundle\Migration\AbstractMigration:
             tags: [ 'contao.migration' ]
 
