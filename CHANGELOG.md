@@ -1,5 +1,24 @@
 # Changelog
 
+## [3.2.0](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.4...v3.2.0) (2026-03-27)
+
+
+### Features
+
+* minimum php version is now 8.2 ([7109c36](https://github.com/cgoIT/contao-persons-bundle/commit/7109c36a2cd7951f6ceb18ed7872f87d086a47f0))
+* minimum php version is now 8.2 ([7f8d91a](https://github.com/cgoIT/contao-persons-bundle/commit/7f8d91aae19f0c882e0acbd7c86603060df1edd4))
+
+
+### Bug Fixes
+
+* remove ContainerAwareInterface ([bae06b1](https://github.com/cgoIT/contao-persons-bundle/commit/bae06b1503961d2296386003a3cc41dcae62b29b))
+
+
+### Miscellaneous Chores
+
+* fix twig templates, integrate twig-cs-fixer ([0c427c3](https://github.com/cgoIT/contao-persons-bundle/commit/0c427c3a8e491fd1f35925d8f76f1667d78b333d))
+* update copyright header ([5deb609](https://github.com/cgoIT/contao-persons-bundle/commit/5deb609934b26cd46c1bafae6ea1467c2e2f8b83))
+
 ## [3.1.4](https://github.com/cgoIT/contao-persons-bundle/compare/v3.1.3...v3.1.4) (2025-11-25)
 
 
