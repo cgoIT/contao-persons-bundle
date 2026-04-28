@@ -91,9 +91,7 @@ class CopyContactInformationMigration extends AbstractMigration
                 }
             }
 
-            $this->db->prepare('UPDATE '.self::$extension_table.' SET contactInformation=?, '.implode(', ', array_map(static fn ($col) => $col.'=NULL', self::$columns)).' WHERE id=?')
-                ->executeStatement([empty($contactInformation) ? null : serialize($contactInformation), $result['id']])
-            ;
+            $this->db->prepare('UPDATE '.self::$extension_table.' SET contactInformation=?, '.implode(', ', array_map(static fn ($col) => $col.'=NULL', self::$columns)).' WHERE id=?')->executeStatement();
         }
 
         return $this->createResult(true);

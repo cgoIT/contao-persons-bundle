@@ -18,8 +18,6 @@ use Codefog\TagsBundle\Manager\DefaultManager;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
 use Contao\CoreBundle\Framework\FrameworkAwareInterface;
 use Contao\CoreBundle\Framework\FrameworkAwareTrait;
-use Contao\CoreBundle\Image\Studio\Figure;
-use Contao\CoreBundle\Image\Studio\FigureBuilder;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\DataContainer;
 use Contao\Image\PictureConfiguration;
@@ -78,10 +76,8 @@ class PersonCallback implements FrameworkAwareInterface
 
                 foreach ($GLOBALS['TL_DCA']['tl_person']['list']['label']['fields'] as $fieldName) {
                     if ('singleSRC' === $fieldName) {
-                        /** @var FigureBuilder $figureBuilder */
                         $figureBuilder = $this->studio->createFigureBuilder();
 
-                        /** @var Figure|null $figure */
                         $figure = $figureBuilder
                             ->from($objPerson->{$fieldName})
                             ->setSize($this->imgSize)

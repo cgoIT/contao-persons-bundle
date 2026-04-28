@@ -24,6 +24,6 @@ trait PersonsMigrationTrait
     {
         $schemaManager = $this->db->createSchemaManager();
 
-        return $schemaManager->tablesExist(self::$extension_table);
+        return $schemaManager->tablesExist([self::$extension_table]);
     }
 }
