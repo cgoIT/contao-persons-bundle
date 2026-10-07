@@ -270,6 +270,26 @@ class PersonContentAndModuleTraitTest extends ContaoTestCase
         yield 'single tag' => ['and', [20], [2, 3]];
     }
 
+    public function testUsesDefaultPersonTemplateForPersonsByTag(): void
+    {
+        $this->elementTags[5] = [20];
+
+        $model = $this->createModel(
+            ContentModel::class,
+            [
+                'id' => 5,
+                'selectPersonsBy' => 'personsByTag',
+                'personTagsCombination' => 'or',
+                'personTpl' => '',
+            ],
+            false,
+        );
+
+        foreach ($this->render($model)['persons'] as $person) {
+            $this->assertSame('component/person', $person->personTpl);
+        }
+    }
+
     public function testDoesNotAddPersonsByTagWithoutTags(): void
     {
         $model = $this->createModel(ContentModel::class, ['id' => 5, 'selectPersonsBy' => 'personsByTag', 'personTagsCombination' => 'or'], false);
