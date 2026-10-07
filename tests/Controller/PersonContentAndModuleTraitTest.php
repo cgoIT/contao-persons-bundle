@@ -482,6 +482,10 @@ class PersonContentAndModuleTraitTest extends ContaoTestCase
 
         // Contact types without schema.org type are not added
         $this->assertArrayNotHasKey('skype', $data['getSchemaOrgData']($zoe));
+
+        // The data is available for each person in the template
+        $this->assertSame($data['getSchemaOrgData']($jane), $jane->schemaOrgData);
+        $this->assertSame($data['getSchemaOrgData']($zoe), $zoe->schemaOrgData);
     }
 
     public function testSchemaOrgDataDecodesEntitiesAndSkipsEmptyPosition(): void

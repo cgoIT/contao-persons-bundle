@@ -52,6 +52,10 @@ trait PersonContentAndModuleTrait
                 break;
         }
 
+        foreach ($arrPersons as $person) {
+            $person->schemaOrgData = self::getSchemaOrgData($person, $arrContactTypes);
+        }
+
         $template->persons = $arrPersons;
 
         // schema.org information
