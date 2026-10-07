@@ -75,7 +75,10 @@ trait ModelRegistryTrait
     protected function createModel(string $class, array $row, bool $register = true): Model
     {
         $model = (new \ReflectionClass($class))->newInstanceWithoutConstructor();
-        $model->setRow($row);
+
+        // Set the data directly, because Model::setRow() requires services from the
+        // container in newer Contao versions (e.g. the virtual fields handler)
+        (new \ReflectionProperty(Model::class, 'arrData'))->setValue($model, $row);
 
         if ($register) {
             Registry::getInstance()->register($model);
