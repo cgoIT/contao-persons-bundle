@@ -1,5 +1,35 @@
 # Changelog
 
+## [3.3.0](https://github.com/cgoIT/contao-persons-bundle/compare/v3.2.1...v3.3.0) (2026-10-07)
+
+
+### Features
+
+* make the person photo optional and show initials instead ([21e8b8c](https://github.com/cgoIT/contao-persons-bundle/commit/21e8b8cbdd18228f2861884c11115f42ecce4c61))
+* require PHP 8.3 and test against PHP 8.3 - 8.5 ([ab91fc1](https://github.com/cgoIT/contao-persons-bundle/commit/ab91fc1f02611c2065ce53928d82e9b23b9f1f24))
+
+
+### Bug Fixes
+
+* always define the figure template variable to support strict variables ([f62d843](https://github.com/cgoIT/contao-persons-bundle/commit/f62d843460af5b0c6048995074b3eed12b1cf06a))
+* fall back to the english label of configured contact types ([78e13a6](https://github.com/cgoIT/contao-persons-bundle/commit/78e13a655bf28236633c3605e7cf9b065c8732d1))
+* fix bug if no `personTpl` is set in $arrData ([704b83f](https://github.com/cgoIT/contao-persons-bundle/commit/704b83f48b6d3c26a52063ac0844e681877020e0))
+* load backend css in person module instead of calendar ([bbddf96](https://github.com/cgoIT/contao-persons-bundle/commit/bbddf962645746c6454ed0430b2a8ab2dc1863e1))
+* load the default stylesheet only if needed and fall back to the default initials helper ([5cf7952](https://github.com/cgoIT/contao-persons-bundle/commit/5cf795269591b986efe9eccc013c9b061f0a0a86))
+* make the persons migrations work during a regular contao:migrate run ([35373c4](https://github.com/cgoIT/contao-persons-bundle/commit/35373c49c699fe1fa02439c71b68548890bdf7a9))
+* output schema.org data of persons in the twig templates ([a84ff5f](https://github.com/cgoIT/contao-persons-bundle/commit/a84ff5faf82f9fe13d0d3be36807be87c59da926))
+* respect the image size of persons selected in frontend modules ([94acc1a](https://github.com/cgoIT/contao-persons-bundle/commit/94acc1a7aff16d0741f19e54f6f486b1376191b1))
+* show labels of configured contact types in the backend list ([39990a0](https://github.com/cgoIT/contao-persons-bundle/commit/39990a0a4f018c71baad96e9791a3a32229b2392))
+* show the initials field next to the first and last name ([851f0c1](https://github.com/cgoIT/contao-persons-bundle/commit/851f0c1809c507a84c226ece42dd29ce89f0268c))
+* support sorting persons by position and id ([0c36b5b](https://github.com/cgoIT/contao-persons-bundle/commit/0c36b5b7b30127b4a45650cd2fcfd710eb7c35d4))
+* use component/person as default template when selecting persons by tag ([78df8c6](https://github.com/cgoIT/contao-persons-bundle/commit/78df8c6bb9e806b680ef30a3a75e50abd367213f))
+* write migrated contact information in CopyContactInformationMigration ([6859aff](https://github.com/cgoIT/contao-persons-bundle/commit/6859aff84dac1cc7132557e23bbfd5664776f3e5))
+
+
+### Miscellaneous Chores
+
+* unify file headers and drop the year from the copyright notice ([bca7e04](https://github.com/cgoIT/contao-persons-bundle/commit/bca7e04e0ab630a1fb5ee2d72b995339cec72609))
+
 ## [3.2.1](https://github.com/cgoIT/contao-persons-bundle/compare/v3.2.0...v3.2.1) (2026-04-28)
 
 
