@@ -16,7 +16,7 @@
     "source": "https://github.com/cgoIT/contao-persons-bundle"
   },
   "require": {
-    "php": "^8.2",
+    "php": "^8.3",
     "contao/core-bundle": "^5.3",
     "doctrine/dbal": "^3.3 || ^4.4",
     "symfony/config": "^6.1 || ^7.2",
