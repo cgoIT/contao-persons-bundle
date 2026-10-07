@@ -108,9 +108,7 @@ class CopyContactInformationMigration extends AbstractMigration
      */
     private function getExistingColumns(): array
     {
-        $cols = array_change_key_case($this->db->createSchemaManager()->listTableColumns(self::$extension_table));
-
-        return array_values(array_filter(self::$columns, static fn (string $column): bool => isset($cols[strtolower($column)])));
+        return array_values(array_filter(self::$columns, fn (string $column): bool => $this->columnExists(self::$extension_table, $column)));
     }
 
     /**
