@@ -15,7 +15,7 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: 8.3
-                    extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, mysqli, pcre, pdo_mysql, zlib
+                    extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, mysqli, pcre, pdo_mysql, pdo_sqlite, zlib
                     coverage: none
                 env:
                     COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -36,13 +36,13 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                php: [ 8.2, 8.3, 8.4 ]
+                php: [ 8.3, 8.4, 8.5 ]
         steps:
             -   name: Setup PHP
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, mysqli, pcre, pdo_mysql, zlib
+                    extensions: dom, fileinfo, filter, gd, hash, intl, json, mbstring, mysqli, pcre, pdo_mysql, pdo_sqlite, zlib
                     coverage: none
                 env:
                     COMPOSER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -52,3 +52,6 @@ jobs:
 
             -   name: Install the dependencies
                 run: composer install --no-interaction --no-progress
+
+            -   name: Run the unit tests
+                run: composer run unit-tests

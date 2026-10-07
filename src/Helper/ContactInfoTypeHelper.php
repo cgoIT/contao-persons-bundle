@@ -2,6 +2,14 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
+ *
+ * @copyright  Copyright (c) cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
+ */
+
 namespace Cgoit\PersonsBundle\Helper;
 
 use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
@@ -34,9 +42,7 @@ class ContactInfoTypeHelper
     private function getLabelWithFallbackLocale(string $type, array $config = []): string
     {
         $label = $this->getContactTypeLabel($type, $config, $this->translator->getLocale());
-        if (null === $label) {
-            $label = $this->getContactTypeLabel($type);
-        }
+        $label ??= $this->getContactTypeLabel($type, $config);
 
         return $label ?? $type;
     }

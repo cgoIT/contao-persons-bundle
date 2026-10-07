@@ -3,16 +3,17 @@
 declare(strict_types=1);
 
 /*
- * This file is part of cgoit\contao-persons-bundle.
+ * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * (c) Carsten Götzinger
- *
- * @license LGPL-3.0-or-later
+ * @copyright  Copyright (c) cgoIT
+ * @author     cgoIT <https://cgo-it.de>
+ * @license    LGPL-3.0-or-later
  */
 
 namespace Cgoit\PersonsBundle\Controller;
 
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
+use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Codefog\TagsBundle\Tag;
@@ -22,6 +23,7 @@ use Contao\Model;
 use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\System;
+use Symfony\Contracts\Service\Attribute\Required;
 
 trait PersonContentAndModuleTrait
 {
@@ -29,11 +31,19 @@ trait PersonContentAndModuleTrait
 
     protected DefaultManager $personTagsManager;
 
+    protected InitialsHelper|null $initialsHelper = null;
+
     protected string $defaultPersonTemplate = 'component/person';
 
     public function setPersonTagsManager(DefaultManager $manager): void
     {
         $this->personTagsManager = $manager;
+    }
+
+    #[Required]
+    public function setInitialsHelper(InitialsHelper $initialsHelper): void
+    {
+        $this->initialsHelper = $initialsHelper;
     }
 
     protected function addPersonData(FragmentTemplate $template, Model $model): void
@@ -50,6 +60,10 @@ trait PersonContentAndModuleTrait
             case 'personsById':
                 $this->addPersonsById($model, $arrPersons, $contactInfoTypeHelper);
                 break;
+        }
+
+        foreach ($arrPersons as $person) {
+            $person->schemaOrgData = self::getSchemaOrgData($person, $arrContactTypes);
         }
 
         $template->persons = $arrPersons;
@@ -110,8 +124,6 @@ trait PersonContentAndModuleTrait
      */
     private function addPersonsByTag(Model $model, array &$arrPersons, ContactInfoTypeHelper $contactInfoTypeHelper): void
     {
-        $source = null;
-
         if (method_exists($model, 'getTagSource')) {
             $source = $model->getTagSource();
         } else {
@@ -129,7 +141,7 @@ trait PersonContentAndModuleTrait
                 if (!empty($arrPersonIds)) {
                     $arrPersonIds = PersonModel::findMultipleByIds($arrPersonIds);
                     $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => !$person->invisible);
-                    array_walk($arrPersonIds, static fn ($person) => $person->personTpl = $model->personTpl ?: 'person');
+                    array_walk($arrPersonIds, fn ($person) => $person->personTpl = $model->personTpl ?: $this->defaultPersonTemplate);
 
                     if ($model instanceof ModuleModel) {
                         $size = $model->imgSize;
@@ -220,7 +232,9 @@ trait PersonContentAndModuleTrait
             'name_desc' => strcmp($b->name, $a->name),
             'firstName_asc' => strcmp($a->firstName, $b->firstName),
             'firstName_desc' => strcmp($b->firstName, $a->firstName),
-            'id_asc' => $a->id <=> $b->id,
+            'position_asc' => strcmp($a->position, $b->position),
+            'position_desc' => strcmp($b->position, $a->position),
+            'id', 'id_asc' => $a->id <=> $b->id,
             'id_desc' => $b->id <=> $a->id,
             'random' => $values[array_rand($values)],
             default => 0,
@@ -238,8 +252,8 @@ trait PersonContentAndModuleTrait
             if (!empty($arrData['deviatingPosition'])) {
                 $person->position = $arrData['deviatingPosition'];
             }
-            $person->personTpl = $arrData['personTpl'] ?: $this->defaultPersonTemplate;
-            $person->size = static::getSize($arrData['size'] ?? null, $person->size);
+            $person->personTpl = $arrData['personTpl'] ?? '' ?: $this->defaultPersonTemplate;
+            $person->size = static::getSize($arrData['size'] ?? $arrData['imgSize'] ?? null, $person->size);
         }
 
         return $person;
@@ -257,6 +271,10 @@ trait PersonContentAndModuleTrait
         $p->firstName = $person->firstName;
         $p->name = $person->name;
         $p->position = $person->position;
+        // Fall back to the default implementation if the trait is used in a service
+        // without autowiring
+        $this->initialsHelper ??= new InitialsHelper();
+        $p->initials = $this->initialsHelper->getInitialsForPerson($person);
 
         $arrContactInformation = StringUtil::deserialize($person->contactInformation, true);
 

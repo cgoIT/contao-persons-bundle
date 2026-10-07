@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * @copyright  Copyright (c) 2026, cgoIT
+ * @copyright  Copyright (c) cgoIT
  * @author     cgoIT <https://cgo-it.de>
  * @license    LGPL-3.0-or-later
  */
@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\EventListener\DataContainer;
 
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
+use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
@@ -24,7 +25,6 @@ use Contao\Image\PictureConfiguration;
 use Contao\Image\PictureConfigurationItem;
 use Contao\Image\ResizeConfiguration;
 use Contao\StringUtil;
-use Contao\System;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class PersonCallback implements FrameworkAwareInterface
@@ -42,6 +42,7 @@ class PersonCallback implements FrameworkAwareInterface
         private readonly array $arrContactInfoTypes,
         private readonly ContactInfoTypeHelper $contactInfoTypeHelper,
         private readonly DefaultManager $personTagsManager,
+        private readonly InitialsHelper $initialsHelper,
     ) {
         $this->imgSize = self::getImgSize();
     }
@@ -55,6 +56,28 @@ class PersonCallback implements FrameworkAwareInterface
         }
     }
 
+    #[AsCallback(table: 'tl_person', target: 'config.onload')]
+    public function prepareEditForm(DataContainer|null $dc = null): void
+    {
+        if (null === $dc || !$dc->id || 'edit' !== $this->requestStack->getCurrentRequest()?->query->get('act')) {
+            return;
+        }
+
+        $objPerson = PersonModel::findById($dc->id);
+
+        if (null === $objPerson) {
+            return;
+        }
+
+        // Show the automatically derived initials as placeholder
+        $GLOBALS['TL_DCA']['tl_person']['fields']['initials']['eval']['placeholder'] = $this->initialsHelper->getInitials($objPerson->firstName, $objPerson->name);
+
+        // The image size is only relevant if there is an image
+        if (empty($objPerson->singleSRC)) {
+            $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = str_replace(',size', '', $GLOBALS['TL_DCA']['tl_person']['palettes']['default']);
+        }
+    }
+
     /**
      * @param array<mixed> $row
      * @param array<mixed> $labels
@@ -64,8 +87,6 @@ class PersonCallback implements FrameworkAwareInterface
     #[AsCallback(table: 'tl_person', target: 'list.label.label')]
     public function listChildRecords(array $row, string $label, DataContainer $dc, array $labels): array
     {
-        System::loadLanguageFile('tl_person');
-
         $arrLabels = $labels;
 
         if ($GLOBALS['TL_DCA']['tl_person']['list']['label']['showColumns'] && $GLOBALS['TL_DCA']['tl_person']['list']['label']['fields']) {
@@ -89,14 +110,15 @@ class PersonCallback implements FrameworkAwareInterface
                             $figure->applyLegacyTemplateData($objImg);
                             $arrLabels[] = '<img src="'.$objImg->src.'"'.$objImg->imgSize.'>';
                         } else {
-                            $arrLabels[] = '';
+                            $initials = $this->initialsHelper->getInitialsForPerson($objPerson);
+                            $arrLabels[] = '<span class="person-initials" aria-hidden="true">'.StringUtil::specialchars($initials).'</span>';
                         }
                     } elseif ('contactInformation' === $fieldName) {
                         $contactLabels = [];
                         $arrInfo = StringUtil::deserialize($objPerson->{$fieldName}, true);
 
                         foreach ($arrInfo as $info) {
-                            $contactLabels[] = '<tr><td><strong>'.$GLOBALS['TL_LANG']['tl_person']['contactInformation_type_options'][$info['type']].'</strong></td><td>'.$info['value'].'</td></tr>';
+                            $contactLabels[] = '<tr><td><strong>'.$this->contactInfoTypeHelper->getLabel($info['type']).'</strong></td><td>'.$info['value'].'</td></tr>';
                         }
                         $arrLabels[] = '<table>'.implode('', $contactLabels).'</table>';
                     } elseif ('tags' === $fieldName) {

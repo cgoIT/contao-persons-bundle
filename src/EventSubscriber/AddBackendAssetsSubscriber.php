@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * @copyright  Copyright (c) 2026, cgoIT
+ * @copyright  Copyright (c) cgoIT
  * @author     cgoIT <https://cgo-it.de>
  * @license    LGPL-3.0-or-later
  */
@@ -13,14 +13,17 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\EventSubscriber;
 
 use Contao\CoreBundle\Routing\ScopeMatcher;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class AddBackendAssetsSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly ScopeMatcher $scopeMatcher)
-    {
+    public function __construct(
+        private readonly ScopeMatcher $scopeMatcher,
+        private readonly Packages $packages,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -33,8 +36,8 @@ class AddBackendAssetsSubscriber implements EventSubscriberInterface
         $request = $e->getRequest();
 
         if ($this->scopeMatcher->isBackendRequest($request)) {
-            if ('calendar' === $request->query->get('do')) {
-                $GLOBALS['TL_CSS'][] = 'bundles/cgoitpersons/backend.css|static';
+            if ('person' === $request->query->get('do')) {
+                $GLOBALS['TL_CSS'][] = $this->packages->getUrl('backend-css.css', 'cgoit_persons');
             }
         }
     }

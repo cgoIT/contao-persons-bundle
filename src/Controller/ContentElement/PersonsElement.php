@@ -5,7 +5,7 @@ declare(strict_types=1);
 /*
  * This file is part of cgoit\contao-persons-bundle for Contao Open Source CMS.
  *
- * @copyright  Copyright (c) 2026, cgoIT
+ * @copyright  Copyright (c) cgoIT
  * @author     cgoIT <https://cgo-it.de>
  * @license    LGPL-3.0-or-later
  */
@@ -26,7 +26,7 @@ class PersonsElement extends AbstractContentElementController implements StudioA
 {
     use PersonContentAndModuleTrait;
 
-    final public const TYPE = 'persons';
+    final public const string TYPE = 'persons';
 
     protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {
