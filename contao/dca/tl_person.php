@@ -92,7 +92,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
     ],
     // Palettes
     'palettes' => [
-        'default' => '{title_legend},firstName,name,position,tags,singleSRC,size,initials;{contact_legend},contactInformation;{visible_legend:collapsed},invisible',
+        'default' => '{title_legend},firstName,name,initials,position,tags,singleSRC,size;{contact_legend},contactInformation;{visible_legend:collapsed},invisible',
     ],
     // Fields
     'fields' => [
@@ -106,21 +106,21 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w33'],
             'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'name' => [
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w33'],
             'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'position' => [
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
-            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'w50'],
+            'eval' => ['mandatory' => true, 'maxlength' => 255, 'tl_class' => 'clr w50'],
             'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'tags' => [
@@ -149,7 +149,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
         ],
         'initials' => [
             'inputType' => 'text',
-            'eval' => ['maxlength' => 4, 'tl_class' => 'w50'],
+            'eval' => ['maxlength' => 4, 'tl_class' => 'w33'],
             'sql' => ['type' => 'string', 'length' => 32, 'default' => ''],
         ],
         'contactInformation' => [
