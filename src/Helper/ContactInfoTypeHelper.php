@@ -35,7 +35,7 @@ class ContactInfoTypeHelper
     {
         $label = $this->getContactTypeLabel($type, $config, $this->translator->getLocale());
         if (null === $label) {
-            $label = $this->getContactTypeLabel($type);
+            $label = $this->getContactTypeLabel($type, $config);
         }
 
         return $label ?? $type;

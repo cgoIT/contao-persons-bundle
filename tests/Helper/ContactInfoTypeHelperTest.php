@@ -44,6 +44,8 @@ class ContactInfoTypeHelperTest extends TestCase
 
         yield 'translation if configured label is missing for locale' => [$fax, 'fr', ['fr' => 'Télécopie'], 'fax', 'Télécopie'];
 
+        yield 'falls back to english configured label' => [$fax, 'fr', [], 'fax', 'Facsimile'];
+
         yield 'translation if no label is configured' => [['phone' => ['schema_org_type' => 'telephone']], 'de', ['de' => 'Telefon'], 'phone', 'Telefon'];
 
         yield 'translation for unconfigured type' => [[], 'de', ['de' => 'Telefon'], 'phone', 'Telefon'];
