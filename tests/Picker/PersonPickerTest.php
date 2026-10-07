@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class PersonPickerTest extends ContaoTestCase
+final class PersonPickerTest extends ContaoTestCase
 {
     protected function tearDown(): void
     {

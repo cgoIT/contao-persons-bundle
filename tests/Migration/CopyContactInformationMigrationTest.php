@@ -14,7 +14,7 @@ namespace Cgoit\PersonsBundle\Tests\Migration;
 
 use Cgoit\PersonsBundle\Migration\CopyContactInformationMigration;
 
-class CopyContactInformationMigrationTest extends AbstractMigrationTestCase
+final class CopyContactInformationMigrationTest extends AbstractMigrationTestCase
 {
     public function testDoesNotRunIfBundleIsNotInstalled(): void
     {

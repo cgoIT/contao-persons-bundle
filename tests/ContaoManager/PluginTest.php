@@ -20,7 +20,7 @@ use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
-class PluginTest extends TestCase
+final class PluginTest extends TestCase
 {
     public function testRegistersBundleAfterContaoCore(): void
     {

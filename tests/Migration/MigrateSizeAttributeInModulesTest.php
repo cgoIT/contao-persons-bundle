@@ -14,7 +14,7 @@ namespace Cgoit\PersonsBundle\Tests\Migration;
 
 use Cgoit\PersonsBundle\Migration\MigrateSizeAttributeInModules;
 
-class MigrateSizeAttributeInModulesTest extends AbstractMigrationTestCase
+final class MigrateSizeAttributeInModulesTest extends AbstractMigrationTestCase
 {
     public function testDoesNotRunIfBundleIsNotInstalled(): void
     {

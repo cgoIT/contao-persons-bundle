@@ -26,7 +26,7 @@ class PersonsElement extends AbstractContentElementController implements StudioA
 {
     use PersonContentAndModuleTrait;
 
-    final public const TYPE = 'persons';
+    final public const string TYPE = 'persons';
 
     protected function getResponse(FragmentTemplate $template, ContentModel $model, Request $request): Response
     {

@@ -14,7 +14,7 @@ namespace Cgoit\PersonsBundle\Tests\Migration;
 
 use Cgoit\PersonsBundle\Migration\UpdateElementType;
 
-class UpdateElementTypeTest extends AbstractMigrationTestCase
+final class UpdateElementTypeTest extends AbstractMigrationTestCase
 {
     public function testDoesNotRunIfBundleIsNotInstalled(): void
     {

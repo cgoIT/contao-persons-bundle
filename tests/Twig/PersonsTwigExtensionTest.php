@@ -16,7 +16,7 @@ use Cgoit\PersonsBundle\Twig\PersonsTwigExtension;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class PersonsTwigExtensionTest extends TestCase
+final class PersonsTwigExtensionTest extends TestCase
 {
     #[DataProvider('phoneProvider')]
     public function testCleanPhone(string $phone, string $expected): void

@@ -14,7 +14,7 @@ namespace Cgoit\PersonsBundle\Tests\Migration;
 
 use Cgoit\PersonsBundle\Migration\SetDefaultSelectionMode;
 
-class SetDefaultSelectionModeTest extends AbstractMigrationTestCase
+final class SetDefaultSelectionModeTest extends AbstractMigrationTestCase
 {
     public function testDoesNotRunIfBundleIsNotInstalled(): void
     {

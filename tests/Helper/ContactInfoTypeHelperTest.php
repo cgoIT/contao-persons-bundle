@@ -17,7 +17,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ContactInfoTypeHelperTest extends TestCase
+final class ContactInfoTypeHelperTest extends TestCase
 {
     /**
      * @param array<mixed>          $contactTypes

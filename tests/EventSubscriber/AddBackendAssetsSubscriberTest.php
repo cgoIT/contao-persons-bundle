@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-class AddBackendAssetsSubscriberTest extends TestCase
+final class AddBackendAssetsSubscriberTest extends TestCase
 {
     protected function tearDown(): void
     {

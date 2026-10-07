@@ -27,9 +27,9 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Translation\Translator;
 
-class PersonTplOptionsListenerTest extends ContaoTestCase
+final class PersonTplOptionsListenerTest extends ContaoTestCase
 {
-    private const CHAINS = [
+    private const array CHAINS = [
         'component/person' => ['/bundle/contao/templates/component/person.html.twig' => '@Contao_CgoitPersonsBundle/component/person.html.twig'],
         'component/person/card' => ['/project/templates/component/person/card.html.twig' => '@Contao_Global/component/person/card.html.twig'],
         'component/_partial' => ['/project/templates/component/_partial.html.twig' => '@Contao_Global/component/_partial.html.twig'],

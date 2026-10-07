@@ -36,18 +36,18 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PersonContentAndModuleTraitTest extends ContaoTestCase
+final class PersonContentAndModuleTraitTest extends ContaoTestCase
 {
     use ModelRegistryTrait;
 
-    private const CONTACT_TYPES = [
+    private const array CONTACT_TYPES = [
         'email' => ['schema_org_type' => 'email'],
         'phone' => ['schema_org_type' => 'telephone'],
         'website' => ['schema_org_type' => 'url', 'label' => ['en' => 'Homepage']],
         'skype' => [],
     ];
 
-    private const TAG_NAMES = [10 => 'Board', 20 => 'Staff'];
+    private const array TAG_NAMES = [10 => 'Board', 20 => 'Staff'];
 
     /**
      * Tags assigned to the persons (person ID => tag IDs).
@@ -604,7 +604,7 @@ class PersonContentAndModuleTraitTest extends ContaoTestCase
             ->method('findMultiple')
             ->willReturnCallback(
                 function (SourceCriteria $criteria): array {
-                    self::assertSame('tl_person.tags', $criteria->getSource());
+                    $this->assertSame('tl_person.tags', $criteria->getSource());
 
                     $tagIds = array_map(static fn (Tag $tag): int => (int) $tag->getValue(), $criteria->getTags());
 

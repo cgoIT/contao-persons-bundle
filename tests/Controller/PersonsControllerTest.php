@@ -28,7 +28,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PersonsControllerTest extends ContaoTestCase
+final class PersonsControllerTest extends ContaoTestCase
 {
     use ModelRegistryTrait;
 

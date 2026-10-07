@@ -114,8 +114,6 @@ trait PersonContentAndModuleTrait
      */
     private function addPersonsByTag(Model $model, array &$arrPersons, ContactInfoTypeHelper $contactInfoTypeHelper): void
     {
-        $source = null;
-
         if (method_exists($model, 'getTagSource')) {
             $source = $model->getTagSource();
         } else {

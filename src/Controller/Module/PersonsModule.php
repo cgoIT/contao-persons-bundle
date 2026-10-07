@@ -26,7 +26,7 @@ class PersonsModule extends AbstractFrontendModuleController implements StudioAw
 {
     use PersonContentAndModuleTrait;
 
-    final public const TYPE = 'persons';
+    final public const string TYPE = 'persons';
 
     protected function getResponse(FragmentTemplate $template, ModuleModel $model, Request $request): Response
     {

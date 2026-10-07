@@ -22,7 +22,7 @@ use Contao\CoreBundle\Migration\MigrationInterface;
  * Simulates "contao:migrate" for an installation of an old version: the
  * migrations run before and after the database schema update.
  */
-class MigrationOrderTest extends AbstractMigrationTestCase
+final class MigrationOrderTest extends AbstractMigrationTestCase
 {
     public function testMigratesOldInstallation(): void
     {

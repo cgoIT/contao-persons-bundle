@@ -29,11 +29,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PersonCallbackTest extends ContaoTestCase
+final class PersonCallbackTest extends ContaoTestCase
 {
     use ModelRegistryTrait;
 
-    private const CONTACT_TYPES = [
+    private const array CONTACT_TYPES = [
         'email' => ['schema_org_type' => 'email'],
         'fax' => ['label' => ['en' => 'Facsimile']],
     ];
@@ -134,8 +134,10 @@ class PersonCallbackTest extends ContaoTestCase
             ->with($this->callback(
                 static function (PictureConfiguration $size): bool {
                     $resizeConfig = $size->getSize()->getResizeConfig();
+                    self::assertSame(90, $resizeConfig->getWidth());
+                    self::assertSame(90, $resizeConfig->getHeight());
 
-                    return 90 === $resizeConfig->getWidth() && 90 === $resizeConfig->getHeight();
+                    return true;
                 },
             ))
             ->willReturnSelf()

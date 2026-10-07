@@ -21,7 +21,7 @@ use Cgoit\PersonsBundle\Migration\UpdateElementType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class CgoitPersonsExtensionTest extends TestCase
+final class CgoitPersonsExtensionTest extends TestCase
 {
     public function testLoadsServicesAndSetsContactTypesParameter(): void
     {
@@ -44,7 +44,7 @@ class CgoitPersonsExtensionTest extends TestCase
         $this->assertSame(
             [['setPersonTagsManager', ['codefog_tags.manager.person_tags']]],
             array_map(
-                static fn (array $call): array => [$call[0], array_map('strval', $call[1])],
+                static fn (array $call): array => [$call[0], array_map(strval(...), $call[1])],
                 $container->getDefinition(PersonsElement::class)->getMethodCalls(),
             ),
         );
