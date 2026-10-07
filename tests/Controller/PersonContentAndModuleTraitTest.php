@@ -167,6 +167,32 @@ class PersonContentAndModuleTraitTest extends ContaoTestCase
         );
     }
 
+    public function testUsesImageSizeOfModuleForPersonsById(): void
+    {
+        $model = $this->createModel(
+            ModuleModel::class,
+            [
+                'id' => 1,
+                'selectPersonsBy' => 'personsById',
+                'persons' => serialize([
+                    ['person' => 1, 'imgSize' => serialize(['300', '200', 'proportional']), 'deviatingPosition' => '', 'personTpl' => ''],
+                    ['person' => 2, 'imgSize' => serialize(['', '', '']), 'deviatingPosition' => '', 'personTpl' => ''],
+                ]),
+            ],
+            false,
+        );
+
+        $this->render($model);
+
+        $this->assertSame(
+            [
+                ['uuid-1', serialize(['300', '200', 'proportional'])],
+                ['uuid-2', serialize(['90', '90', 'crop'])],
+            ],
+            $this->figureRequests,
+        );
+    }
+
     public function testDoesNotAddPersonsByIdWithoutSelection(): void
     {
         $model = $this->createModel(ContentModel::class, ['id' => 1, 'selectPersonsBy' => 'personsById', 'persons' => null], false);
