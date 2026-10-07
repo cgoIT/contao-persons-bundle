@@ -4,3 +4,18 @@
     font-size: 0.875rem;
 }
 
+// Initials placeholder for persons without an image
+.person-initials {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--border, #e5e5e5);
+    color: var(--text, #222);
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    user-select: none;
+}

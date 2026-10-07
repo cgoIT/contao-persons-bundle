@@ -1,0 +1,21 @@
+// Minimal default styling, everything else is up to the theme. The look of the
+// initials can be adjusted by setting the custom properties anywhere above
+// (e.g. on :root or .persons).
+$size: var(--persons-initials-size, 6rem);
+
+.persons .person-initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: $size;
+    height: $size;
+    margin: 0 0 1rem;
+    border-radius: var(--persons-initials-radius, 50%);
+    background: var(--persons-initials-bg, #d9dee3);
+    color: var(--persons-initials-color, #333);
+    font-size: calc(#{$size} * 0.4);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: 0.05em;
+    user-select: none;
+}

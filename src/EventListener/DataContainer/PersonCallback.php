@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\EventListener\DataContainer;
 
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
+use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsCallback;
@@ -41,6 +42,7 @@ class PersonCallback implements FrameworkAwareInterface
         private readonly array $arrContactInfoTypes,
         private readonly ContactInfoTypeHelper $contactInfoTypeHelper,
         private readonly DefaultManager $personTagsManager,
+        private readonly InitialsHelper $initialsHelper,
     ) {
         $this->imgSize = self::getImgSize();
     }
@@ -51,6 +53,28 @@ class PersonCallback implements FrameworkAwareInterface
         if ('1' === $this->requestStack->getCurrentRequest()->query->get('popup')) {
             $GLOBALS['TL_DCA']['tl_person']['list']['label']['fields'] = ['firstName', 'name', 'position', 'contactInformation', 'tags'];
             unset($GLOBALS['TL_DCA']['tl_person']['list']['operations']);
+        }
+    }
+
+    #[AsCallback(table: 'tl_person', target: 'config.onload')]
+    public function prepareEditForm(DataContainer|null $dc = null): void
+    {
+        if (null === $dc || !$dc->id || 'edit' !== $this->requestStack->getCurrentRequest()?->query->get('act')) {
+            return;
+        }
+
+        $objPerson = PersonModel::findById($dc->id);
+
+        if (null === $objPerson) {
+            return;
+        }
+
+        // Show the automatically derived initials as placeholder
+        $GLOBALS['TL_DCA']['tl_person']['fields']['initials']['eval']['placeholder'] = $this->initialsHelper->getInitials($objPerson->firstName, $objPerson->name);
+
+        // The image size is only relevant if there is an image
+        if (empty($objPerson->singleSRC)) {
+            $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = str_replace(',size', '', $GLOBALS['TL_DCA']['tl_person']['palettes']['default']);
         }
     }
 
@@ -86,7 +110,8 @@ class PersonCallback implements FrameworkAwareInterface
                             $figure->applyLegacyTemplateData($objImg);
                             $arrLabels[] = '<img src="'.$objImg->src.'"'.$objImg->imgSize.'>';
                         } else {
-                            $arrLabels[] = '';
+                            $initials = $this->initialsHelper->getInitialsForPerson($objPerson);
+                            $arrLabels[] = '<span class="person-initials" aria-hidden="true">'.StringUtil::specialchars($initials).'</span>';
                         }
                     } elseif ('contactInformation' === $fieldName) {
                         $contactLabels = [];

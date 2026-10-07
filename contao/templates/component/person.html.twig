@@ -5,6 +5,10 @@
     <div class="container">
         {% if figure %}
             {% with {figure} %}{{ block('figure_component') }}{% endwith %}
+        {% elseif initials|default %}
+            {% block initials %}
+                <div class="person-initials" aria-hidden="true">{{ initials }}</div>
+            {% endblock %}
         {% endif %}
 
         <h5>{{ firstName }} {{ name }}</h5>

@@ -17,6 +17,7 @@
   },
   "require": {
     "php": "^8.3",
+    "ext-mbstring": "*",
     "contao/core-bundle": "^5.3",
     "doctrine/dbal": "^3.3 || ^4.4",
     "symfony/asset": "^6.1 || ^7.2",
@@ -25,6 +26,7 @@
     "symfony/event-dispatcher": "^6.1 || ^7.2",
     "symfony/http-foundation": "^6.1 || ^7.2",
     "symfony/http-kernel": "^6.1 || ^7.2",
+    "symfony/service-contracts": "^3.1",
     "twig/twig": "^3.21",
     "codefog/contao-haste": "^5.1",
     "mvo/contao-group-widget": "^1.5",

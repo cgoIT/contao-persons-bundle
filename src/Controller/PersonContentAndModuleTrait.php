@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\Controller;
 
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
+use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Codefog\TagsBundle\Tag;
@@ -22,6 +23,7 @@ use Contao\Model;
 use Contao\ModuleModel;
 use Contao\StringUtil;
 use Contao\System;
+use Symfony\Contracts\Service\Attribute\Required;
 
 trait PersonContentAndModuleTrait
 {
@@ -29,11 +31,19 @@ trait PersonContentAndModuleTrait
 
     protected DefaultManager $personTagsManager;
 
+    protected InitialsHelper $initialsHelper;
+
     protected string $defaultPersonTemplate = 'component/person';
 
     public function setPersonTagsManager(DefaultManager $manager): void
     {
         $this->personTagsManager = $manager;
+    }
+
+    #[Required]
+    public function setInitialsHelper(InitialsHelper $initialsHelper): void
+    {
+        $this->initialsHelper = $initialsHelper;
     }
 
     protected function addPersonData(FragmentTemplate $template, Model $model): void
@@ -261,6 +271,7 @@ trait PersonContentAndModuleTrait
         $p->firstName = $person->firstName;
         $p->name = $person->name;
         $p->position = $person->position;
+        $p->initials = $this->initialsHelper->getInitialsForPerson($person);
 
         $arrContactInformation = StringUtil::deserialize($person->contactInformation, true);
 

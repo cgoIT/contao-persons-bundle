@@ -14,6 +14,7 @@ namespace Cgoit\PersonsBundle\Tests\EventListener\DataContainer;
 
 use Cgoit\PersonsBundle\EventListener\DataContainer\PersonCallback;
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
+use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Cgoit\PersonsBundle\Tests\ModelRegistryTrait;
 use Codefog\TagsBundle\Finder\TagCriteria;
@@ -96,7 +97,7 @@ final class PersonCallbackTest extends ContaoTestCase
 
         $this->assertSame(
             [
-                '',
+                '<span class="person-initials" aria-hidden="true">JD</span>',
                 'Jane',
                 'Doe',
                 'CEO',
@@ -156,7 +157,60 @@ final class PersonCallbackTest extends ContaoTestCase
 
         $labels = $this->createCallback(studio: $studio)->listChildRecords(['id' => '3'], '', $this->createStub(DataContainer::class), []);
 
-        $this->assertSame('', $labels[0]);
+        $this->assertSame('<span class="person-initials" aria-hidden="true">JD</span>', $labels[0]);
+    }
+
+    public function testHidesImageSizeIfPersonHasNoImage(): void
+    {
+        $this->createModel(PersonModel::class, ['id' => 4, 'firstName' => 'Jane', 'name' => 'Doe', 'singleSRC' => null]);
+
+        $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = '{title_legend},firstName,name,singleSRC,size;{contact_legend},contactInformation';
+
+        $this->createCallback(new Request(['act' => 'edit']))->prepareEditForm($this->createDataContainer(4));
+
+        $this->assertSame('{title_legend},firstName,name,singleSRC;{contact_legend},contactInformation', $GLOBALS['TL_DCA']['tl_person']['palettes']['default']);
+    }
+
+    public function testKeepsImageSizeIfPersonHasImage(): void
+    {
+        $this->createPerson(5, []);
+
+        $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = '{title_legend},firstName,name,singleSRC,size';
+
+        $this->createCallback(new Request(['act' => 'edit']))->prepareEditForm($this->createDataContainer(5));
+
+        $this->assertSame('{title_legend},firstName,name,singleSRC,size', $GLOBALS['TL_DCA']['tl_person']['palettes']['default']);
+    }
+
+    public function testKeepsImageSizeOutsideEditMode(): void
+    {
+        $this->createModel(PersonModel::class, ['id' => 6, 'firstName' => 'Jane', 'name' => 'Doe', 'singleSRC' => null]);
+
+        $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = '{title_legend},firstName,name,singleSRC,size';
+
+        $this->createCallback(new Request())->prepareEditForm($this->createDataContainer(6));
+
+        $this->assertSame('{title_legend},firstName,name,singleSRC,size', $GLOBALS['TL_DCA']['tl_person']['palettes']['default']);
+    }
+
+    public function testSetsDerivedInitialsAsPlaceholder(): void
+    {
+        $this->createModel(PersonModel::class, ['id' => 7, 'firstName' => 'Ludwig', 'name' => 'van Beethoven', 'singleSRC' => 'uuid-7', 'initials' => 'LvB']);
+
+        $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = '{title_legend},firstName,name,singleSRC,size,initials';
+
+        $this->createCallback(new Request(['act' => 'edit']))->prepareEditForm($this->createDataContainer(7));
+
+        $this->assertSame('LV', $GLOBALS['TL_DCA']['tl_person']['fields']['initials']['eval']['placeholder']);
+    }
+
+    public function testRendersCustomInitialsInList(): void
+    {
+        $this->createModel(PersonModel::class, ['id' => 8, 'firstName' => 'Ludwig', 'name' => 'van Beethoven', 'position' => '', 'singleSRC' => null, 'initials' => 'LvB', 'contactInformation' => null, 'tags' => null]);
+
+        $labels = $this->createCallback()->listChildRecords(['id' => '8'], '', $this->createStub(DataContainer::class), []);
+
+        $this->assertSame('<span class="person-initials" aria-hidden="true">LvB</span>', $labels[0]);
     }
 
     public function testReturnsOriginalLabelsWithoutColumns(): void
@@ -167,6 +221,11 @@ final class PersonCallbackTest extends ContaoTestCase
             ['original'],
             $this->createCallback()->listChildRecords(['id' => '1'], '', $this->createStub(DataContainer::class), ['original']),
         );
+    }
+
+    private function createDataContainer(int $id): DataContainer
+    {
+        return $this->createClassWithPropertiesStub(DataContainer::class, ['id' => $id]);
     }
 
     /**
@@ -255,6 +314,7 @@ final class PersonCallbackTest extends ContaoTestCase
             self::CONTACT_TYPES,
             new ContactInfoTypeHelper(self::CONTACT_TYPES, $translator),
             $tagsManager,
+            new InitialsHelper(),
         );
     }
 }

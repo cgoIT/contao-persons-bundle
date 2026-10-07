@@ -35,7 +35,13 @@
         <source>Photo</source>
       </trans-unit>
       <trans-unit id="tl_person.singleSRC.1">
-        <source>Photo of the person</source>
+        <source>Optional photo of the person. If no photo is selected, the initials of the person are displayed instead.</source>
+      </trans-unit>
+      <trans-unit id="tl_person.initials.0">
+        <source>Initials</source>
+      </trans-unit>
+      <trans-unit id="tl_person.initials.1">
+        <source>Displayed instead of the photo if no photo is selected. Leave empty to derive the initials automatically from the first and last name.</source>
       </trans-unit>
       <trans-unit id="tl_person.tags.0">
         <source>Keywords</source>

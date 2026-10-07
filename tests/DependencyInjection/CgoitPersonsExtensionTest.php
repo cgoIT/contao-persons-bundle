@@ -17,6 +17,7 @@ use Cgoit\PersonsBundle\Controller\Module\PersonsModule;
 use Cgoit\PersonsBundle\DependencyInjection\CgoitPersonsExtension;
 use Cgoit\PersonsBundle\EventSubscriber\AddBackendAssetsSubscriber;
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
+use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Migration\UpdateElementType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -37,7 +38,7 @@ final class CgoitPersonsExtensionTest extends TestCase
             $container->getParameter('cgoit_persons.contact_types'),
         );
 
-        foreach ([PersonsElement::class, PersonsModule::class, ContactInfoTypeHelper::class, AddBackendAssetsSubscriber::class, UpdateElementType::class] as $serviceId) {
+        foreach ([PersonsElement::class, PersonsModule::class, ContactInfoTypeHelper::class, InitialsHelper::class, AddBackendAssetsSubscriber::class, UpdateElementType::class] as $serviceId) {
             $this->assertTrue($container->hasDefinition($serviceId), $serviceId);
         }
 

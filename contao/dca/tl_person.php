@@ -92,7 +92,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
     ],
     // Palettes
     'palettes' => [
-        'default' => '{title_legend},firstName,name,position,tags,singleSRC,size;{contact_legend},contactInformation;{visible_legend:collapsed},invisible',
+        'default' => '{title_legend},firstName,name,position,tags,singleSRC,size,initials;{contact_legend},contactInformation;{visible_legend:collapsed},invisible',
     ],
     // Fields
     'fields' => [
@@ -136,7 +136,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
         'singleSRC' => [
             'exclude' => true,
             'inputType' => 'fileTree',
-            'eval' => ['mandatory' => true, 'filesOnly' => true, 'fieldType' => 'radio', 'extensions' => '%contao.image.valid_extensions%', 'tl_class' => 'clr'],
+            'eval' => ['filesOnly' => true, 'fieldType' => 'radio', 'extensions' => '%contao.image.valid_extensions%', 'submitOnChange' => true, 'tl_class' => 'clr'],
             'sql' => ['type' => 'binary', 'length' => 16, 'fixed' => true, 'notnull' => false],
         ],
         'size' => [
@@ -144,8 +144,13 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'inputType' => 'imageSize',
             'reference' => &$GLOBALS['TL_LANG']['MSC'],
             'options_callback' => ['contao.listener.image_size_options', '__invoke'],
-            'eval' => ['mandatory' => true, 'rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'clr w50'],
+            'eval' => ['rgxp' => 'natural', 'includeBlankOption' => true, 'nospace' => true, 'helpwizard' => true, 'tl_class' => 'clr w50'],
             'sql' => ['type' => 'string', 'length' => 128, 'default' => '', 'customSchemaOptions' => ['collation' => 'ascii_bin']],
+        ],
+        'initials' => [
+            'inputType' => 'text',
+            'eval' => ['maxlength' => 4, 'tl_class' => 'w50'],
+            'sql' => ['type' => 'string', 'length' => 32, 'default' => ''],
         ],
         'contactInformation' => [
             'exclude' => false,

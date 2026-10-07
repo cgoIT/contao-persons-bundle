@@ -1,0 +1,2 @@
+.persons .person-initials{align-items:center;background:var(--persons-initials-bg,#d9dee3);border-radius:var(--persons-initials-radius,50%);color:var(--persons-initials-color,#333);display:flex;font-size:calc(var(--persons-initials-size, 6rem)*.4);font-weight:600;height:var(--persons-initials-size,6rem);justify-content:center;letter-spacing:.05em;line-height:1;margin:0 0 1rem;-webkit-user-select:none;-moz-user-select:none;user-select:none;width:var(--persons-initials-size,6rem)}
+/*# sourceMappingURL=persons-css.0530dcd5.css.map*/

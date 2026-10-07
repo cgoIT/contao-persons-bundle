@@ -1,8 +1,13 @@
 {
   "entrypoints": {
+    "persons-css": {
+      "css": [
+        "/bundles/cgoitpersons/persons-css.0530dcd5.css"
+      ]
+    },
     "backend-css": {
       "css": [
-        "/bundles/cgoitpersons/backend-css.7d0f8808.css"
+        "/bundles/cgoitpersons/backend-css.1ebf747f.css"
       ]
     }
   }

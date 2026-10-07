@@ -1,5 +1,11 @@
 {% extends '@Contao/content_element/_base.html.twig' %}
 
+{% block style %}
+    {% add 'cgoit_persons_css' to head %}
+        <link rel="stylesheet" href="{{ asset('persons-css.css', 'cgoit_persons') }}">
+    {% endadd %}
+{% endblock %}
+
 {% block content %}
     <div class="persons">
         {% for person in persons %}

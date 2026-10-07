@@ -29,6 +29,7 @@ use Contao\Model\MetadataTrait;
  * @property array<Tag>|Collection<TagModel>|null $tags
  * @property string|null                          $singleSRC
  * @property string|int                           $size
+ * @property string                               $initials
  * @property array<mixed>|null                    $contactInformation
  * @property bool                                 $invisible
  *

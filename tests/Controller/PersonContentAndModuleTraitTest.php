@@ -14,6 +14,7 @@ namespace Cgoit\PersonsBundle\Tests\Controller;
 
 use Cgoit\PersonsBundle\Controller\PersonContentAndModuleTrait;
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
+use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Cgoit\PersonsBundle\Tests\ModelRegistryTrait;
 use Codefog\TagsBundle\Finder\SourceCriteria;
@@ -216,6 +217,7 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
 
         $this->assertSame('Jane', $person->firstName);
         $this->assertSame('Doe', $person->name);
+        $this->assertSame('JD', $person->initials);
         $this->assertSame('jane@example.com', $person->email);
         $this->assertSame('E-mail', $person->email_label);
         $this->assertSame('+49 711 1', $person->phone);
@@ -231,8 +233,29 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
 
         // The template data contains all properties
         $this->assertSame('Jane', $person->arrData['firstName']);
+        $this->assertSame('JD', $person->arrData['initials']);
         $this->assertSame('E-mail', $person->arrData['email_label']);
         $this->assertSame($person->contactInfos, $person->arrData['contactInfos']);
+    }
+
+    public function testUsesCustomInitials(): void
+    {
+        $this->createPerson(99, 'Beethoven', 'Ludwig', 'Composer', [], false, 'LvB');
+
+        $model = $this->createModel(
+            ContentModel::class,
+            [
+                'id' => 1,
+                'selectPersonsBy' => 'personsById',
+                'persons' => serialize([['person' => 99, 'personTpl' => '']]),
+            ],
+            false,
+        );
+
+        $person = array_values($this->render($model)['persons'])[0];
+
+        $this->assertSame('LvB', $person->initials);
+        $this->assertSame('LvB', $person->arrData['initials']);
     }
 
     public function testUsesConfiguredAndFallbackContactLabels(): void
@@ -503,9 +526,10 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
     /**
      * @param array<mixed> $contactInformation
      */
-    private function createPerson(int $id, string $name, string $firstName, string $position, array $contactInformation, bool $invisible = false): void
+    private function createPerson(int $id, string $name, string $firstName, string $position, array $contactInformation, bool $invisible = false, string $initials = ''): void
     {
         $this->createModel(PersonModel::class, [
+            'initials' => $initials,
             'id' => $id,
             'name' => $name,
             'firstName' => $firstName,
@@ -525,6 +549,7 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $controller = new PersonsControllerDouble();
         $controller->setStudio($this->createStudio());
         $controller->setPersonTagsManager($this->createTagsManager());
+        $controller->setInitialsHelper(new InitialsHelper());
 
         return $controller->render($model);
     }

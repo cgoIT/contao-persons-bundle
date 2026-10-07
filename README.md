@@ -76,6 +76,43 @@ Since version 2.1.0 the contact information data is available in the template in
 1. In the template you'll have access to an array `contactInfos`. This array has entries for each contact information. Each entry is itself an array with three keys: `type`, `label` and `value`.
 2. Each contact information is available in the template. Each person has properties like `<type>` (e.g. `email`) and `<type>_label` (e.g. `email_label`).
 
+## Persons without a photo
+
+The photo of a person is optional (e.g. for privacy reasons). Each person has an `initials` property in the
+template. The initials can be entered in the backend (field "Initials", e.g. `LvB`). If the field is left empty,
+the initials are derived automatically from the first letter of the first name and of the last name (e.g. `JD`
+for "Jane Doe"); the derived value is shown as placeholder in the empty field. The default template
+`component/person.html.twig` shows the initials instead of the photo if no photo has been selected:
+
+```twig
+<div class="person-initials" aria-hidden="true">{{ initials }}</div>
+```
+
+The markup is defined in the block `initials` and can be overridden or emptied in your own template.
+If you want to change how the initials are derived automatically, decorate the service
+`Cgoit\PersonsBundle\Helper\InitialsHelper`.
+
+The bundle ships a small default stylesheet that renders the initials as a circle. It is added by the block
+`style` of `content_element/persons.html.twig`. The look can be adjusted via CSS custom properties, e.g.:
+
+```css
+:root {
+    --persons-initials-size: 4rem;      /* default: 6rem */
+    --persons-initials-bg: #003366;     /* default: #d9dee3 */
+    --persons-initials-color: #fff;     /* default: #333 */
+    --persons-initials-radius: 0.5rem;  /* default: 50% */
+}
+```
+
+If you don't want to use the default stylesheet at all, override the `style` block in your own
+`content_element/persons.html.twig`:
+
+```twig
+{% extends '@Contao/content_element/persons.html.twig' %}
+
+{% block style %}{% endblock %}
+```
+
 ## schema.org Data
 
 Since version 2.1.0 you can add schema.org data to your templates like this:
