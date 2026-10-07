@@ -51,15 +51,13 @@ class PersonCallbackTest extends ContaoTestCase
             ],
             'operations' => ['edit' => []],
         ];
-
-        $GLOBALS['TL_LANG']['tl_person']['contactInformation_type_options'] = ['email' => 'E-mail', 'phone' => 'Phone'];
     }
 
     protected function tearDown(): void
     {
         $this->tearDownModelRegistry();
 
-        unset($GLOBALS['TL_DCA'], $GLOBALS['TL_LANG']);
+        unset($GLOBALS['TL_DCA']);
 
         parent::tearDown();
     }
@@ -90,7 +88,7 @@ class PersonCallbackTest extends ContaoTestCase
 
     public function testRendersListColumns(): void
     {
-        $this->createPerson(1, [['type' => 'email', 'value' => 'jane@example.com'], ['type' => 'phone', 'value' => '0711']], 'tag-field');
+        $this->createPerson(1, [['type' => 'email', 'value' => 'jane@example.com'], ['type' => 'fax', 'value' => '0711']], 'tag-field');
 
         $labels = $this->createCallback(tags: [1 => [new Tag('10', 'Board'), new Tag('20', 'Staff')]])
             ->listChildRecords(['id' => '1'], '', $this->createStub(DataContainer::class), [])
@@ -102,7 +100,7 @@ class PersonCallbackTest extends ContaoTestCase
                 'Jane',
                 'Doe',
                 'CEO',
-                '<table><tr><td><strong>E-mail</strong></td><td>jane@example.com</td></tr><tr><td><strong>Phone</strong></td><td>0711</td></tr></table>',
+                '<table><tr><td><strong>E-mail</strong></td><td>jane@example.com</td></tr><tr><td><strong>Facsimile</strong></td><td>0711</td></tr></table>',
                 '<div class="cfg-tags-all person-list"><span>Board</span><span>Staff</span></div>',
             ],
             $labels,

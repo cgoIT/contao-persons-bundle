@@ -24,7 +24,6 @@ use Contao\Image\PictureConfiguration;
 use Contao\Image\PictureConfigurationItem;
 use Contao\Image\ResizeConfiguration;
 use Contao\StringUtil;
-use Contao\System;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class PersonCallback implements FrameworkAwareInterface
@@ -64,8 +63,6 @@ class PersonCallback implements FrameworkAwareInterface
     #[AsCallback(table: 'tl_person', target: 'list.label.label')]
     public function listChildRecords(array $row, string $label, DataContainer $dc, array $labels): array
     {
-        System::loadLanguageFile('tl_person');
-
         $arrLabels = $labels;
 
         if ($GLOBALS['TL_DCA']['tl_person']['list']['label']['showColumns'] && $GLOBALS['TL_DCA']['tl_person']['list']['label']['fields']) {
@@ -96,7 +93,7 @@ class PersonCallback implements FrameworkAwareInterface
                         $arrInfo = StringUtil::deserialize($objPerson->{$fieldName}, true);
 
                         foreach ($arrInfo as $info) {
-                            $contactLabels[] = '<tr><td><strong>'.$GLOBALS['TL_LANG']['tl_person']['contactInformation_type_options'][$info['type']].'</strong></td><td>'.$info['value'].'</td></tr>';
+                            $contactLabels[] = '<tr><td><strong>'.$this->contactInfoTypeHelper->getLabel($info['type']).'</strong></td><td>'.$info['value'].'</td></tr>';
                         }
                         $arrLabels[] = '<table>'.implode('', $contactLabels).'</table>';
                     } elseif ('tags' === $fieldName) {
