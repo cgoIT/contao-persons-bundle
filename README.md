@@ -27,6 +27,21 @@ map to the new ones.
 | Frontend module to display a list of persons | mod_person.html5   | frontend_module/persons.html.twig |
 | Template for one person                      | person.html5       | component/person.html.twig       |
 
+## Upgrading to 3.3.0
+
+- **PHP 8.3 is required.** Installations running PHP 8.2 will stay on version 3.2.x until PHP is updated.
+- **Update the database.** Version 3.3.0 adds the column `tl_person.initials`. Run the database update in the
+  Contao Manager or via `vendor/bin/contao-console contao:migrate` after updating. The frontend keeps working
+  before the update, but saving a person in the backend fails until the column has been created.
+- **The photo is optional now.** Persons without a photo show their initials instead (see
+  [Persons without a photo](#persons-without-a-photo)). This also applies to existing persons whose image file has
+  been deleted or moved, which previously were rendered without any image.
+- **New default stylesheet.** Lists that contain at least one person without a photo load a small stylesheet for
+  the initials. Lists in which every person has a photo don't load any additional files.
+- **Template overrides keep working.** The template variable `initials` and the blocks `initials` and `style` are
+  new; existing custom templates don't need to be changed, but they will only show initials once they output the
+  new variable.
+
 ## Configuration
 
 Since version 2.1.0 you can configure the contact information types via the standard mechanism. To do so
@@ -93,7 +108,8 @@ If you want to change how the initials are derived automatically, decorate the s
 `Cgoit\PersonsBundle\Helper\InitialsHelper`.
 
 The bundle ships a small default stylesheet that renders the initials as a circle. It is added by the block
-`style` of `content_element/persons.html.twig`. The look can be adjusted via CSS custom properties, e.g.:
+`style` of `content_element/persons.html.twig`, but only if the list contains at least one person without a
+photo. The look can be adjusted via CSS custom properties, e.g.:
 
 ```css
 :root {
