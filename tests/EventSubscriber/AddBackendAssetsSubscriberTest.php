@@ -16,6 +16,7 @@ use Cgoit\PersonsBundle\EventSubscriber\AddBackendAssetsSubscriber;
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -39,7 +40,7 @@ final class AddBackendAssetsSubscriberTest extends TestCase
     {
         $this->dispatch(true, 'person');
 
-        $this->assertSame(['bundles/cgoitpersons/backend.css|static'], $GLOBALS['TL_CSS']);
+        $this->assertSame(['/bundles/cgoitpersons/backend-css.1234abcd.css'], $GLOBALS['TL_CSS']);
     }
 
     #[DataProvider('ignoredRequestProvider')]
@@ -74,6 +75,12 @@ final class AddBackendAssetsSubscriberTest extends TestCase
 
         $event = new RequestEvent($this->createStub(HttpKernelInterface::class), $request, HttpKernelInterface::MAIN_REQUEST);
 
-        (new AddBackendAssetsSubscriber($scopeMatcher))->onKernelRequest($event);
+        $packages = $this->createStub(Packages::class);
+        $packages
+            ->method('getUrl')
+            ->willReturnMap([['backend-css.css', 'cgoit_persons', '/bundles/cgoitpersons/backend-css.1234abcd.css']])
+        ;
+
+        (new AddBackendAssetsSubscriber($scopeMatcher, $packages))->onKernelRequest($event);
     }
 }

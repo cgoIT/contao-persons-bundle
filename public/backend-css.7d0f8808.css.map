@@ -1,0 +1,1 @@
+{"version":3,"file":"backend-css.004d18bb.css","mappings":"AACA,+BAEI,kBADA,eACA","sources":["webpack://@cgoit/contao-persons-bundle/./assets/scss/backend.scss"],"sourcesContent":["// Tag list in the person overview\n.cfg-tags-all.person-list span {\n    padding: 3px 7px;\n    font-size: 0.875rem;\n}\n\n"],"names":[],"sourceRoot":""}

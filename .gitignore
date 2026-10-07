@@ -2,6 +2,10 @@
 /composer.lock
 /vendor/
 
+# Node
+/node_modules/
+yarn.lock
+
 # PhpUnit
 /.phpunit.result.cache
 /phpunit.xml

@@ -13,14 +13,17 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\EventSubscriber;
 
 use Contao\CoreBundle\Routing\ScopeMatcher;
+use Symfony\Component\Asset\Packages;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 class AddBackendAssetsSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private readonly ScopeMatcher $scopeMatcher)
-    {
+    public function __construct(
+        private readonly ScopeMatcher $scopeMatcher,
+        private readonly Packages $packages,
+    ) {
     }
 
     public static function getSubscribedEvents(): array
@@ -34,7 +37,7 @@ class AddBackendAssetsSubscriber implements EventSubscriberInterface
 
         if ($this->scopeMatcher->isBackendRequest($request)) {
             if ('person' === $request->query->get('do')) {
-                $GLOBALS['TL_CSS'][] = 'bundles/cgoitpersons/backend.css|static';
+                $GLOBALS['TL_CSS'][] = $this->packages->getUrl('backend-css.css', 'cgoit_persons');
             }
         }
     }
