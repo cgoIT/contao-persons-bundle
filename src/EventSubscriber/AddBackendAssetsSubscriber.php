@@ -33,7 +33,7 @@ class AddBackendAssetsSubscriber implements EventSubscriberInterface
         $request = $e->getRequest();
 
         if ($this->scopeMatcher->isBackendRequest($request)) {
-            if ('calendar' === $request->query->get('do')) {
+            if ('person' === $request->query->get('do')) {
                 $GLOBALS['TL_CSS'][] = 'bundles/cgoitpersons/backend.css|static';
             }
         }
