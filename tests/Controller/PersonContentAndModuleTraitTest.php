@@ -328,7 +328,7 @@ class PersonContentAndModuleTraitTest extends ContaoTestCase
 
         // The image size of the module overrides the person size
         $this->assertSame(
-            [['uuid-2', serialize(['50', '50', 'crop'])], ['uuid-3', serialize(['50', '50', 'crop'])]],
+            [['uuid-3', serialize(['50', '50', 'crop'])], ['uuid-2', serialize(['50', '50', 'crop'])]],
             $this->figureRequests,
         );
     }
@@ -371,11 +371,17 @@ class PersonContentAndModuleTraitTest extends ContaoTestCase
 
         yield 'first name descending' => [['firstName_desc'], [3, 1, 2]];
 
+        yield 'position ascending' => [['position_asc'], [1, 2, 3]];
+
+        yield 'position descending' => [['position_desc'], [3, 2, 1]];
+
+        yield 'id' => [['id'], [1, 2, 3]];
+
         yield 'id ascending' => [['id_asc'], [1, 2, 3]];
 
         yield 'id descending' => [['id_desc'], [3, 2, 1]];
 
-        yield 'unknown sort order keeps the order' => [['unknown'], [1, 2, 3]];
+        yield 'unknown sort order keeps the order' => [['unknown'], [3, 2, 1]];
     }
 
     public function testSortsByMultipleCriteria(): void
@@ -572,7 +578,8 @@ class PersonContentAndModuleTraitTest extends ContaoTestCase
 
                     $tagIds = array_map(static fn (Tag $tag): int => (int) $tag->getValue(), $criteria->getTags());
 
-                    return array_keys(array_filter($this->personTags, static fn (array $personTags): bool => [] !== array_intersect($tagIds, $personTags)));
+                    // Return the IDs in descending order to make sure the sorting is applied
+                    return array_reverse(array_keys(array_filter($this->personTags, static fn (array $personTags): bool => [] !== array_intersect($tagIds, $personTags))));
                 },
             )
         ;
