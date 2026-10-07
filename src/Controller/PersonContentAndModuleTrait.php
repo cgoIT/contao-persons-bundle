@@ -242,7 +242,7 @@ trait PersonContentAndModuleTrait
             if (!empty($arrData['deviatingPosition'])) {
                 $person->position = $arrData['deviatingPosition'];
             }
-            $person->personTpl = $arrData['personTpl'] ?: $this->defaultPersonTemplate;
+            $person->personTpl = $arrData['personTpl'] ?? '' ?: $this->defaultPersonTemplate;
             $person->size = static::getSize($arrData['size'] ?? $arrData['imgSize'] ?? null, $person->size);
         }
 
