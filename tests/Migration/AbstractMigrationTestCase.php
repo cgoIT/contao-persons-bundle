@@ -37,10 +37,24 @@ abstract class AbstractMigrationTestCase extends TestCase
         $this->connection->executeStatement('CREATE TABLE tl_person ('.implode(', ', $columns).')');
     }
 
-    protected function createElementTables(): void
+    protected function createElementTables(bool $withPersonColumns = true): void
+    {
+        $columns = $withPersonColumns ? ", selectPersonsBy VARCHAR(20) NOT NULL DEFAULT '', persons TEXT NULL" : '';
+
+        foreach (['tl_content', 'tl_module'] as $table) {
+            $this->connection->executeStatement("CREATE TABLE $table (id INTEGER PRIMARY KEY, type VARCHAR(64) NOT NULL DEFAULT ''$columns)");
+        }
+    }
+
+    /**
+     * Simulates the database schema update between the two migration runs of
+     * "contao:migrate".
+     */
+    protected function addPersonColumnsToElementTables(): void
     {
         foreach (['tl_content', 'tl_module'] as $table) {
-            $this->connection->executeStatement("CREATE TABLE $table (id INTEGER PRIMARY KEY, type VARCHAR(64) NOT NULL DEFAULT '', selectPersonsBy VARCHAR(20) NOT NULL DEFAULT '', persons TEXT NULL)");
+            $this->connection->executeStatement("ALTER TABLE $table ADD COLUMN selectPersonsBy VARCHAR(20) NOT NULL DEFAULT ''");
+            $this->connection->executeStatement("ALTER TABLE $table ADD COLUMN persons TEXT NULL");
         }
     }
 

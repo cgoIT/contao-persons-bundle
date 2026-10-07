@@ -53,4 +53,43 @@ class SetDefaultSelectionModeTest extends AbstractMigrationTestCase
         $this->assertSame('personsById', $this->fetchRow('tl_module', 1)['selectPersonsBy']);
         $this->assertFalse($migration->shouldRun());
     }
+
+    public function testDoesNotRunBeforeTheColumnExists(): void
+    {
+        $this->createPersonTable();
+        $this->createElementTables(false);
+        $this->insert('tl_content', ['id' => 1, 'type' => 'person']);
+
+        $this->assertFalse((new SetDefaultSelectionMode($this->connection))->shouldRun());
+    }
+
+    public function testSetsDefaultSelectionModeAfterElementTypeWasRenamed(): void
+    {
+        $this->createPersonTable();
+        $this->createElementTables();
+        $this->insert('tl_content', ['id' => 1, 'type' => 'persons']);
+        $this->insert('tl_module', ['id' => 1, 'type' => 'persons']);
+
+        $migration = new SetDefaultSelectionMode($this->connection);
+
+        $this->assertTrue($migration->shouldRun());
+        $this->assertTrue($migration->run()->isSuccessful());
+
+        $this->assertSame('personsById', $this->fetchRow('tl_content', 1)['selectPersonsBy']);
+        $this->assertSame('personsById', $this->fetchRow('tl_module', 1)['selectPersonsBy']);
+    }
+
+    public function testDoesNotChangeOtherElements(): void
+    {
+        $this->createPersonTable();
+        $this->createElementTables();
+        $this->insert('tl_content', ['id' => 1, 'type' => 'persons']);
+        $this->insert('tl_content', ['id' => 2, 'type' => 'text']);
+        $this->insert('tl_module', ['id' => 1, 'type' => 'navigation']);
+
+        (new SetDefaultSelectionMode($this->connection))->run();
+
+        $this->assertSame('', $this->fetchRow('tl_content', 2)['selectPersonsBy']);
+        $this->assertSame('', $this->fetchRow('tl_module', 1)['selectPersonsBy']);
+    }
 }

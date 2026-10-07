@@ -15,6 +15,7 @@ namespace Cgoit\PersonsBundle\Migration;
 use Contao\CoreBundle\Migration\AbstractMigration;
 use Contao\CoreBundle\Migration\MigrationResult;
 use Contao\StringUtil;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 
@@ -41,16 +42,11 @@ class MigrateSizeAttributeInModules extends AbstractMigration
      */
     public function shouldRun(): bool
     {
-        if (!$this->isInstalled()) {
+        if (!$this->isInstalled() || !$this->columnExists($this->table, $this->column)) {
             return false;
         }
 
-        $personModules = $this->db
-            ->executeQuery("SELECT id, $this->column FROM $this->table WHERE type='person'")
-            ->fetchAllAssociative()
-        ;
-
-        foreach ($personModules as $module) {
+        foreach ($this->getPersonModules() as $module) {
             $arrPerson = StringUtil::deserialize($module['persons'], true);
 
             foreach ($arrPerson as $person) {
@@ -68,12 +64,7 @@ class MigrateSizeAttributeInModules extends AbstractMigration
      */
     public function run(): MigrationResult
     {
-        $personModules = $this->db
-            ->executeQuery("SELECT id, $this->column FROM $this->table WHERE type='person'")
-            ->fetchAllAssociative()
-        ;
-
-        foreach ($personModules as $module) {
+        foreach ($this->getPersonModules() as $module) {
             $arrPerson = StringUtil::deserialize($module['persons'], true);
 
             foreach ($arrPerson as &$person) {
@@ -87,5 +78,21 @@ class MigrateSizeAttributeInModules extends AbstractMigration
         }
 
         return $this->createResult(true);
+    }
+
+    /**
+     * Returns the person modules before and after the UpdateElementType migration.
+     *
+     * @return list<array<string, mixed>>
+     *
+     * @throws Exception
+     */
+    private function getPersonModules(): array
+    {
+        return $this->db->fetchAllAssociative(
+            "SELECT id, $this->column FROM $this->table WHERE type IN (?)",
+            [['person', 'persons']],
+            [ArrayParameterType::STRING],
+        );
     }
 }

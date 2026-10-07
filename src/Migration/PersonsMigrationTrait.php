@@ -26,4 +26,11 @@ trait PersonsMigrationTrait
 
         return $schemaManager->tablesExist([self::$extension_table]);
     }
+
+    protected function columnExists(string $table, string $column): bool
+    {
+        $columns = array_change_key_case($this->db->createSchemaManager()->listTableColumns($table));
+
+        return isset($columns[strtolower($column)]);
+    }
 }

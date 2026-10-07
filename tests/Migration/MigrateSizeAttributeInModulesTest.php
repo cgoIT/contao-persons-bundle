@@ -60,4 +60,27 @@ class MigrateSizeAttributeInModulesTest extends AbstractMigrationTestCase
         $this->assertSame([['person' => 3, 'size' => 'x']], unserialize($this->fetchRow('tl_module', 2)['persons']));
         $this->assertFalse($migration->shouldRun());
     }
+
+    public function testDoesNotRunBeforeTheColumnExists(): void
+    {
+        $this->createPersonTable();
+        $this->createElementTables(false);
+        $this->insert('tl_module', ['id' => 1, 'type' => 'person']);
+
+        $this->assertFalse((new MigrateSizeAttributeInModules($this->connection))->shouldRun());
+    }
+
+    public function testRenamesSizeAfterElementTypeWasRenamed(): void
+    {
+        $this->createPersonTable();
+        $this->createElementTables();
+        $this->insert('tl_module', ['id' => 1, 'type' => 'persons', 'persons' => serialize([['person' => 1, 'size' => 'a:0:{}']])]);
+
+        $migration = new MigrateSizeAttributeInModules($this->connection);
+
+        $this->assertTrue($migration->shouldRun());
+        $this->assertTrue($migration->run()->isSuccessful());
+
+        $this->assertSame([['person' => 1, 'imgSize' => 'a:0:{}']], unserialize($this->fetchRow('tl_module', 1)['persons']));
+    }
 }

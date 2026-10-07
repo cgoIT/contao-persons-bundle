@@ -14,8 +14,10 @@ namespace Cgoit\PersonsBundle\Migration;
 
 use Contao\CoreBundle\Migration\AbstractMigration;
 use Contao\CoreBundle\Migration\MigrationResult;
+use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\ParameterType;
 
 class SetDefaultSelectionMode extends AbstractMigration
 {
@@ -29,6 +31,13 @@ class SetDefaultSelectionMode extends AbstractMigration
     private static string $column = 'selectPersonsBy';
 
     private static string $defaultValue = 'personsById';
+
+    /**
+     * The element type before and after the UpdateElementType migration.
+     *
+     * @var list<string>
+     */
+    private static array $types = ['person', 'persons'];
 
     public function __construct(Connection $db)
     {
@@ -50,10 +59,15 @@ class SetDefaultSelectionMode extends AbstractMigration
         }
 
         foreach (self::$arrTables as $table) {
-            $missingDefaultValue = (int) $this->db
-                ->executeQuery('SELECT COUNT('.self::$column.') FROM '.$table." WHERE type = 'person' AND ".self::$column." = ''")
-                ->fetchOne() > 0
-            ;
+            if (!$this->columnExists($table, self::$column)) {
+                continue;
+            }
+
+            $missingDefaultValue = (int) $this->db->fetchOne(
+                'SELECT COUNT(*) FROM '.$table.' WHERE type IN (?) AND '.self::$column." = ''",
+                [self::$types],
+                [ArrayParameterType::STRING],
+            ) > 0;
 
             if ($missingDefaultValue) {
                 return true;
@@ -69,7 +83,15 @@ class SetDefaultSelectionMode extends AbstractMigration
     public function run(): MigrationResult
     {
         foreach (self::$arrTables as $table) {
-            $this->db->update($table, [self::$column => self::$defaultValue], [self::$column => '']);
+            if (!$this->columnExists($table, self::$column)) {
+                continue;
+            }
+
+            $this->db->executeStatement(
+                'UPDATE '.$table.' SET '.self::$column.' = ? WHERE type IN (?) AND '.self::$column." = ''",
+                [self::$defaultValue, self::$types],
+                [ParameterType::STRING, ArrayParameterType::STRING],
+            );
         }
 
         return $this->createResult(true);
