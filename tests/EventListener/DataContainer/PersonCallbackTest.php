@@ -197,7 +197,7 @@ final class PersonCallbackTest extends ContaoTestCase
     {
         $this->createModel(PersonModel::class, ['id' => 7, 'firstName' => 'Ludwig', 'name' => 'van Beethoven', 'singleSRC' => 'uuid-7', 'initials' => 'LvB']);
 
-        $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = '{title_legend},firstName,name,singleSRC,size,initials';
+        $GLOBALS['TL_DCA']['tl_person']['palettes']['default'] = '{title_legend},firstName,name,initials,singleSRC,size';
 
         $this->createCallback(new Request(['act' => 'edit']))->prepareEditForm($this->createDataContainer(7));
 

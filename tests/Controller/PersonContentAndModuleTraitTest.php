@@ -275,6 +275,25 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $this->assertSame('JD', $person->initials);
     }
 
+    public function testDefinesFigureForPersonsWithoutPhoto(): void
+    {
+        $model = $this->createModel(
+            ContentModel::class,
+            [
+                'id' => 1,
+                'selectPersonsBy' => 'personsById',
+                'persons' => serialize([['person' => 1, 'personTpl' => '']]),
+            ],
+            false,
+        );
+
+        $person = array_values($this->render($model)['persons'])[0];
+
+        // Templates may check {% if figure %} with strict variables enabled
+        $this->assertArrayHasKey('figure', $person->arrData);
+        $this->assertNull($person->arrData['figure']);
+    }
+
     public function testUsesConfiguredAndFallbackContactLabels(): void
     {
         $model = $this->createModel(

@@ -292,6 +292,10 @@ trait PersonContentAndModuleTrait
 
         $p->tags = $this->getPersonTags($person);
 
+        // Always define "figure", so templates checking {% if figure %} also work for
+        // persons without a photo if strict variables are enabled (e.g. in debug mode)
+        $p->figure = null;
+
         $figure = $this->getFigure($person->singleSRC, $person->size);
         $figure?->applyLegacyTemplateData($p);
 
