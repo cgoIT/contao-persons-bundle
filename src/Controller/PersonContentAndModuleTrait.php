@@ -31,7 +31,7 @@ trait PersonContentAndModuleTrait
 
     protected DefaultManager $personTagsManager;
 
-    protected InitialsHelper $initialsHelper;
+    protected InitialsHelper|null $initialsHelper = null;
 
     protected string $defaultPersonTemplate = 'component/person';
 
@@ -271,6 +271,9 @@ trait PersonContentAndModuleTrait
         $p->firstName = $person->firstName;
         $p->name = $person->name;
         $p->position = $person->position;
+        // Fall back to the default implementation if the trait is used in a service
+        // without autowiring
+        $this->initialsHelper ??= new InitialsHelper();
         $p->initials = $this->initialsHelper->getInitialsForPerson($person);
 
         $arrContactInformation = StringUtil::deserialize($person->contactInformation, true);

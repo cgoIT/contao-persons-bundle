@@ -258,6 +258,23 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $this->assertSame('LvB', $person->arrData['initials']);
     }
 
+    public function testFallsBackToDefaultInitialsHelperWithoutAutowiring(): void
+    {
+        $model = $this->createModel(
+            ContentModel::class,
+            [
+                'id' => 1,
+                'selectPersonsBy' => 'personsById',
+                'persons' => serialize([['person' => 1, 'personTpl' => '']]),
+            ],
+            false,
+        );
+
+        $person = array_values($this->render($model, false)['persons'])[0];
+
+        $this->assertSame('JD', $person->initials);
+    }
+
     public function testUsesConfiguredAndFallbackContactLabels(): void
     {
         $model = $this->createModel(
@@ -544,12 +561,15 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
     /**
      * @return array<string, mixed>
      */
-    private function render(Model $model): array
+    private function render(Model $model, bool $setInitialsHelper = true): array
     {
         $controller = new PersonsControllerDouble();
         $controller->setStudio($this->createStudio());
         $controller->setPersonTagsManager($this->createTagsManager());
-        $controller->setInitialsHelper(new InitialsHelper());
+
+        if ($setInitialsHelper) {
+            $controller->setInitialsHelper(new InitialsHelper());
+        }
 
         return $controller->render($model);
     }

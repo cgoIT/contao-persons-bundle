@@ -1,9 +1,12 @@
 {% extends '@Contao/content_element/_base.html.twig' %}
 
 {% block style %}
-    {% add 'cgoit_persons_css' to head %}
-        <link rel="stylesheet" href="{{ asset('persons-css.css', 'cgoit_persons') }}">
-    {% endadd %}
+    {# The default stylesheet only styles the initials, so it is only needed for persons without a photo #}
+    {% if persons|filter(person => not person.figure|default)|length > 0 %}
+        {% add 'cgoit_persons_css' to head %}
+            <link rel="stylesheet" href="{{ asset('persons-css.css', 'cgoit_persons') }}">
+        {% endadd %}
+    {% endif %}
 {% endblock %}
 
 {% block content %}
