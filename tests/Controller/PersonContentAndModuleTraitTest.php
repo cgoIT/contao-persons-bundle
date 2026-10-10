@@ -23,6 +23,7 @@ use Codefog\TagsBundle\Finder\TagCriteria;
 use Codefog\TagsBundle\Finder\TagFinder;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Codefog\TagsBundle\Tag;
+use Contao\CoreBundle\Cache\CacheTagManager;
 use Contao\ContentModel;
 use Contao\CoreBundle\Image\Studio\FigureBuilder;
 use Contao\CoreBundle\Image\Studio\Studio;
@@ -74,6 +75,11 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
      */
     private array $figureRequests = [];
 
+    /**
+     * @var list<list<string>>
+     */
+    private array $cacheTags = [];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -107,6 +113,17 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $container->setParameter('cgoit_persons.contact_types', self::CONTACT_TYPES);
         $container->set(ContactInfoTypeHelper::class, new ContactInfoTypeHelper(self::CONTACT_TYPES, $translator));
         $container->set('contao.string.html_decoder', $htmlDecoder);
+
+        $tagManager = $this->createStub(CacheTagManager::class);
+        $tagManager
+            ->method('tagWith')
+            ->willReturnCallback(
+                function (array $tags): void {
+                    $this->cacheTags[] = $tags;
+                },
+            )
+        ;
+        $container->set('contao.cache.tag_manager', $tagManager);
 
         System::setContainer($container);
 
@@ -389,6 +406,33 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $model = $this->createModel(ContentModel::class, ['id' => 5, 'selectPersonsBy' => 'personsByTag', 'personTagsCombination' => 'or'], false);
 
         $this->assertSame([], $this->render($model)['persons']);
+    }
+
+    public function testTagsResponseWithPersonTableForPersonsByTag(): void
+    {
+        $this->elementTags[5] = [10];
+
+        $model = $this->createModel(ContentModel::class, ['id' => 5, 'selectPersonsBy' => 'personsByTag', 'personTagsCombination' => 'or'], false);
+        $this->render($model);
+
+        $this->assertSame([['contao.db.tl_person']], $this->cacheTags);
+    }
+
+    public function testTagsResponseWithSelectedPersonsForPersonsById(): void
+    {
+        $model = $this->createModel(
+            ContentModel::class,
+            [
+                'id' => 1,
+                'selectPersonsBy' => 'personsById',
+                'persons' => serialize([['person' => 2], ['person' => 4]]),
+            ],
+            false,
+        );
+        $this->render($model);
+
+        // The invisible person is tagged as well
+        $this->assertSame([['contao.db.tl_person.2', 'contao.db.tl_person.4']], $this->cacheTags);
     }
 
     public function testUsesTagSourceOfModule(): void

@@ -68,8 +68,41 @@ trait PersonContentAndModuleTrait
 
         $template->persons = $arrPersons;
 
+        $this->tagPersons($model);
+
         // schema.org information
         $template->getSchemaOrgData = static fn ($person): array => self::getSchemaOrgData($person, $arrContactTypes);
+    }
+
+    /**
+     * Tag the response, so that the cached page is invalidated when a person is
+     * changed. Persons selected by ID are tagged individually, persons selected by
+     * tag are tagged as a whole, because the selection itself can change.
+     *
+     */
+    protected function tagPersons(Model $model): void
+    {
+        $container = System::getContainer();
+
+        if (!$container->has('contao.cache.tag_manager')) {
+            return;
+        }
+
+        $tags = [PersonModel::getTable()];
+
+        if ('personsById' === $model->selectPersonsBy) {
+            // Include invisible persons, so that the page is updated when they are
+            // published
+            $tags = [];
+
+            foreach (StringUtil::deserialize($model->persons, true) as $arrPerson) {
+                if (!empty($arrPerson['person'])) {
+                    $tags[] = PersonModel::getTable().'.'.(int) $arrPerson['person'];
+                }
+            }
+        }
+
+        $container->get('contao.cache.tag_manager')->tagWith(array_map(static fn (string $tag): string => 'contao.db.'.$tag, $tags));
     }
 
     protected static function getSize(string|null $size, string $fallbackSize): string
@@ -139,8 +172,8 @@ trait PersonContentAndModuleTrait
                 $arrPersonIds = $this->personTagsManager->getSourceFinder()->findMultiple($criteria);
 
                 if (!empty($arrPersonIds)) {
-                    $arrPersonIds = PersonModel::findMultipleByIds($arrPersonIds);
-                    $arrPersonIds = array_filter($arrPersonIds->getModels(), static fn ($person) => !$person->invisible);
+                    $objPersons = PersonModel::findMultipleByIds($arrPersonIds);
+                    $arrPersonIds = null === $objPersons ? [] : array_filter($objPersons->getModels(), static fn ($person) => !$person->invisible);
                     array_walk($arrPersonIds, fn ($person) => $person->personTpl = $model->personTpl ?: $this->defaultPersonTemplate);
 
                     if ($model instanceof ModuleModel) {
