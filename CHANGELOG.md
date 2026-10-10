@@ -1,5 +1,27 @@
 # Changelog
 
+## [3.4.0](https://github.com/cgoIT/contao-persons-bundle/compare/v3.3.0...v3.4.0) (2026-10-10)
+
+
+### Features
+
+* allow disabling the stylesheet and the schema.org output via bundle configuration ([7a91e52](https://github.com/cgoIT/contao-persons-bundle/commit/7a91e52f6726ac3a0bf3d086f841c6eccb3ba247))
+* allow restricting all person fields per user group ([e27db51](https://github.com/cgoIT/contao-persons-bundle/commit/e27db51822784f9c85a0c776a66181fbb07e0179))
+
+
+### Bug Fixes
+
+* honor disabled stylesheet and schema_org options and invalidate cache tags on visibility toggle ([2480831](https://github.com/cgoIT/contao-persons-bundle/commit/2480831cb16d31a614e46540c4b7dced455b0280))
+* sort persons according to the locale of the request ([f7b4e91](https://github.com/cgoIT/contao-persons-bundle/commit/f7b4e912bff6da55ad77b6a55ccfd14a11ca3d90))
+* support cache tagging with Contao 5.3 and 5.4 ([9165f30](https://github.com/cgoIT/contao-persons-bundle/commit/9165f3092c9fa281cffa71bea8f3f8c49480f20d))
+* tag the response with cache tags and handle missing tagged persons ([9f1a11f](https://github.com/cgoIT/contao-persons-bundle/commit/9f1a11f2c3cb8163dbe9bcff6cf179fbe5e4c74c))
+
+
+### Miscellaneous Chores
+
+* apply code style fixes and require ext-intl ([c61bcc7](https://github.com/cgoIT/contao-persons-bundle/commit/c61bcc7dd2977ba4b5f1f59d686981088e6b462c))
+* run fix-tools ([3322411](https://github.com/cgoIT/contao-persons-bundle/commit/332241179bb4e756e0076d3a64749e020f637edc))
+
 ## [3.3.0](https://github.com/cgoIT/contao-persons-bundle/compare/v3.2.1...v3.3.0) (2026-10-07)
 
 
