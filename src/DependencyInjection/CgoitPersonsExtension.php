@@ -28,6 +28,8 @@ class CgoitPersonsExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('cgoit_persons.contact_types', $config['contact_types']);
+        $container->setParameter('cgoit_persons.stylesheet', $config['stylesheet']);
+        $container->setParameter('cgoit_persons.schema_org', $config['schema_org']);
     }
 
     /**

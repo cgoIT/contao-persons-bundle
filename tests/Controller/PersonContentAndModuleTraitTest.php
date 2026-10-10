@@ -576,6 +576,31 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $this->assertSame([1, 2, 3], $ids);
     }
 
+    public function testEnablesStylesheetAndSchemaOrgByDefault(): void
+    {
+        $model = $this->createModel(ContentModel::class, ['id' => 1, 'selectPersonsBy' => 'personsById', 'persons' => serialize([['person' => 1]])], false);
+        $data = $this->render($model);
+
+        $this->assertTrue($data['addStylesheet']);
+        $this->assertTrue($data['addSchemaOrg']);
+        $this->assertArrayHasKey('schemaOrgData', (array) $data['persons'][0]);
+    }
+
+    public function testDisablesStylesheetAndSchemaOrg(): void
+    {
+        $container = System::getContainer();
+        $container->setParameter('cgoit_persons.stylesheet', false);
+        $container->setParameter('cgoit_persons.schema_org', false);
+
+        $model = $this->createModel(ContentModel::class, ['id' => 1, 'selectPersonsBy' => 'personsById', 'persons' => serialize([['person' => 1]])], false);
+        $data = $this->render($model);
+
+        $this->assertFalse($data['addStylesheet']);
+        $this->assertFalse($data['addSchemaOrg']);
+        $this->assertArrayNotHasKey('schemaOrgData', (array) $data['persons'][0]);
+        $this->assertIsCallable($data['getSchemaOrgData']);
+    }
+
     public function testCreatesSchemaOrgData(): void
     {
         $model = $this->createModel(

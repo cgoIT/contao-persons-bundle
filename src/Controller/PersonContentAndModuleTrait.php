@@ -62,11 +62,17 @@ trait PersonContentAndModuleTrait
                 break;
         }
 
-        foreach ($arrPersons as $person) {
-            $person->schemaOrgData = self::getSchemaOrgData($person, $arrContactTypes);
+        $addSchemaOrg = self::getBooleanParameter('cgoit_persons.schema_org');
+
+        if ($addSchemaOrg) {
+            foreach ($arrPersons as $person) {
+                $person->schemaOrgData = self::getSchemaOrgData($person, $arrContactTypes);
+            }
         }
 
         $template->persons = $arrPersons;
+        $template->addStylesheet = self::getBooleanParameter('cgoit_persons.stylesheet');
+        $template->addSchemaOrg = $addSchemaOrg;
 
         $this->tagPersons($model);
 
@@ -103,6 +109,13 @@ trait PersonContentAndModuleTrait
         }
 
         $container->get('contao.cache.tag_manager')->tagWith(array_map(static fn (string $tag): string => 'contao.db.'.$tag, $tags));
+    }
+
+    private static function getBooleanParameter(string $name): bool
+    {
+        $container = System::getContainer();
+
+        return $container->hasParameter($name) ? (bool) $container->getParameter($name) : true;
     }
 
     protected static function getSize(string|null $size, string $fallbackSize): string

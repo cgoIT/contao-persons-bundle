@@ -47,6 +47,14 @@ class Configuration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+                ->booleanNode('stylesheet')
+                    ->info('Adds the default stylesheet for persons without a photo to the page.')
+                    ->defaultTrue()
+                ->end()
+                ->booleanNode('schema_org')
+                    ->info('Adds the schema.org data (JSON-LD) of the persons to the page.')
+                    ->defaultTrue()
+                ->end()
             ->end()
         ;
         // @formatter:on

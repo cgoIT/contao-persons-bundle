@@ -60,6 +60,15 @@ final class CgoitPersonsExtensionTest extends TestCase
         $this->assertSame(['email', 'phone', 'mobile', 'website'], array_keys($container->getParameter('cgoit_persons.contact_types')));
     }
 
+    public function testSetsStylesheetAndSchemaOrgParameters(): void
+    {
+        $container = new ContainerBuilder();
+        (new CgoitPersonsExtension())->load([['schema_org' => false]], $container);
+
+        $this->assertTrue($container->getParameter('cgoit_persons.stylesheet'));
+        $this->assertFalse($container->getParameter('cgoit_persons.schema_org'));
+    }
+
     public function testReturnsConfiguration(): void
     {
         $configuration = (new CgoitPersonsExtension())->getConfiguration([], new ContainerBuilder());

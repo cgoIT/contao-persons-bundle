@@ -33,6 +33,22 @@ final class ConfigurationTest extends TestCase
         );
     }
 
+    public function testStylesheetAndSchemaOrgAreEnabledByDefault(): void
+    {
+        $config = (new Processor())->processConfiguration(new Configuration(), []);
+
+        $this->assertTrue($config['stylesheet']);
+        $this->assertTrue($config['schema_org']);
+    }
+
+    public function testStylesheetAndSchemaOrgCanBeDisabled(): void
+    {
+        $config = (new Processor())->processConfiguration(new Configuration(), [['stylesheet' => false, 'schema_org' => false]]);
+
+        $this->assertFalse($config['stylesheet']);
+        $this->assertFalse($config['schema_org']);
+    }
+
     public function testCustomContactTypesReplaceDefaults(): void
     {
         $config = (new Processor())->processConfiguration(

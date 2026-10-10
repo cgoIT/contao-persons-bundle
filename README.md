@@ -29,6 +29,11 @@ map to the new ones.
 
 ## Upgrading to 3.4.0
 
+- **New options `stylesheet` and `schema_org`.** The default stylesheet and the schema.org output can be turned
+  off via the bundle configuration (see [Persons without a photo](#persons-without-a-photo) and
+  [schema.org Data](#schemaorg-data)). Both are enabled by default, so nothing changes unless you set them to
+  `false`. Custom templates can use the new template variables `addStylesheet` and `addSchemaOrg`.
+
 - **Backend permissions.** All editable fields of `tl_person` are now excluded by default, so they can be
   restricted per user group. Back end users who are not administrators only see the fields that are allowed in
   the "Allowed fields" section of their user group. After updating, allow the fields of the table "Persons" in
@@ -128,8 +133,14 @@ photo. The look can be adjusted via CSS custom properties, e.g.:
 }
 ```
 
-If you don't want to use the default stylesheet at all, override the `style` block in your own
-`content_element/persons.html.twig`:
+If you don't want to use the default stylesheet at all, disable it in your `config/config.yml`:
+
+```yaml
+cgoit_persons:
+    stylesheet: false
+```
+
+Alternatively override the `style` block in your own `content_element/persons.html.twig`:
 
 ```twig
 {% extends '@Contao/content_element/persons.html.twig' %}
@@ -138,6 +149,14 @@ If you don't want to use the default stylesheet at all, override the `style` blo
 ```
 
 ## schema.org Data
+
+The default templates add the schema.org data (JSON-LD, type `Person`) of every listed person to the page. If you
+don't want that, disable it in your `config/config.yml`:
+
+```yaml
+cgoit_persons:
+    schema_org: false
+```
 
 Since version 2.1.0 you can add schema.org data to your templates like this:
 
