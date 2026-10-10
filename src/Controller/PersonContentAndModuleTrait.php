@@ -118,13 +118,6 @@ trait PersonContentAndModuleTrait
         $container->get($serviceId)->tagWith($tags);
     }
 
-    private static function getBooleanParameter(string $name): bool
-    {
-        $container = System::getContainer();
-
-        return $container->hasParameter($name) ? (bool) $container->getParameter($name) : true;
-    }
-
     protected static function getSize(string|null $size, string $fallbackSize): string
     {
         if (empty($size)) {
@@ -170,6 +163,33 @@ trait PersonContentAndModuleTrait
         }
 
         return $jsonLd;
+    }
+
+    /**
+     * Returns a function to compare strings according to the rules of the current
+     * locale (e.g. "Özdemir" before "Zander").
+     *
+     * @return \Closure(string, string): int
+     */
+    protected function getStringComparator(): \Closure
+    {
+        $locale = null;
+        $container = System::getContainer();
+
+        if ($container->has('request_stack')) {
+            $locale = $container->get('request_stack')->getCurrentRequest()?->getLocale();
+        }
+
+        $collator = new \Collator($locale ?: 'en');
+
+        return static fn (string $a, string $b): int => (int) $collator->compare($a, $b);
+    }
+
+    private static function getBooleanParameter(string $name): bool
+    {
+        $container = System::getContainer();
+
+        return $container->hasParameter($name) ? (bool) $container->getParameter($name) : true;
     }
 
     /**
@@ -276,32 +296,6 @@ trait PersonContentAndModuleTrait
         );
 
         return $arrPersons;
-    }
-
-    /**
-     * Returns a function to compare strings according to the rules of the current
-     * locale (e.g. "Özdemir" before "Zander"). Falls back to a case-insensitive
-     * natural order if the intl extension is not available (or $useCollator is
-     * false).
-     *
-     * @return \Closure(string, string): int
-     */
-    protected function getStringComparator(bool $useCollator = true): \Closure
-    {
-        if (!$useCollator || !class_exists(\Collator::class)) {
-            return static fn (string $a, string $b): int => strnatcasecmp($a, $b);
-        }
-
-        $locale = null;
-        $container = System::getContainer();
-
-        if ($container->has('request_stack')) {
-            $locale = $container->get('request_stack')->getCurrentRequest()?->getLocale();
-        }
-
-        $collator = new \Collator($locale ?: 'en');
-
-        return static fn (string $a, string $b): int => (int) $collator->compare($a, $b);
     }
 
     /**

@@ -23,8 +23,8 @@ use Codefog\TagsBundle\Finder\TagCriteria;
 use Codefog\TagsBundle\Finder\TagFinder;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Codefog\TagsBundle\Tag;
-use Contao\CoreBundle\Cache\CacheTagManager;
 use Contao\ContentModel;
+use Contao\CoreBundle\Cache\CacheTagManager;
 use Contao\CoreBundle\Image\Studio\FigureBuilder;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\CoreBundle\String\HtmlDecoder;
@@ -34,7 +34,6 @@ use Contao\ModuleModel;
 use Contao\System;
 use Contao\TestCase\ContaoTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -550,7 +549,6 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         yield 'unknown sort order keeps the order' => [['unknown'], [3, 2, 1]];
     }
 
-    #[RequiresPhpExtension('intl')]
     public function testSortsAccordingToTheLocale(): void
     {
         $this->createPerson(5, 'Zander', 'Eva', 'x', []);
@@ -569,15 +567,6 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
 
         // Contrary to strcmp(), neither umlauts nor lower case letters are sorted last
         $this->assertSame(['adler', 'Doe', 'Özdemir', 'Smith', 'Zander'], array_values($names));
-    }
-
-    public function testFallsBackToNaturalOrderWithoutCollator(): void
-    {
-        $compare = (new PersonsControllerDouble())->getComparator(false);
-
-        $this->assertSame(0, $compare('Doe', 'doe'));
-        $this->assertLessThan(0, $compare('file2', 'file10'));
-        $this->assertGreaterThan(0, $compare('b', 'A'));
     }
 
     public function testSortsByMultipleCriteria(): void
@@ -856,14 +845,6 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
 class PersonsControllerDouble
 {
     use PersonContentAndModuleTrait;
-
-    /**
-     * @return \Closure(string, string): int
-     */
-    public function getComparator(bool $useCollator): \Closure
-    {
-        return $this->getStringComparator($useCollator);
-    }
 
     /**
      * @return array<string, mixed>

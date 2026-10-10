@@ -80,9 +80,12 @@ final class PersonsTemplateTest extends TestCase
         );
 
         $twig->addFunction(new TwigFunction('asset', static fn (string $path): string => $path));
-        $twig->addFunction(new TwigFunction('add_schema_org', function (array $data): void {
-            $this->schemaOrg[] = $data;
-        }));
+        $twig->addFunction(new TwigFunction(
+            'add_schema_org',
+            function (array $data): void {
+                $this->schemaOrg[] = $data;
+            },
+        ));
 
         return $twig->render('persons.html.twig', $variables);
     }
