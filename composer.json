@@ -68,12 +68,7 @@
   },
   "scripts": {
     "all": [
-      "@ecs",
-      "@twig-cs-fixer",
-      "@rector",
-      "@phpstan",
-      "@depcheck",
-      "@unit-tests"
+      "@fix-tools"
     ],
     "unit-tests": "@php vendor/bin/phpunit"
   }
