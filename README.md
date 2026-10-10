@@ -171,7 +171,7 @@ you can add the data like this:
             {{ include('@Contao/' ~ person.personTpl, person.arrData) }}
 
             {# add schema.org data #}
-            {% if addSchemaOrg|default(true) and person.schemaOrgData|default(false) %}
+            {% if (addSchemaOrg ?? true) and person.schemaOrgData|default(false) %}
                 {% do add_schema_org(person.schemaOrgData) %}
             {% endif %}
         {% endfor %}

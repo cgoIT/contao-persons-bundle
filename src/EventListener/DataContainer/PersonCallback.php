@@ -56,6 +56,18 @@ class PersonCallback implements FrameworkAwareInterface
         }
     }
 
+    /**
+     * Toggling the visibility via the list operation (haste_ajax_operation) writes
+     * directly to the database and does not invalidate the cache tags.
+     */
+    #[AsCallback(table: 'tl_person', target: 'fields.invisible.save')]
+    public function invalidateCacheTagsOnToggle(mixed $value, DataContainer $dc): mixed
+    {
+        $dc->invalidateCacheTags();
+
+        return $value;
+    }
+
     #[AsCallback(table: 'tl_person', target: 'config.onload')]
     public function prepareEditForm(DataContainer|null $dc = null): void
     {

@@ -79,6 +79,14 @@ final class PersonCallbackTest extends ContaoTestCase
         $this->assertArrayHasKey('operations', $GLOBALS['TL_DCA']['tl_person']['list']);
     }
 
+    public function testInvalidatesCacheTagsWhenToggleVisibility(): void
+    {
+        $dc = $this->createMock(DataContainer::class);
+        $dc->expects($this->once())->method('invalidateCacheTags');
+
+        $this->assertSame('1', $this->createCallback()->invalidateCacheTagsOnToggle('1', $dc));
+    }
+
     public function testReturnsContactInformationTypes(): void
     {
         $this->assertSame(

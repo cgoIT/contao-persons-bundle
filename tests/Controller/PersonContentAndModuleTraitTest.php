@@ -34,6 +34,7 @@ use Contao\ModuleModel;
 use Contao\System;
 use Contao\TestCase\ContaoTestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\RequiresPhpExtension;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -513,6 +514,7 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         yield 'unknown sort order keeps the order' => [['unknown'], [3, 2, 1]];
     }
 
+    #[RequiresPhpExtension('intl')]
     public function testSortsAccordingToTheLocale(): void
     {
         $this->createPerson(5, 'Zander', 'Eva', 'x', []);
