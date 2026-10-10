@@ -103,6 +103,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'default' => 0],
         ],
         'firstName' => [
+            'exclude' => true,
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
@@ -110,6 +111,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'name' => [
+            'exclude' => true,
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
@@ -117,6 +119,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'position' => [
+            'exclude' => true,
             'search' => true,
             'sorting' => true,
             'inputType' => 'text',
@@ -124,7 +127,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => ['type' => 'string', 'length' => 255, 'notnull' => false, 'default' => ''],
         ],
         'tags' => [
-            'exclude' => false,
+            'exclude' => true,
             'filter' => true,
             'inputType' => 'cfgTags',
             'eval' => [
@@ -140,6 +143,7 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => ['type' => 'binary', 'length' => 16, 'fixed' => true, 'notnull' => false],
         ],
         'size' => [
+            'exclude' => true,
             'label' => &$GLOBALS['TL_LANG']['MSC']['imgSize'],
             'inputType' => 'imageSize',
             'reference' => &$GLOBALS['TL_LANG']['MSC'],
@@ -148,12 +152,13 @@ $GLOBALS['TL_DCA']['tl_person'] = [
             'sql' => ['type' => 'string', 'length' => 128, 'default' => '', 'customSchemaOptions' => ['collation' => 'ascii_bin']],
         ],
         'initials' => [
+            'exclude' => true,
             'inputType' => 'text',
             'eval' => ['maxlength' => 4, 'tl_class' => 'w33'],
             'sql' => ['type' => 'string', 'length' => 32, 'default' => ''],
         ],
         'contactInformation' => [
-            'exclude' => false,
+            'exclude' => true,
             'inputType' => 'group',
             'palette' => ['type', 'value'],
             'fields' => [

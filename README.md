@@ -27,6 +27,14 @@ map to the new ones.
 | Frontend module to display a list of persons | mod_person.html5   | frontend_module/persons.html.twig |
 | Template for one person                      | person.html5       | component/person.html.twig       |
 
+## Upgrading to 3.4.0
+
+- **Backend permissions.** All editable fields of `tl_person` are now excluded by default, so they can be
+  restricted per user group. Back end users who are not administrators only see the fields that are allowed in
+  the "Allowed fields" section of their user group. After updating, allow the fields of the table "Persons" in
+  the user groups that edit persons; otherwise these users will no longer see them. Previously this was already
+  required for the fields `singleSRC` and `invisible` only.
+
 ## Upgrading to 3.3.0
 
 - **PHP 8.3 is required.** Installations running PHP 8.2 will stay on version 3.2.x until PHP is updated.
