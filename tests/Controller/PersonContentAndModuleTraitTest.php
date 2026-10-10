@@ -416,7 +416,7 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $model = $this->createModel(ContentModel::class, ['id' => 5, 'selectPersonsBy' => 'personsByTag', 'personTagsCombination' => 'or'], false);
         $this->render($model);
 
-        $this->assertSame([['contao.db.tl_person']], $this->cacheTags);
+        $this->assertSame([[PersonModel::class]], $this->cacheTags);
     }
 
     public function testUsesEntityCacheTagsBeforeContao55(): void
@@ -440,7 +440,7 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
 
         $this->render($this->createModel(ContentModel::class, ['id' => 5, 'selectPersonsBy' => 'personsByTag'], false));
 
-        $this->assertSame([['contao.db.tl_person']], $this->cacheTags);
+        $this->assertSame([[PersonModel::class]], $this->cacheTags);
     }
 
     public function testDoesNotTagResponseWithoutCacheTagService(): void
@@ -571,6 +571,15 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $this->assertSame(['adler', 'Doe', 'Özdemir', 'Smith', 'Zander'], array_values($names));
     }
 
+    public function testFallsBackToNaturalOrderWithoutCollator(): void
+    {
+        $compare = (new PersonsControllerDouble())->getComparator(false);
+
+        $this->assertSame(0, $compare('Doe', 'doe'));
+        $this->assertLessThan(0, $compare('file2', 'file10'));
+        $this->assertGreaterThan(0, $compare('b', 'A'));
+    }
+
     public function testSortsByMultipleCriteria(): void
     {
         $this->createPerson(5, 'Doe', 'Anna', 'CFO', []);
@@ -622,6 +631,17 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $this->assertTrue($data['addStylesheet']);
         $this->assertTrue($data['addSchemaOrg']);
         $this->assertArrayHasKey('schemaOrgData', (array) $data['persons'][0]);
+    }
+
+    public function testEnablesStylesheetAndSchemaOrgIfParametersAreMissing(): void
+    {
+        $container = System::getContainer();
+        $this->assertFalse($container->hasParameter('cgoit_persons.stylesheet'));
+
+        $data = $this->render($this->createModel(ContentModel::class, ['id' => 1, 'selectPersonsBy' => ''], false));
+
+        $this->assertTrue($data['addStylesheet']);
+        $this->assertTrue($data['addSchemaOrg']);
     }
 
     public function testDisablesStylesheetAndSchemaOrg(): void
@@ -836,6 +856,14 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
 class PersonsControllerDouble
 {
     use PersonContentAndModuleTrait;
+
+    /**
+     * @return \Closure(string, string): int
+     */
+    public function getComparator(bool $useCollator): \Closure
+    {
+        return $this->getStringComparator($useCollator);
+    }
 
     /**
      * @return array<string, mixed>

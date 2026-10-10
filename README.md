@@ -33,7 +33,11 @@ map to the new ones.
   off via the bundle configuration (see [Persons without a photo](#persons-without-a-photo) and
   [schema.org Data](#schemaorg-data)). Both are enabled by default, so nothing changes unless you set them to
   `false`. Custom templates can use the new template variables `addStylesheet` and `addSchemaOrg`.
-
+  If `schema_org` is disabled, the persons have no `schemaOrgData` property; custom templates that read it
+  should check it first (e.g. `person.schemaOrgData|default(false)`).
+- **Cache tags.** The persons list now tags the response with the cache tags of the selected persons (or of the
+  whole table `tl_person` if the persons are selected by tag), so cached pages are invalidated as soon as a person
+  is changed or shown/hidden in the back end. This works with Contao 5.3 and later.
 - **Backend permissions.** All editable fields of `tl_person` are now excluded by default, so they can be
   restricted per user group. Back end users who are not administrators only see the fields that are allowed in
   the "Allowed fields" section of their user group. After updating, allow the fields of the table "Persons" in

@@ -84,7 +84,6 @@ trait PersonContentAndModuleTrait
      * Tag the response, so that the cached page is invalidated when a person is
      * changed. Persons selected by ID are tagged individually, persons selected by
      * tag are tagged as a whole, because the selection itself can change.
-     *
      */
     protected function tagPersons(Model $model): void
     {
@@ -102,7 +101,7 @@ trait PersonContentAndModuleTrait
             return;
         }
 
-        $tags = [PersonModel::getTable()];
+        $tags = [PersonModel::class];
 
         if ('personsById' === $model->selectPersonsBy) {
             // Include invisible persons, so that the page is updated when they are
@@ -111,12 +110,12 @@ trait PersonContentAndModuleTrait
 
             foreach (StringUtil::deserialize($model->persons, true) as $arrPerson) {
                 if (!empty($arrPerson['person'])) {
-                    $tags[] = PersonModel::getTable().'.'.(int) $arrPerson['person'];
+                    $tags[] = \sprintf('contao.db.%s.%d', PersonModel::getTable(), $arrPerson['person']);
                 }
             }
         }
 
-        $container->get($serviceId)->tagWith(array_map(static fn (string $tag): string => 'contao.db.'.$tag, $tags));
+        $container->get($serviceId)->tagWith($tags);
     }
 
     private static function getBooleanParameter(string $name): bool
@@ -282,13 +281,14 @@ trait PersonContentAndModuleTrait
     /**
      * Returns a function to compare strings according to the rules of the current
      * locale (e.g. "Özdemir" before "Zander"). Falls back to a case-insensitive
-     * natural order if the intl extension is not available.
+     * natural order if the intl extension is not available (or $useCollator is
+     * false).
      *
      * @return \Closure(string, string): int
      */
-    private function getStringComparator(): \Closure
+    protected function getStringComparator(bool $useCollator = true): \Closure
     {
-        if (!class_exists(\Collator::class)) {
+        if (!$useCollator || !class_exists(\Collator::class)) {
             return static fn (string $a, string $b): int => strnatcasecmp($a, $b);
         }
 
