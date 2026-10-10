@@ -158,20 +158,23 @@ cgoit_persons:
     schema_org: false
 ```
 
-Since version 2.1.0 you can add schema.org data to your templates like this:
+Each person has a property `schemaOrgData` with the JSON-LD data. The default template
+`content_element/persons.html.twig` adds it to the page in the block `schema_org`. If you override the template,
+you can add the data like this:
 
-```html
-<?php $this->extend('block_searchable'); ?>
+```twig
+{% extends '@Contao/content_element/_base.html.twig' %}
 
-<?php $this->block('content'); ?>
+{% block content %}
+    <div class="persons">
+        {% for person in persons %}
+            {{ include('@Contao/' ~ person.personTpl, person.arrData) }}
 
-<div class="persons">
-    <?php foreach ($this->persons as $person): ?>
-        <?php $this->insert($person->personTpl, $person->arrData); ?>
-        <!-- add schema.org data -->
-        <?php $this->addSchemaOrg($this->getSchemaOrgData($person)); ?>
-    <?php endforeach; ?>
-</div>
-
-<?php $this->endblock(); ?>
+            {# add schema.org data #}
+            {% if addSchemaOrg|default(true) and person.schemaOrgData|default(false) %}
+                {% do add_schema_org(person.schemaOrgData) %}
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
 ```
