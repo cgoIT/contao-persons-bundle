@@ -330,7 +330,12 @@ trait PersonContentAndModuleTrait
         $p->figure = null;
 
         $figure = $this->getFigure($person->singleSRC, $person->size);
-        $figure?->applyLegacyTemplateData($p);
+
+        if (null !== $figure) {
+            // The legacy data is only needed for old HTML5 templates
+            $figure->applyLegacyTemplateData($p);
+            $p->figure = $figure;
+        }
 
         $p->arrData = (array) $p;
 
