@@ -39,6 +39,9 @@
     "contao/test-case": "^5.3",
     "symfony/translation": "^6.4 || ^7.2"
   },
+  "suggest": {
+    "ext-intl": "Sorts persons according to the rules of the page language (e.g. umlauts)"
+  },
   "conflict": {
     "contao/manager-plugin": "<2.0 || >=3.0"
   },

@@ -513,6 +513,26 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         yield 'unknown sort order keeps the order' => [['unknown'], [3, 2, 1]];
     }
 
+    public function testSortsAccordingToTheLocale(): void
+    {
+        $this->createPerson(5, 'Zander', 'Eva', 'x', []);
+        $this->createPerson(6, 'Özdemir', 'Ali', 'x', []);
+        $this->createPerson(7, 'adler', 'Tim', 'x', []);
+        $this->personTags[5] = $this->personTags[6] = $this->personTags[7] = [10];
+        $this->elementTags[5] = [10];
+
+        $model = $this->createModel(
+            ContentModel::class,
+            ['id' => 5, 'selectPersonsBy' => 'personsByTag', 'personTagsCombination' => 'or', 'personSortBy' => serialize(['name_asc'])],
+            false,
+        );
+
+        $names = array_map(static fn (object $person): string => $person->name, $this->render($model)['persons']);
+
+        // Contrary to strcmp(), neither umlauts nor lower case letters are sorted last
+        $this->assertSame(['adler', 'Doe', 'Özdemir', 'Smith', 'Zander'], array_values($names));
+    }
+
     public function testSortsByMultipleCriteria(): void
     {
         $this->createPerson(5, 'Doe', 'Anna', 'CFO', []);

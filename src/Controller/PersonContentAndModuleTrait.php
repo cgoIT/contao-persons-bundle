@@ -239,11 +239,13 @@ trait PersonContentAndModuleTrait
      */
     private function sortPersons(array $arrPersons, array $arrSortOrders): array
     {
+        $compare = $this->getStringComparator();
+
         usort(
             $arrPersons,
-            function ($a, $b) use ($arrSortOrders) {
+            function ($a, $b) use ($arrSortOrders, $compare) {
                 foreach ($arrSortOrders as $sortOrder) {
-                    $result = $this->comparePersons($a, $b, $sortOrder);
+                    $result = $this->comparePersons($a, $b, $sortOrder, $compare);
                     if (0 !== $result) {
                         return $result;
                     }
@@ -256,17 +258,45 @@ trait PersonContentAndModuleTrait
         return $arrPersons;
     }
 
-    private function comparePersons(object $a, object $b, string $sortOrder): int
+    /**
+     * Returns a function to compare strings according to the rules of the current
+     * locale (e.g. "Özdemir" before "Zander"). Falls back to a case-insensitive
+     * natural order if the intl extension is not available.
+     *
+     * @return \Closure(string, string): int
+     */
+    private function getStringComparator(): \Closure
+    {
+        if (!class_exists(\Collator::class)) {
+            return static fn (string $a, string $b): int => strnatcasecmp($a, $b);
+        }
+
+        $locale = null;
+        $container = System::getContainer();
+
+        if ($container->has('request_stack')) {
+            $locale = $container->get('request_stack')->getCurrentRequest()?->getLocale();
+        }
+
+        $collator = new \Collator($locale ?: 'en');
+
+        return static fn (string $a, string $b): int => (int) $collator->compare($a, $b);
+    }
+
+    /**
+     * @param \Closure(string, string): int $compare
+     */
+    private function comparePersons(object $a, object $b, string $sortOrder, \Closure $compare): int
     {
         $values = [-1, 0, 1];
 
         return match ($sortOrder) {
-            'name_asc' => strcmp($a->name, $b->name),
-            'name_desc' => strcmp($b->name, $a->name),
-            'firstName_asc' => strcmp($a->firstName, $b->firstName),
-            'firstName_desc' => strcmp($b->firstName, $a->firstName),
-            'position_asc' => strcmp($a->position, $b->position),
-            'position_desc' => strcmp($b->position, $a->position),
+            'name_asc' => $compare((string) $a->name, (string) $b->name),
+            'name_desc' => $compare((string) $b->name, (string) $a->name),
+            'firstName_asc' => $compare((string) $a->firstName, (string) $b->firstName),
+            'firstName_desc' => $compare((string) $b->firstName, (string) $a->firstName),
+            'position_asc' => $compare((string) $a->position, (string) $b->position),
+            'position_desc' => $compare((string) $b->position, (string) $a->position),
             'id', 'id_asc' => $a->id <=> $b->id,
             'id_desc' => $b->id <=> $a->id,
             'random' => $values[array_rand($values)],
