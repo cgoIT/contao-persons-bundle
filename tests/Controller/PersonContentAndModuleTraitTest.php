@@ -419,6 +419,42 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $this->assertSame([['contao.db.tl_person']], $this->cacheTags);
     }
 
+    public function testUsesEntityCacheTagsBeforeContao55(): void
+    {
+        $container = new ContainerBuilder();
+        $container->setParameter('cgoit_persons.contact_types', self::CONTACT_TYPES);
+        $container->set(ContactInfoTypeHelper::class, new ContactInfoTypeHelper(self::CONTACT_TYPES, $this->createStub(TranslatorInterface::class)));
+        $container->set('contao.string.html_decoder', $this->createStub(HtmlDecoder::class));
+
+        $tagManager = $this->createStub(CacheTagManager::class);
+        $tagManager
+            ->method('tagWith')
+            ->willReturnCallback(
+                function (array $tags): void {
+                    $this->cacheTags[] = $tags;
+                },
+            )
+        ;
+        $container->set('contao.cache.entity_tags', $tagManager);
+        System::setContainer($container);
+
+        $this->render($this->createModel(ContentModel::class, ['id' => 5, 'selectPersonsBy' => 'personsByTag'], false));
+
+        $this->assertSame([['contao.db.tl_person']], $this->cacheTags);
+    }
+
+    public function testDoesNotTagResponseWithoutCacheTagService(): void
+    {
+        $container = new ContainerBuilder();
+        $container->setParameter('cgoit_persons.contact_types', self::CONTACT_TYPES);
+        $container->set(ContactInfoTypeHelper::class, new ContactInfoTypeHelper(self::CONTACT_TYPES, $this->createStub(TranslatorInterface::class)));
+        System::setContainer($container);
+
+        $this->render($this->createModel(ContentModel::class, ['id' => 5, 'selectPersonsBy' => ''], false));
+
+        $this->assertSame([], $this->cacheTags);
+    }
+
     public function testTagsResponseWithSelectedPersonsForPersonsById(): void
     {
         $model = $this->createModel(

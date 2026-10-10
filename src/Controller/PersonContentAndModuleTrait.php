@@ -90,7 +90,15 @@ trait PersonContentAndModuleTrait
     {
         $container = System::getContainer();
 
-        if (!$container->has('contao.cache.tag_manager')) {
+        // The tag manager was introduced in Contao 5.5, before that the entity cache
+        // tags service (which offers the same "tagWith" method) has to be used
+        $serviceId = match (true) {
+            $container->has('contao.cache.tag_manager') => 'contao.cache.tag_manager',
+            $container->has('contao.cache.entity_tags') => 'contao.cache.entity_tags',
+            default => null,
+        };
+
+        if (null === $serviceId) {
             return;
         }
 
@@ -108,7 +116,7 @@ trait PersonContentAndModuleTrait
             }
         }
 
-        $container->get('contao.cache.tag_manager')->tagWith(array_map(static fn (string $tag): string => 'contao.db.'.$tag, $tags));
+        $container->get($serviceId)->tagWith(array_map(static fn (string $tag): string => 'contao.db.'.$tag, $tags));
     }
 
     private static function getBooleanParameter(string $name): bool
