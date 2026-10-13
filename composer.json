@@ -36,7 +36,7 @@
   "require-dev": {
     "contao/manager-plugin": "^2.0",
     "terminal42/contao-build-tools": "dev-main",
-    "phpunit/phpunit": "^12.0",
+    "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0",
     "contao/test-case": "^5.3",
     "symfony/translation": "^6.4 || ^7.2"
   },
@@ -59,7 +59,8 @@
       "contao/manager-plugin": true,
       "php-http/discovery": true,
       "terminal42/contao-build-tools": true
-    }
+    },
+    "sort-packages": true
   },
   "extra": {
     "contao-manager-plugin": "Cgoit\\PersonsBundle\\ContaoManager\\Plugin"
@@ -67,8 +68,9 @@
   "scripts": {
     "all": [
       "@fix-tools",
-      "@unit-tests"
+      "@tests"
     ],
-    "unit-tests": "@php vendor/bin/phpunit"
+    "tests": "phpunit",
+    "coverage": "@php -d extension=pcov -d pcov.enabled=1 vendor/bin/phpunit --coverage-text --coverage-filter src --coverage-html build/coverage"
   }
 }
