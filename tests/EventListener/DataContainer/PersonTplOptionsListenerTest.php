@@ -13,22 +13,25 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\Tests\EventListener\DataContainer;
 
 use Cgoit\PersonsBundle\EventListener\DataContainer\PersonTplOptionsListener;
+use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Contao\CoreBundle\Twig\Finder\FinderFactory;
 use Contao\CoreBundle\Twig\Loader\ContaoFilesystemLoader;
 use Contao\CoreBundle\Twig\Loader\ThemeNamespace;
 use Contao\DC_Table;
-use Contao\TestCase\ContaoTestCase;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\Translation\Translator;
 
-final class PersonTplOptionsListenerTest extends ContaoTestCase
+final class PersonTplOptionsListenerTest extends TestCase
 {
+    use ClassWithPropertiesStubTrait;
+
     private const array CHAINS = [
         'component/person' => ['/bundle/contao/templates/component/person.html.twig' => '@Contao_CgoitPersonsBundle/component/person.html.twig'],
         'component/person/card' => ['/project/templates/component/person/card.html.twig' => '@Contao_Global/component/person/card.html.twig'],

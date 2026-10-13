@@ -13,24 +13,32 @@ declare(strict_types=1);
 namespace Cgoit\PersonsBundle\Tests\Picker;
 
 use Cgoit\PersonsBundle\Picker\PersonPicker;
+use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\DataContainer;
 use Contao\Input;
 use Contao\System;
-use Contao\TestCase\ContaoTestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-final class PersonPickerTest extends ContaoTestCase
+final class PersonPickerTest extends TestCase
 {
+    use ClassWithPropertiesStubTrait;
+
     protected function tearDown(): void
     {
         unset($GLOBALS['TL_DCA']);
 
-        $this->resetStaticProperties([Input::class]);
+        // Restore the static state of Input (e.g. values set via Input::setGet())
+        foreach ((new \ReflectionClass(Input::class))->getProperties(\ReflectionProperty::IS_STATIC) as $property) {
+            if ($property->isInitialized() && $property->hasDefaultValue()) {
+                $property->setValue(null, $property->getDefaultValue());
+            }
+        }
 
         parent::tearDown();
     }

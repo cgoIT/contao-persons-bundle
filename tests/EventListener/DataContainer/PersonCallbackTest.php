@@ -16,6 +16,7 @@ use Cgoit\PersonsBundle\EventListener\DataContainer\PersonCallback;
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
 use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
+use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Cgoit\PersonsBundle\Tests\ModelRegistryTrait;
 use Codefog\TagsBundle\Finder\TagCriteria;
 use Codefog\TagsBundle\Finder\TagFinder;
@@ -25,13 +26,14 @@ use Contao\CoreBundle\Image\Studio\FigureBuilder;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\DataContainer;
 use Contao\Image\PictureConfiguration;
-use Contao\TestCase\ContaoTestCase;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class PersonCallbackTest extends ContaoTestCase
+final class PersonCallbackTest extends TestCase
 {
+    use ClassWithPropertiesStubTrait;
     use ModelRegistryTrait;
 
     private const array CONTACT_TYPES = [
