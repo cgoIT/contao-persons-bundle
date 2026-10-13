@@ -24,7 +24,6 @@ use Codefog\TagsBundle\Finder\TagFinder;
 use Codefog\TagsBundle\Manager\DefaultManager;
 use Codefog\TagsBundle\Tag;
 use Contao\ContentModel;
-use Contao\CoreBundle\Cache\CacheTagManager;
 use Contao\CoreBundle\Image\Studio\FigureBuilder;
 use Contao\CoreBundle\Image\Studio\Studio;
 use Contao\CoreBundle\String\HtmlDecoder;
@@ -32,13 +31,13 @@ use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\Model;
 use Contao\ModuleModel;
 use Contao\System;
-use Contao\TestCase\ContaoTestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-final class PersonContentAndModuleTraitTest extends ContaoTestCase
+final class PersonContentAndModuleTraitTest extends TestCase
 {
     use ModelRegistryTrait;
 
@@ -114,15 +113,7 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $container->set(ContactInfoTypeHelper::class, new ContactInfoTypeHelper(self::CONTACT_TYPES, $translator));
         $container->set('contao.string.html_decoder', $htmlDecoder);
 
-        $tagManager = $this->createStub(CacheTagManager::class);
-        $tagManager
-            ->method('tagWith')
-            ->willReturnCallback(
-                function (array $tags): void {
-                    $this->cacheTags[] = $tags;
-                },
-            )
-        ;
+        $tagManager = $this->createCacheTagManager();
         $container->set('contao.cache.tag_manager', $tagManager);
 
         System::setContainer($container);
@@ -425,15 +416,7 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         $container->set(ContactInfoTypeHelper::class, new ContactInfoTypeHelper(self::CONTACT_TYPES, $this->createStub(TranslatorInterface::class)));
         $container->set('contao.string.html_decoder', $this->createStub(HtmlDecoder::class));
 
-        $tagManager = $this->createStub(CacheTagManager::class);
-        $tagManager
-            ->method('tagWith')
-            ->willReturnCallback(
-                function (array $tags): void {
-                    $this->cacheTags[] = $tags;
-                },
-            )
-        ;
+        $tagManager = $this->createCacheTagManager();
         $container->set('contao.cache.entity_tags', $tagManager);
         System::setContainer($container);
 
@@ -836,6 +819,32 @@ final class PersonContentAndModuleTraitTest extends ContaoTestCase
         ;
 
         return $manager;
+    }
+
+    /**
+     * The tag manager is "contao.cache.tag_manager" (CacheTagManager) as of Contao 5.5 and
+     * "contao.cache.entity_tags" (EntityCacheTags) before. Only tagWith() is used, so a
+     * neutral double works for all versions.
+     */
+    private function createCacheTagManager(): object
+    {
+        $test = $this;
+
+        return new class($test) {
+            public function __construct(private readonly PersonContentAndModuleTraitTest $test)
+            {
+            }
+
+            public function tagWith(array $tags): void
+            {
+                $this->test->recordCacheTags($tags);
+            }
+        };
+    }
+
+    public function recordCacheTags(array $tags): void
+    {
+        $this->cacheTags[] = $tags;
     }
 }
 

@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\Tests\Dca;
 
-use Contao\TestCase\ContaoTestCase;
+use PHPUnit\Framework\TestCase;
 
-final class PersonDcaTest extends ContaoTestCase
+final class PersonDcaTest extends TestCase
 {
     protected function tearDown(): void
     {

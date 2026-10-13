@@ -15,10 +15,10 @@ namespace Cgoit\PersonsBundle\Tests\Helper;
 use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Cgoit\PersonsBundle\Tests\ModelRegistryTrait;
-use Contao\TestCase\ContaoTestCase;
+use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-final class InitialsHelperTest extends ContaoTestCase
+final class InitialsHelperTest extends TestCase
 {
     use ModelRegistryTrait;
 

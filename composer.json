@@ -37,7 +37,6 @@
     "contao/manager-plugin": "^2.0",
     "terminal42/contao-build-tools": "dev-main",
     "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0",
-    "contao/test-case": "^5.3",
     "symfony/translation": "^6.4 || ^7.2"
   },
   "conflict": {
