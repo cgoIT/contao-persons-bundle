@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\Tests\EventListener\DataContainer;
 
-use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Cgoit\PersonsBundle\EventListener\DataContainer\PersonCallback;
 use Cgoit\PersonsBundle\Helper\ContactInfoTypeHelper;
 use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
+use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Cgoit\PersonsBundle\Tests\ModelRegistryTrait;
 use Codefog\TagsBundle\Finder\TagCriteria;
 use Codefog\TagsBundle\Finder\TagFinder;
@@ -34,7 +34,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 final class PersonCallbackTest extends TestCase
 {
     use ClassWithPropertiesStubTrait;
-
     use ModelRegistryTrait;
 
     private const array CONTACT_TYPES = [

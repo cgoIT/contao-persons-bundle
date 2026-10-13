@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\Tests\Picker;
 
-use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Cgoit\PersonsBundle\Picker\PersonPicker;
+use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Contao\CoreBundle\DependencyInjection\Attribute\AsHook;
 use Contao\CoreBundle\Routing\ScopeMatcher;
 use Contao\DataContainer;

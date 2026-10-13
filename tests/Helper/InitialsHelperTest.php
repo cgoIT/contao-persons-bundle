@@ -15,8 +15,8 @@ namespace Cgoit\PersonsBundle\Tests\Helper;
 use Cgoit\PersonsBundle\Helper\InitialsHelper;
 use Cgoit\PersonsBundle\Model\PersonModel;
 use Cgoit\PersonsBundle\Tests\ModelRegistryTrait;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 
 final class InitialsHelperTest extends TestCase
 {

@@ -22,27 +22,46 @@ use PHPUnit\Framework\MockObject\Stub;
 trait ClassWithPropertiesStubTrait
 {
     /**
-     * @param class-string         $class
+     * @template T of object
+     *
+     * @param class-string<T>      $class
      * @param array<string, mixed> $properties
+     *
+     * @return T&Stub
      */
-    protected function createClassWithPropertiesStub(string $class, array $properties = []): Stub
+    protected function createClassWithPropertiesStub(string $class, array $properties = []): object
     {
         $stub = $this->createStub($class);
 
-        $stub->method('__get')->willReturnCallback(static function (string $key) use (&$properties) {
-            return $properties[$key] ?? null;
-        });
+        $stub
+            ->method('__get')
+            ->willReturnCallback(
+                static function (string $key) use (&$properties) {
+                    return $properties[$key] ?? null;
+                },
+            )
+        ;
 
         if (method_exists($class, '__set')) {
-            $stub->method('__set')->willReturnCallback(static function (string $key, mixed $value) use (&$properties): void {
-                $properties[$key] = $value;
-            });
+            $stub
+                ->method('__set')
+                ->willReturnCallback(
+                    static function (string $key, mixed $value) use (&$properties): void {
+                        $properties[$key] = $value;
+                    },
+                )
+            ;
         }
 
         if (method_exists($class, '__isset')) {
-            $stub->method('__isset')->willReturnCallback(static function (string $key) use (&$properties) {
-                return isset($properties[$key]);
-            });
+            $stub
+                ->method('__isset')
+                ->willReturnCallback(
+                    static function (string $key) use (&$properties) {
+                        return isset($properties[$key]);
+                    },
+                )
+            ;
         }
 
         return $stub;

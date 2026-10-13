@@ -12,16 +12,16 @@ declare(strict_types=1);
 
 namespace Cgoit\PersonsBundle\Tests\EventListener\DataContainer;
 
-use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Cgoit\PersonsBundle\EventListener\DataContainer\PersonTplOptionsListener;
+use Cgoit\PersonsBundle\Tests\ClassWithPropertiesStubTrait;
 use Contao\CoreBundle\Twig\Finder\FinderFactory;
 use Contao\CoreBundle\Twig\Loader\ContaoFilesystemLoader;
 use Contao\CoreBundle\Twig\Loader\ThemeNamespace;
 use Contao\DC_Table;
-use PHPUnit\Framework\TestCase;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;

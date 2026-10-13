@@ -31,8 +31,8 @@ use Contao\CoreBundle\Twig\FragmentTemplate;
 use Contao\Model;
 use Contao\ModuleModel;
 use Contao\System;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -679,6 +679,14 @@ final class PersonContentAndModuleTraitTest extends TestCase
     }
 
     /**
+     * @param list<string> $tags
+     */
+    public function recordCacheTags(array $tags): void
+    {
+        $this->cacheTags[] = $tags;
+    }
+
+    /**
      * @param array<mixed> $contactInformation
      */
     private function createPerson(int $id, string $name, string $firstName, string $position, array $contactInformation, bool $invisible = false, string $initials = ''): void
@@ -830,21 +838,19 @@ final class PersonContentAndModuleTraitTest extends TestCase
     {
         $test = $this;
 
-        return new class($test) {
-            public function __construct(private readonly PersonContentAndModuleTraitTest $test)
+        return new readonly class($test) {
+            public function __construct(private PersonContentAndModuleTraitTest $test)
             {
             }
 
+            /**
+             * @param list<string> $tags
+             */
             public function tagWith(array $tags): void
             {
                 $this->test->recordCacheTags($tags);
             }
         };
-    }
-
-    public function recordCacheTags(array $tags): void
-    {
-        $this->cacheTags[] = $tags;
     }
 }
 
